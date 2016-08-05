@@ -11,8 +11,7 @@ import FDRatingView
 
 class DetailRestaurantViewController: UIViewController {
     
-    var restaurant: tempRestaurant! = nil
-    var restaurant2: Restaurant! = nil
+    var restaurant: Restaurant! = nil
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView2: UIStackView!
@@ -34,7 +33,7 @@ class DetailRestaurantViewController: UIViewController {
         self.view.backgroundColor = UIColor.whiteColor()
         scrollView.frame = self.view.frame
         
-        let rateView = FDRatingView(frame: CGRectMake(0, 0, starView.frame.width, starView.frame.height), style: .Star, numberOfElements: 5, fillValue: self.restaurant.avgRating, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0), lineWidth: 0.7, spacing: 3)
+        let rateView = FDRatingView(frame: CGRectMake(0, 0, starView.frame.width, starView.frame.height), style: .Star, numberOfElements: 5, fillValue: self.restaurant.avgRating as! Float, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0), lineWidth: 0.7, spacing: 3)
         rateView.heightAnchor.constraintEqualToConstant(starView.frame.height).active = true
         rateView.widthAnchor.constraintEqualToConstant(starView.frame.width).active = true
         stackView2.addSubview(rateView)
@@ -54,15 +53,6 @@ class DetailRestaurantViewController: UIViewController {
             //TODO: Only show time today
             restTime.text = restaurant.time
             restAddre.text = restaurant.address
-        }else {
-            restName.text = restaurant2.name
-            restCuisine.text = restaurant2.cuisine
-            restScen.text = restaurant2.scenario
-            restOrder.text = restaurant2.order
-            restPrice.text = restaurant2.price
-            //TODO: Only show time today
-            restTime.text = restaurant2.time
-            restAddre.text = restaurant2.address
         }
     }
     

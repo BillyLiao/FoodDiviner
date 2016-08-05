@@ -77,7 +77,6 @@ class TableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //TODO: Pass the real data into the Controller
         //Warning: PresentViewController
-        print(segueIdentifier)
         switch segueIdentifier {
         case "RatingViewController":
             let destinationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("RatingViewController") as! RatingViewController
@@ -85,7 +84,7 @@ class TableViewController: UITableViewController {
         case "DetailRestaurantViewController":
             let destinationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DetailRestaurantViewController") as! DetailRestaurantViewController
             if let restaurant = dataArray?[indexPath.row] {
-                destinationController.restaurant2 = restaurant
+                destinationController.restaurant = restaurant
             }
             self.presentViewController(destinationController, animated: true, completion: nil)
         default:

@@ -31,7 +31,7 @@ class ViewController: UIViewController, WebServiceDelegate {
     }
     
     var manager: APIManager!
-    var temRestaurant: [tempRestaurant]?
+    var restaurants: [Restaurant]?
     let user = NSUserDefaults()
     var stateNow = state.beforetrial
     var user_trial = NSMutableDictionary()
@@ -54,7 +54,6 @@ class ViewController: UIViewController, WebServiceDelegate {
         switch stateNow {
         case .beforetrial:
             print("Before Trial.")
-            temRestaurant = [tempRestaurant](count: 5, repeatedValue: tempRestaurant())
             setTrial()
         case .afterTrial:
             print("After Trial.")
@@ -92,7 +91,7 @@ class ViewController: UIViewController, WebServiceDelegate {
                 let jsonObj = JSON(data: data)
                 if jsonObj != JSON.null {
                     for i in 0..<jsonObj.count {
-                        var restaurant = tempRestaurant()
+                        var restaurant = Restaurant()
                         restaurant.restaurant_id = jsonObj[i]["restaurant_id"].int
                         restaurant.name = jsonObj[i]["name"].string
                         restaurant.address = jsonObj[i]["address"].string
@@ -128,7 +127,7 @@ class ViewController: UIViewController, WebServiceDelegate {
                                 restaurant.tags = restaurant.tags + ", \(jsonObj[i]["tags"][j].string!)"
                             }
                         }
-                        temRestaurant![i] = restaurant
+                        restaurants![i] = restaurant
                     }
                 }else {
                     print("Couldn't get json from file, make sure that file contains valid json.")
@@ -159,11 +158,14 @@ class ViewController: UIViewController, WebServiceDelegate {
     func userRecomGetRequestDidFinished(r: [NSDictionary]?) {
         loadIndicator.stopAnimation()
         // Clean the temRestaurant array.
-        temRestaurant = []
+        restaurants = []
+        
         if let data = r {
             for element in data {
                 let jsonObj = JSON(element)
-                let restaurant = tempRestaurant()
+                // Initial a restaurant from managedObjectContext
+                let restaurant = NSEntityDescription.insertNewObjectForEntityForName("Restaurant", inManagedObjectContext: self.moc) as! Restaurant
+                
                 restaurant.address = jsonObj["address"].string
                 restaurant.cuisine = jsonObj["cuisine"][0].string
                 restaurant.time = jsonObj["hours"].string
@@ -199,7 +201,7 @@ class ViewController: UIViewController, WebServiceDelegate {
                         restaurant.order = restaurant.order + ", \(jsonObj["ordering"][j].string!)"
                     }
                 }
-                temRestaurant?.append(restaurant)
+                restaurants?.append(restaurant)
             }
         }
         
@@ -217,7 +219,7 @@ class ViewController: UIViewController, WebServiceDelegate {
 
 extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
     func numberOfItemsInTinderView(view: SPTinderView) -> Int {
-        if let restaurants = temRestaurant {
+        if let restaurants = restaurants {
             return restaurants.count
         }
         return 0
@@ -225,10 +227,11 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
     
     func tinderView(view: SPTinderView, cellAt index: Int) -> SPTinderViewCell? {
         if let cell = restaurantView.dequeueReusableCellWithIdentifier(cellIdentifier) as? RestaurantCell {
-            if let restaurant = temRestaurant?[index] {
+            if let restaurant = restaurants?[index] {
                 cell.nameLabel.text = restaurant.name
                 cell.infoLabel.text = "\(restaurant.cuisine), \(restaurant.price)"
-                cell.setRatingView(restaurant.avgRating)
+                cell.setRatingView(restaurant.avgRating as! Float
+                )
                 if let imageData = restaurant.photo {
                     cell.imageView.image = UIImage(data: imageData)
                 }
@@ -244,14 +247,14 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
             switch direction{
             case .Left:
                 print("Swipe Left")
-                manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: temRestaurant![index].restaurant_id, decision: "decline", run: run)
+                manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurants![index].restaurant_id, decision: "decline", run: run)
             case .Right:
                 print("Swipe Right")
-                manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: temRestaurant![index].restaurant_id, decision: "accept", run: run)
-                addRestaurant(temRestaurant![index], status: 1)
+                manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurants![index].restaurant_id, decision: "accept", run: run)
+                addRestaurant(restaurants![index], status: 1)
             case .Top:
                 print("Swipe Top")
-                addRestaurant(temRestaurant![index], status: 2)
+                addRestaurant(restaurants![index], status: 2)
             default:
                 break
             }
@@ -266,13 +269,13 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
             case .Left:
                 print("Swipe Left")
                 self.presentViewController(AdavanceSearchViewController(), animated: true, completion: nil)
-                user_trial.setObject(false, forKey: "\(temRestaurant![index].restaurant_id)")
+                user_trial.setObject(false, forKey: "\(restaurants![index].restaurant_id)")
             case .Right:
                 print("Swipe Right")
-                user_trial.setObject(true, forKey: "\(temRestaurant![index].restaurant_id)")
+                user_trial.setObject(true, forKey: "\(restaurants![index].restaurant_id)")
             case .Top:
                 print("Swipe Top")
-                user_trial.setObject(true, forKey: "\(temRestaurant![index].restaurant_id)")
+                user_trial.setObject(true, forKey: "\(restaurants![index].restaurant_id)")
             default:
                 break
             }
@@ -292,14 +295,14 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
     func tinderView(view: SPTinderView, didTappedCellAt index: Int) {
         let destinationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DetailRestaurantViewController") as! DetailRestaurantViewController
         //TODO: Pass the data to destinationController
-        if let restaurant = temRestaurant?[index] {
+        if let restaurant = restaurants?[index] {
             destinationController.restaurant = restaurant
         }
         self.presentViewController(destinationController, animated: true, completion: nil)
     }
     
     // If the restaurant exists, then add the collection time.
-    func addRestaurant(restaurant: tempRestaurant, status: Int){
+    func addRestaurant(restaurant: Restaurant, status: Int){
         // Status: 1. Collect 2. Been but not rated 3. Rated
         let restaurantID = restaurant.restaurant_id
         let restaurantFetch = NSFetchRequest(entityName: "Restaurant")
@@ -364,7 +367,7 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
     // TODO: Fix the reload data button...
     @IBAction func reload(sender: AnyObject) {
         let manager = APIManager()
-        temRestaurant = []
+        restaurants = []
         manager.getRestRecom(user.valueForKey("user_id") as! NSNumber, advance: user.valueForKey("advance") as! Bool, preferPrices: user.valueForKey("preferPrices") as? [Int], weather: user.valueForKey("weather") as? String, transport: user.valueForKey("transport") as? String, lat: user.valueForKey("lat") as? Double, lng: user.valueForKey("lng") as? Double)
         self.loadIndicator.startAnimation()
         dispatch_async(dispatch_get_main_queue(), { () -> Void in

@@ -121,11 +121,9 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
         btn100.layer.borderWidth = 1
         btn100.layer.borderColor = borderColor
         
-
         btn200.layer.cornerRadius = 5
         btn200.layer.borderWidth = 1
         btn200.layer.borderColor = borderColor
-        
 
         btn300.layer.cornerRadius = 5
         btn300.layer.borderWidth = 1
@@ -172,53 +170,6 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
         saveIndicator.center.y = self.view.center.y - 60
         self.view.addSubview(saveIndicator)
     }
-    
-    /*
-    func initQuestionView(){
-        /* Set QuestionView */
-        QuestionView = UIView(frame: self.view.frame)
-        
-        // Set question label
-        let qlRect = CGRect(x: 20, y: self.view.frame.height/5, width: self.view.frame.width-40, height: self.view.frame.height/4)
-        QuestionLabel = UILabel(frame: qlRect)
-        QuestionLabel.numberOfLines = 3
-        QuestionLabel.font = UIFont(name: "Avenir Next", size: 25)
-        QuestionLabel.text = "Seems you don't like our recommendation, use advanced search?"
-        QuestionLabel.textColor = UIColor.whiteColor()
-        QuestionLabel.textAlignment = .Center
-        QuestionView.addSubview(QuestionLabel)
-        
-        // Set yes/no Button
-        yesBtn = UIButton(frame: CGRect(x: self.view.frame.width/4-20, y: self.view.frame.height/5+qlRect.height, width: self.view.frame.width/4, height: 60))
-        yesBtn.setTitle("Yes", forState: .Normal)
-        yesBtn.titleLabel?.font = UIFont(name: "Avenir Next", size: 20)
-        yesBtn.layer.cornerRadius = 5
-        yesBtn.layer.borderWidth = 1
-        yesBtn.layer.borderColor = UIColor.whiteColor().CGColor
-        yesBtn.addTarget(self, action: "showAdvanceOptions", forControlEvents: .TouchUpInside)
-        yesBtn.setTitleColor(UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1), forState: .Highlighted)
-        QuestionView.addSubview(yesBtn)
-        
-        
-        noBtn =  UIButton(frame: CGRect(x: self.view.frame.width/2+20, y: self.view.frame.height/5+qlRect.height, width: self.view.frame.width/4, height: 60))
-        noBtn.setTitle("No", forState: .Normal)
-        noBtn.titleLabel?.font = UIFont(name: "Avenir Next", size: 20)
-        noBtn.layer.cornerRadius = 5
-        noBtn.layer.borderWidth = 1
-        noBtn.layer.borderColor = UIColor.whiteColor().CGColor
-        noBtn.addTarget(self, action: "dismissController", forControlEvents: .TouchUpInside)
-        noBtn.setTitleColor(UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1), forState: .Highlighted)
-
-        QuestionView.addSubview(noBtn)
-        
-        // Question View Effect
-        let scale = CGAffineTransformMakeScale(0.0, 0.0)
-        let translate = CGAffineTransformMakeTranslation(0, 800)
-        QuestionView.transform = CGAffineTransformConcat(scale, translate)
-        
-        self.view.addSubview(QuestionView)
-    }
-    */
 
     override func viewDidAppear(animated: Bool) {
 
@@ -228,15 +179,6 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    /*
-    func showAdvanceOptions(){
-        UIView.animateWithDuration(0.7, delay: 0.0, options: [], animations: { () -> Void in
-            self.advanceView.transform = CGAffineTransformMakeTranslation(0, 0)
-            self.QuestionView.transform = CGAffineTransformMakeTranslation(0, -1400)
-        }, completion: nil)
-    }
-    */
     
     func dismissController(){
         self.dismissViewControllerAnimated(true, completion: nil)

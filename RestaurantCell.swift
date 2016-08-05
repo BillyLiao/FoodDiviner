@@ -26,7 +26,7 @@ class RestaurantCell: SPTinderViewCell {
     
     required init(reuseIdentifier: String) {
         super.init(reuseIdentifier: reuseIdentifier)
-        self.frame = CGRect(origin: CGPointZero, size: CGSize(width: UIScreen.mainScreen().bounds.width - 40 , height: UIScreen.mainScreen().bounds.height-180))
+        self.frame = CGRect(origin: CGPointZero, size: CGSize(width: UIScreen.mainScreen().bounds.width - 40 , height: UIScreen.mainScreen().bounds.height-180)) 
         titleView.frame = CGRectMake(0, self.frame.height-60, self.frame.width, 60)
         titleView.backgroundColor = UIColor.whiteColor()
         

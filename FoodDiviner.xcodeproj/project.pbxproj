@@ -21,7 +21,6 @@
 		514627C21D1A0BC500B0D901 /* trialRestaurant.json in Resources */ = {isa = PBXBuildFile; fileRef = 514627C11D1A0BC500B0D901 /* trialRestaurant.json */; };
 		5149739D1CF6ED6E00D3B58B /* RestaurantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5149739C1CF6ED6E00D3B58B /* RestaurantCell.swift */; };
 		514973A31CF7E63900D3B58B /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514973A21CF7E63900D3B58B /* CollectionViewController.swift */; };
-		5157708C1D1A4A9300549A4E /* tempRestaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5157708B1D1A4A9300549A4E /* tempRestaurant.swift */; };
 		5157708E1D1A57FD00549A4E /* fbLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5157708D1D1A57FD00549A4E /* fbLoginViewController.swift */; };
 		515770921D1A59CA00549A4E /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5157708F1D1A59CA00549A4E /* FBSDKCoreKit.framework */; };
 		515770931D1A59CA00549A4E /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 515770901D1A59CA00549A4E /* FBSDKLoginKit.framework */; };
@@ -62,7 +61,6 @@
 		514627C11D1A0BC500B0D901 /* trialRestaurant.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = trialRestaurant.json; sourceTree = "<group>"; };
 		5149739C1CF6ED6E00D3B58B /* RestaurantCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestaurantCell.swift; path = ../RestaurantCell.swift; sourceTree = "<group>"; };
 		514973A21CF7E63900D3B58B /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
-		5157708B1D1A4A9300549A4E /* tempRestaurant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tempRestaurant.swift; sourceTree = "<group>"; };
 		5157708D1D1A57FD00549A4E /* fbLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fbLoginViewController.swift; sourceTree = "<group>"; };
 		5157708F1D1A59CA00549A4E /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		515770901D1A59CA00549A4E /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -137,7 +135,6 @@
 			children = (
 				51063F501D3777D000038FB9 /* User.swift */,
 				51104A831CF9B0F800241DBE /* Restaurant.swift */,
-				5157708B1D1A4A9300549A4E /* tempRestaurant.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -384,7 +381,6 @@
 				51FA523B1CEB20A70037562E /* FoodDiviner.xcdatamodeld in Sources */,
 				51104AC51CFC1DB800241DBE /* AdavanceSearchViewController.swift in Sources */,
 				514973A31CF7E63900D3B58B /* CollectionViewController.swift in Sources */,
-				5157708C1D1A4A9300549A4E /* tempRestaurant.swift in Sources */,
 				51104A861CF9E77900241DBE /* CollectionTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

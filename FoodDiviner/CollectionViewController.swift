@@ -47,16 +47,16 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate {
         scrollView = UIScrollView(frame: CGRect(x: 0, y: 45, width: self.view.frame.width, height: self.view.frame.height))
         self.view.addSubview(scrollView!)
         
-        var rectCollect = CollectTVC!.view.frame
+        var rectCollect = CGRectMake(0, 10, CollectTVC!.view.frame.width, CollectTVC!.view.frame.height-90)
         CollectTVC!.view.frame = rectCollect
         scrollView?.addSubview(CollectTVC!.view)
         
-        var rectJudge = JudgeTVC!.view.frame
+        var rectJudge = CGRectMake(0, 10, JudgeTVC!.view.frame.width, JudgeTVC!.view.frame.height-90)
         rectJudge.origin.x += rectJudge.size.width
         JudgeTVC!.view.frame = rectJudge
         scrollView?.addSubview(JudgeTVC!.view)
         
-        var rectBeen = BeenTVC!.view.frame
+        var rectBeen = CGRectMake(0, 10, BeenTVC!.view.frame.width, BeenTVC!.view.frame.height-90)
         rectBeen.origin.x += rectBeen.size.width*2
         BeenTVC!.view.frame = rectBeen
         scrollView?.addSubview(BeenTVC!.view)
@@ -89,6 +89,9 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate {
         scroller = UIView(frame: scrollerRect)
         scroller.backgroundColor = UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1)
         self.view.addSubview(scroller)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
     }
     
     override func viewDidAppear(animated: Bool) {
