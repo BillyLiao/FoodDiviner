@@ -19,7 +19,6 @@ class ViewController: UIViewController, WebServiceDelegate {
     let loadIndicator: NVActivityIndicatorView = NVActivityIndicatorView(frame: CGRectMake(0, 0, 90, 90), type: .BallScaleMultiple, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0))
     var run: Int = 1
     
-    
     @IBOutlet weak var dislikeButton: UIButton!
     @IBOutlet weak var reloadButton: UIButton!
     @IBOutlet weak var likeButton: UIButton!
@@ -159,12 +158,12 @@ class ViewController: UIViewController, WebServiceDelegate {
         loadIndicator.stopAnimation()
         // Clean the temRestaurant array.
         restaurants = []
-        
         if let data = r {
             for element in data {
                 let jsonObj = JSON(element)
-                // Initial a restaurant from managedObjectContext
-                let restaurant = NSEntityDescription.insertNewObjectForEntityForName("Restaurant", inManagedObjectContext: self.moc) as! Restaurant
+                // Initial a restaurant instance, but don't save in moc!!!
+                let entity = NSEntityDescription.entityForName("Restaurant", inManagedObjectContext: moc)
+                let restaurant = NSManagedObject.init(entity: entity!, insertIntoManagedObjectContext: nil) as! Restaurant
                 
                 restaurant.address = jsonObj["address"].string
                 restaurant.cuisine = jsonObj["cuisine"][0].string
@@ -307,15 +306,18 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
         let restaurantID = restaurant.restaurant_id
         let restaurantFetch = NSFetchRequest(entityName: "Restaurant")
         restaurantFetch.predicate = NSPredicate(format: "restaurant_id == %@", restaurantID)
+        
         do {
             let fetchedRestaurant = try moc.executeFetchRequest(restaurantFetch) as! [Restaurant]
+            
+            print("Count: \(fetchedRestaurant.count), Restaurant: \(fetchedRestaurant)")
             if fetchedRestaurant.count > 0 {
                 fetchedRestaurant[0].collectTime = Int(fetchedRestaurant[0].collectTime) + 1
                 do {
                     try fetchedRestaurant[0].managedObjectContext?.save()
                     print("Update restaurant succeed.")
                 }catch {
-                    let updateError = error as NSError
+                    let updateError = error as! NSError
                     print("Update restaurant faild: \(updateError)")
                 }
             }else {
@@ -338,7 +340,7 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
                     try insertRestaurant.managedObjectContext?.save()
                     print("Save restaurant succeed.")
                 }catch {
-                    let saveError = error as NSError
+                    let saveError = error as! NSError
                     print("Save restaurant failed: \(saveError)")
                 }
             }
@@ -356,11 +358,16 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
     // Collect the restaurant
     @IBAction func like(sender: AnyObject) {
         print("Like")
+        //let cellOnTop = tinderView(restaurantView, cellAt: restaurantView.getCellIndexOnTop())
+        
     }
     
     // Dismiss the restaurant
     @IBAction func dislike(sender: AnyObject) {
         print("Dislike")
+        
+        // Temporary: Clean user caches in backend.
+        manager.cleanCaches(user.valueForKey("user_id") as! NSNumber)
     }
     
     // Reload the data from internet
@@ -375,3 +382,12 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
         })
     }
 }
+
+/*
+extension NSLayoutConstraint {
+    override public var description: String {
+        let id = identifier ?? ""
+        return "id: \(id), constant: \(constant)"
+    }
+}
+*/

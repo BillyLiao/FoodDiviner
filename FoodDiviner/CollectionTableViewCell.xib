@@ -8,7 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="80" id="3EY-bS-C6b" customClass="CollectionTableViewCell" customModule="FoodDiviner">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" rowHeight="80" id="3EY-bS-C6b" customClass="CollectionTableViewCell" customModule="FoodDiviner">
             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3EY-bS-C6b" id="NGZ-uS-xls">
@@ -42,10 +42,6 @@
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GD0-s8-5LZ">
-                        <rect key="frame" x="242" y="47" width="70" height="21"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="分數:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lcI-yJ-cU6">
                         <rect key="frame" x="203" y="47" width="39" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -58,11 +54,19 @@
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GD0-s8-5LZ">
+                        <rect key="frame" x="242" y="47" width="70" height="21"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="3Cn-q7-wqM"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="DCF-fn-AC3" firstAttribute="leading" secondItem="FRq-dY-687" secondAttribute="leading" id="0eZ-yd-ZGW"/>
                     <constraint firstItem="lcI-yJ-cU6" firstAttribute="centerY" secondItem="DCF-fn-AC3" secondAttribute="centerY" id="18B-dr-TyM"/>
                     <constraint firstItem="FRq-dY-687" firstAttribute="trailing" secondItem="NGZ-uS-xls" secondAttribute="trailingMargin" id="5WX-ln-oGK"/>
+                    <constraint firstItem="GD0-s8-5LZ" firstAttribute="leading" secondItem="lcI-yJ-cU6" secondAttribute="trailing" id="CaX-kQ-ak6"/>
                     <constraint firstItem="FRq-dY-687" firstAttribute="leading" secondItem="RzZ-3E-G9X" secondAttribute="trailing" constant="16" id="Gr8-eC-GQ7"/>
                     <constraint firstItem="GD0-s8-5LZ" firstAttribute="centerY" secondItem="DCF-fn-AC3" secondAttribute="centerY" id="HBf-ys-b8K"/>
                     <constraint firstItem="GD0-s8-5LZ" firstAttribute="leading" secondItem="lcI-yJ-cU6" secondAttribute="trailing" id="JGD-k5-Fgh"/>
@@ -70,13 +74,27 @@
                     <constraint firstItem="lcI-yJ-cU6" firstAttribute="leading" secondItem="L0f-fe-Qrn" secondAttribute="trailing" constant="8" id="KYK-WG-tTD"/>
                     <constraint firstItem="L0f-fe-Qrn" firstAttribute="centerY" secondItem="DCF-fn-AC3" secondAttribute="centerY" id="N6D-8d-fYO"/>
                     <constraint firstItem="L0f-fe-Qrn" firstAttribute="leading" secondItem="DCF-fn-AC3" secondAttribute="trailing" constant="5" id="RDT-ZS-bDm"/>
+                    <constraint firstItem="GD0-s8-5LZ" firstAttribute="trailing" secondItem="NGZ-uS-xls" secondAttribute="trailingMargin" id="RDz-Oi-u2W"/>
+                    <constraint firstItem="GD0-s8-5LZ" firstAttribute="centerY" secondItem="lcI-yJ-cU6" secondAttribute="centerY" id="Str-AD-2zS"/>
                     <constraint firstItem="DCF-fn-AC3" firstAttribute="top" secondItem="FRq-dY-687" secondAttribute="bottom" constant="18" id="Z5r-hv-765"/>
                     <constraint firstItem="GD0-s8-5LZ" firstAttribute="leading" secondItem="lcI-yJ-cU6" secondAttribute="trailing" id="Z7O-mN-9YS"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="GD0-s8-5LZ" secondAttribute="bottom" constant="3.5" id="djQ-0d-vWV"/>
+                    <constraint firstItem="GD0-s8-5LZ" firstAttribute="trailing" secondItem="NGZ-uS-xls" secondAttribute="trailingMargin" id="a3L-IP-2WD"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="GD0-s8-5LZ" secondAttribute="bottom" constant="4" id="djQ-0d-vWV"/>
                     <constraint firstAttribute="bottomMargin" secondItem="DCF-fn-AC3" secondAttribute="bottom" constant="3.5" id="gx2-G6-FVf"/>
                     <constraint firstAttribute="bottomMargin" secondItem="L0f-fe-Qrn" secondAttribute="bottom" constant="3.5" id="hpf-qT-YP6"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="GD0-s8-5LZ" secondAttribute="bottom" constant="3.5" id="kMi-kH-ZNn"/>
                     <constraint firstItem="RzZ-3E-G9X" firstAttribute="leading" secondItem="NGZ-uS-xls" secondAttribute="leadingMargin" id="snl-nQ-kll"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="HBf-ys-b8K"/>
+                        <exclude reference="JGD-k5-Fgh"/>
+                        <exclude reference="RDz-Oi-u2W"/>
+                        <exclude reference="Z7O-mN-9YS"/>
+                        <exclude reference="a3L-IP-2WD"/>
+                        <exclude reference="djQ-0d-vWV"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="cltTime" destination="L0f-fe-Qrn" id="GZJ-zc-I3G"/>

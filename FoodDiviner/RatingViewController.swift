@@ -15,10 +15,11 @@ class RatingViewController: UIViewController {
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var addTagBtn: UIButton!
     @IBOutlet weak var submitBtn: UIButton!
+    var restaurant: Restaurant! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         backBtn.layer.cornerRadius = backBtn.frame.width/2

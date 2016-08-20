@@ -76,6 +76,15 @@ class APIManager: NSObject {
         }
     }
     
+    func cleanCaches(user_id: NSNumber){
+        let url = "\(baseURL)/users/\(user_id)/caches"
+        manager.DELETE(url, parameters: nil, success: { (task, resObject) in
+                print("Clean caches succeed.")
+            }) { (task, error) in
+                print("Clean caches failed.")
+        }
+    }
+    
     /*
     func getTrial(){
     }

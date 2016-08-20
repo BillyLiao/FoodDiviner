@@ -103,6 +103,13 @@ public class SPTinderView: UIView, UIGestureRecognizerDelegate{
         }
     }
     
+    public func getCellIndexOnTop() -> Int{
+        if currentIndex >= numberOfCells { return 0 }
+        else {
+            return currentIndex
+        }
+    }
+    
     private func insertCell(at index: Int) {
         guard let _dataSource = dataSource where index < numberOfCells else { return }
         if let cell = _dataSource.tinderView(self, cellAt: index) {

@@ -49,6 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             pageView.centerButtonSpecifics.color = UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0)
             pageView.centerButtonSpecifics.size = CGSize(width: 35.0, height: 35.0)
             pageView.selectedIndex = 1
+            pageView.view.backgroundColor = UIColor.redColor()
             self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
             self.window?.rootViewController = pageView
             self.window?.makeKeyAndVisible()
@@ -121,7 +122,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
 
-            dict[NSUnderlyingErrorKey] = error as NSError
+            dict[NSUnderlyingErrorKey] = error as! NSError
             let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.

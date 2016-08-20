@@ -31,37 +31,35 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         loadData()
-        
+ 
         CollectTVC = TableViewController(style: .Plain, data: dataArrayA, cellLayout: "CollectionTableViewCell")
         CollectTVC?.tableView.tableFooterView = UIView()
         CollectTVC?.segueIdentifier = "DetailRestaurantViewController"
-            
+        var rectCollect = CGRectMake(0, 0, CollectTVC!.view.frame.width, CollectTVC!.view.frame.height-100)
+        CollectTVC!.view.frame = rectCollect
+        
         JudgeTVC = TableViewController(style: .Plain, data: dataArrayB, cellLayout: "CollectionTableViewCell")
         JudgeTVC?.tableView.tableFooterView = UIView()
         JudgeTVC?.segueIdentifier = "RatingViewController"
+        var rectJudge = CGRectMake(0, 0, JudgeTVC!.view.frame.width, JudgeTVC!.view.frame.height-100)
+        rectJudge.origin.x += rectJudge.size.width
+        JudgeTVC!.view.frame = rectJudge
         
         BeenTVC = TableViewController(style: .Plain, data: dataArrayC, cellLayout: "BeenTableViewCell")
         BeenTVC?.tableView.tableFooterView = UIView()
         BeenTVC?.segueIdentifier = "DetailRestaurantViewController"
-        
-        scrollView = UIScrollView(frame: CGRect(x: 0, y: 45, width: self.view.frame.width, height: self.view.frame.height))
-        self.view.addSubview(scrollView!)
-        
-        var rectCollect = CGRectMake(0, 10, CollectTVC!.view.frame.width, CollectTVC!.view.frame.height-90)
-        CollectTVC!.view.frame = rectCollect
-        scrollView?.addSubview(CollectTVC!.view)
-        
-        var rectJudge = CGRectMake(0, 10, JudgeTVC!.view.frame.width, JudgeTVC!.view.frame.height-90)
-        rectJudge.origin.x += rectJudge.size.width
-        JudgeTVC!.view.frame = rectJudge
-        scrollView?.addSubview(JudgeTVC!.view)
-        
-        var rectBeen = CGRectMake(0, 10, BeenTVC!.view.frame.width, BeenTVC!.view.frame.height-90)
+        var rectBeen = CGRectMake(0, 0, BeenTVC!.view.frame.width, BeenTVC!.view.frame.height-100)
         rectBeen.origin.x += rectBeen.size.width*2
         BeenTVC!.view.frame = rectBeen
-        scrollView?.addSubview(BeenTVC!.view)
         
-        scrollView?.contentSize = CGSize(width: rectBeen.size.width*3, height: rectBeen.height)
+        scrollView = UIScrollView(frame: CGRect(x: 0, y:55, width: self.view.frame.width, height: self.view.frame.height))
+        self.view.addSubview(scrollView!)
+        
+        scrollView!.addSubview(CollectTVC!.view)
+        scrollView!.addSubview(JudgeTVC!.view)
+        scrollView!.addSubview(BeenTVC!.view)
+        
+        scrollView?.contentSize = CGSize(width: CollectTVC!.view.frame.width*3, height: CollectTVC!.view.frame.height)
         scrollView?.pagingEnabled = true
         scrollView?.delegate = self
         
@@ -85,13 +83,17 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate {
         switchToBeenBtn.addTarget(self, action: "showBeenTable", forControlEvents: .TouchUpInside)
         
         /*Set the scoller*/
-        let scrollerRect = CGRect(x: 0, y: 50, width: self.view.frame.width/3, height: 1)
+        let scrollerRect = CGRect(x: 0, y: 45, width: self.view.frame.width/3, height: 1)
         scroller = UIView(frame: scrollerRect)
         scroller.backgroundColor = UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1)
         self.view.addSubview(scroller)
     }
     
     override func viewWillAppear(animated: Bool) {
+        
+        print(CollectTVC!.view.frame.origin)
+        
+
     }
     
     override func viewDidAppear(animated: Bool) {

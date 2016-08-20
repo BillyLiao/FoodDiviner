@@ -265,6 +265,7 @@
 				TargetAttributes = {
 					51FA522E1CEB20A70037562E = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = AHN8S2U42A;
 					};
 					51FA52451CEB20A80037562E = {
 						CreatedOnToolsVersion = 7.2;
@@ -509,6 +510,7 @@
 			baseConfigurationReference = 4C6A9CAADE7A4597541E0135 /* Pods-FoodDiviner.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -525,6 +527,7 @@
 			baseConfigurationReference = A505132E5E5C48739C57609E /* Pods-FoodDiviner.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

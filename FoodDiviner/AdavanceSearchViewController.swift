@@ -319,6 +319,7 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
             sender.backgroundColor = UIColor.whiteColor()
         }
     }
+    
     /*
     // MARK: - Navigation
 
