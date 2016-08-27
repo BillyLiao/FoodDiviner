@@ -330,15 +330,17 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
     }
     
     // Reload the data from internet
-    //FIXME: reload button doesn't work...
     @IBAction func reload(sender: AnyObject) {
-        let manager = APIManager()
+        
+        //Clear the screen first
         restaurants = []
-        manager.getRestRecom(user.valueForKey("user_id") as! NSNumber, advance: user.valueForKey("advance") as! Bool, preferPrices: user.valueForKey("preferPrices") as? [Int], weather: user.valueForKey("weather") as? String, transport: user.valueForKey("transport") as? String, lat: user.valueForKey("lat") as? Double, lng: user.valueForKey("lng") as? Double)
-        self.loadIndicator.startAnimation()
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.restaurantView.reloadData()
         })
+        
+        self.manager.getRestRecom(self.user.valueForKey("user_id") as! NSNumber, advance: self.user.valueForKey("advance") as! Bool, preferPrices: self.user.valueForKey("preferPrices") as? [Int], weather: self.user.valueForKey("weather") as? String, transport: self.user.valueForKey("transport") as? String, lat: self.user.valueForKey("lat") as? Double, lng: self.user.valueForKey("lng") as? Double)
+        self.loadIndicator.startAnimation()
+
     }
 }
 
