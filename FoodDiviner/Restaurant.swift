@@ -7,24 +7,23 @@
 //
 
 import Foundation
-import CoreData
+import RealmSwift
 
-class Restaurant:NSManagedObject{
-    
-    @NSManaged var address: String!
-    @NSManaged var cuisine: String!
-    @NSManaged var name: String!
-    @NSManaged var order: String!
-    @NSManaged var phone: String!
-    @NSManaged var price: String!
-    @NSManaged var scenario: String!
-    @NSManaged var time: String!
-    @NSManaged var restaurant_id: NSNumber!
-    @NSManaged var tags: String!
-    @NSManaged var photo: NSData!
-    @NSManaged var avgRating: NSNumber!
-    @NSManaged var userRating: NSNumber!
-    @NSManaged var lastBeenDate: NSDate!
-    @NSManaged var collectTime: NSNumber!
-    @NSManaged var status: NSNumber!
+class Restaurant: Object{
+    dynamic var address: String! = ""
+    dynamic var cuisine: String! = ""
+    dynamic var name: String! = ""
+    dynamic var order: String! = ""
+    dynamic var phone: String! = ""
+    dynamic var price: String! = ""
+    dynamic var scenario: String! = ""
+    dynamic var time: String! = ""
+    dynamic var restaurant_id: NSNumber! = 0
+    dynamic var tags: String! = ""
+    dynamic var photo: NSData! = nil
+    dynamic var avgRating: NSNumber! = 0
+    dynamic var userRating: NSNumber! = 0
+    dynamic var lastBeenDate: NSDate! = NSDate()
+    dynamic var collectTime: NSNumber! = 0
+    dynamic var status: NSNumber! = 0
 }

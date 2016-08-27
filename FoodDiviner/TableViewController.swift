@@ -7,18 +7,29 @@
 //
 
 import UIKit
+import RealmSwift
 
-class TableViewController: UITableViewController {
+class TableViewController: UITableViewController{
 
-    var dataArray: [Restaurant]?
     var cellLayout: String!
     var segueIdentifier: String!
     var chosenIndex = 0
     
-    init(style: UITableViewStyle, data: [Restaurant]?, cellLayout: String) {
+    // Seperate [Restaurant] by different status.
+    var status: Int?
+    
+    // Use didSet observer instead of FetchResultController
+    var restaurants: Results<Restaurant>! {
+        didSet{
+            print(restaurants)
+            self.tableView.reloadData()
+        }
+    }
+
+    init(style: UITableViewStyle, status: Int, cellLayout: String) {
         super.init(style: style)
-        dataArray = data
         self.cellLayout = cellLayout
+        self.status = status
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,6 +42,7 @@ class TableViewController: UITableViewController {
         let nib = UINib(nibName: cellLayout, bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "Cell")
         
+        restaurants = RealmHelper.retriveRestaurantByStatus(status!)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -38,6 +50,9 @@ class TableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        print("haha")
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -52,7 +67,7 @@ class TableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return dataArray!.count
+        return restaurants.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -60,15 +75,15 @@ class TableViewController: UITableViewController {
         if cellLayout == "CollectionTableViewCell" {
             let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CollectionTableViewCell
             cell.rtImageView.image = UIImage(named: "RestaurantTest")
-            cell.rtName.text = dataArray![indexPath.row].name
-            cell.cltTime.text = "\(dataArray![indexPath.row].collectTime)"
-            cell.setRating(dataArray![indexPath.row].avgRating as Float)
+            cell.rtName.text = self.restaurants[indexPath.row].name
+            cell.cltTime.text = "\(self.restaurants[indexPath.row].collectTime)"
+            cell.setRating(self.restaurants[indexPath.row].avgRating as Float)
             // Configure the cell...
         }else if cellLayout == "BeenTableViewCell" {
             let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
                 as! BeenTableViewCell
             cell.rtImageView.image = UIImage(named: "RestaurantTest")
-            cell.rtName.text = dataArray![indexPath.row].name
+            cell.rtName.text = self.restaurants[indexPath.row].name
             cell.beenDate.text = "7/23"
         }
         return cell
@@ -83,14 +98,13 @@ class TableViewController: UITableViewController {
             self.presentViewController(destinationController, animated: true, completion: nil)
         case "DetailRestaurantViewController":
             let destinationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DetailRestaurantViewController") as! DetailRestaurantViewController
-            if let restaurant = dataArray?[indexPath.row] {
-                destinationController.restaurant = restaurant
-            }
+            destinationController.restaurant = restaurants[indexPath.row]
             self.presentViewController(destinationController, animated: true, completion: nil)
         default:
             print("Unvalid segue identifier")
         }
     }
+    
 
     /*
     // Override to support conditional editing of the table view.

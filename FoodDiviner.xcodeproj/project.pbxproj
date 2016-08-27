@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		51063F511D3777D000038FB9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51063F501D3777D000038FB9 /* User.swift */; };
 		51104A821CF9753200241DBE /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51104A811CF9753200241DBE /* TableViewController.swift */; };
 		51104A841CF9B0F800241DBE /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51104A831CF9B0F800241DBE /* Restaurant.swift */; };
 		51104A861CF9E77900241DBE /* CollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51104A851CF9E77900241DBE /* CollectionTableViewCell.swift */; };
@@ -25,6 +24,7 @@
 		515770921D1A59CA00549A4E /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5157708F1D1A59CA00549A4E /* FBSDKCoreKit.framework */; };
 		515770931D1A59CA00549A4E /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 515770901D1A59CA00549A4E /* FBSDKLoginKit.framework */; };
 		515770941D1A59CA00549A4E /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 515770911D1A59CA00549A4E /* FBSDKShareKit.framework */; };
+		51E714A11D708C75006AB57E /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E714A01D708C75006AB57E /* RealmHelper.swift */; };
 		51FA52331CEB20A70037562E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FA52321CEB20A70037562E /* AppDelegate.swift */; };
 		51FA52351CEB20A70037562E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FA52341CEB20A70037562E /* ViewController.swift */; };
 		51FA52381CEB20A70037562E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51FA52361CEB20A70037562E /* Main.storyboard */; };
@@ -47,7 +47,6 @@
 
 /* Begin PBXFileReference section */
 		4C6A9CAADE7A4597541E0135 /* Pods-FoodDiviner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDiviner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDiviner/Pods-FoodDiviner.debug.xcconfig"; sourceTree = "<group>"; };
-		51063F501D3777D000038FB9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		51104A811CF9753200241DBE /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		51104A831CF9B0F800241DBE /* Restaurant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		51104A851CF9E77900241DBE /* CollectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionTableViewCell.swift; sourceTree = "<group>"; };
@@ -65,6 +64,7 @@
 		5157708F1D1A59CA00549A4E /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		515770901D1A59CA00549A4E /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		515770911D1A59CA00549A4E /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		51E714A01D708C75006AB57E /* RealmHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		51FA522F1CEB20A70037562E /* FoodDiviner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodDiviner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51FA52321CEB20A70037562E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		51FA52341CEB20A70037562E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -126,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				514627BD1D19330300B0D901 /* APIManager.swift */,
+				51E714A01D708C75006AB57E /* RealmHelper.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -133,7 +134,6 @@
 		5149739E1CF7407500D3B58B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				51063F501D3777D000038FB9 /* User.swift */,
 				51104A831CF9B0F800241DBE /* Restaurant.swift */,
 			);
 			name = Model;
@@ -192,10 +192,10 @@
 				514627BC1D1932D100B0D901 /* Helper */,
 				514973A11CF7409700D3B58B /* Controller */,
 				514973A01CF7408800D3B58B /* View */,
-				51FA52321CEB20A70037562E /* AppDelegate.swift */,
 				51FA52361CEB20A70037562E /* Main.storyboard */,
 				5149739E1CF7407500D3B58B /* Model */,
 				51FA523C1CEB20A80037562E /* Assets.xcassets */,
+				51FA52321CEB20A70037562E /* AppDelegate.swift */,
 				51FA523E1CEB20A80037562E /* LaunchScreen.storyboard */,
 				51FA52411CEB20A80037562E /* Info.plist */,
 				51FA52391CEB20A70037562E /* FoodDiviner.xcdatamodeld */,
@@ -372,7 +372,6 @@
 				51104A821CF9753200241DBE /* TableViewController.swift in Sources */,
 				5157708E1D1A57FD00549A4E /* fbLoginViewController.swift in Sources */,
 				51104A881CF9E78400241DBE /* BeenTableViewCell.swift in Sources */,
-				51063F511D3777D000038FB9 /* User.swift in Sources */,
 				51FA52351CEB20A70037562E /* ViewController.swift in Sources */,
 				514627BE1D19330300B0D901 /* APIManager.swift in Sources */,
 				51162E841D3495ED004F807F /* RatingViewController.swift in Sources */,
@@ -381,6 +380,7 @@
 				51FA52331CEB20A70037562E /* AppDelegate.swift in Sources */,
 				51FA523B1CEB20A70037562E /* FoodDiviner.xcdatamodeld in Sources */,
 				51104AC51CFC1DB800241DBE /* AdavanceSearchViewController.swift in Sources */,
+				51E714A11D708C75006AB57E /* RealmHelper.swift in Sources */,
 				514973A31CF7E63900D3B58B /* CollectionViewController.swift in Sources */,
 				51104A861CF9E77900241DBE /* CollectionTableViewCell.swift in Sources */,
 			);

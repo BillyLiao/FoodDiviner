@@ -8,6 +8,7 @@
 
 import UIKit
 import NVActivityIndicatorView
+
 class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewable{
 
     @IBOutlet weak var priceLabel: UILabel!

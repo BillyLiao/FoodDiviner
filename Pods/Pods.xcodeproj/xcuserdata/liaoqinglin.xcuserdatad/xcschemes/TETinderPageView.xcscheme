@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '5C49DD77BDED9EEDA7A8C776'
+               BlueprintIdentifier = '3CFD7B1B149A544AAFAAE51B'
                BlueprintName = 'TETinderPageView'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'TETinderPageView.framework'>

@@ -7,14 +7,10 @@
 //
 
 import UIKit
-import CoreData
+import RealmSwift
 
-class CollectionViewController: UIViewController, UIScrollViewDelegate {
-    
-    var dataArrayA: [Restaurant] = []
-    var dataArrayB: [Restaurant] = []
-    var dataArrayC: [Restaurant] = []
-    
+class CollectionViewController: UIViewController, UIScrollViewDelegate{
+
     var CollectTVC: TableViewController?
     var JudgeTVC: TableViewController?
     var BeenTVC: TableViewController?
@@ -30,22 +26,20 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadData()
- 
-        CollectTVC = TableViewController(style: .Plain, data: dataArrayA, cellLayout: "CollectionTableViewCell")
+        CollectTVC = TableViewController(style: .Plain, status: 1, cellLayout: "CollectionTableViewCell")
         CollectTVC?.tableView.tableFooterView = UIView()
         CollectTVC?.segueIdentifier = "DetailRestaurantViewController"
         var rectCollect = CGRectMake(0, 0, CollectTVC!.view.frame.width, CollectTVC!.view.frame.height-100)
         CollectTVC!.view.frame = rectCollect
         
-        JudgeTVC = TableViewController(style: .Plain, data: dataArrayB, cellLayout: "CollectionTableViewCell")
+        JudgeTVC = TableViewController(style: .Plain, status: 2, cellLayout: "CollectionTableViewCell")
         JudgeTVC?.tableView.tableFooterView = UIView()
         JudgeTVC?.segueIdentifier = "RatingViewController"
         var rectJudge = CGRectMake(0, 0, JudgeTVC!.view.frame.width, JudgeTVC!.view.frame.height-100)
         rectJudge.origin.x += rectJudge.size.width
         JudgeTVC!.view.frame = rectJudge
         
-        BeenTVC = TableViewController(style: .Plain, data: dataArrayC, cellLayout: "BeenTableViewCell")
+        BeenTVC = TableViewController(style: .Plain, status: 3, cellLayout: "BeenTableViewCell")
         BeenTVC?.tableView.tableFooterView = UIView()
         BeenTVC?.segueIdentifier = "DetailRestaurantViewController"
         var rectBeen = CGRectMake(0, 0, BeenTVC!.view.frame.width, BeenTVC!.view.frame.height-100)
@@ -90,10 +84,9 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
-        
-        print(CollectTVC!.view.frame.origin)
-        
-
+        CollectTVC?.restaurants = RealmHelper.retriveRestaurantByStatus(1)
+        JudgeTVC?.restaurants = RealmHelper.retriveRestaurantByStatus(2)
+        BeenTVC?.restaurants = RealmHelper.retriveRestaurantByStatus(3)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -102,30 +95,6 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func loadData(){
-        let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-        let restaurantFetch = NSFetchRequest(entityName: "Restaurant")
-        do {
-            let fetchedRestaurants = try moc.executeFetchRequest(restaurantFetch) as! [Restaurant]
-        
-            for restaurant in fetchedRestaurants {
-                switch restaurant.status {
-                case 1:
-                    dataArrayA.append(restaurant)
-                case 2:
-                    dataArrayB.append(restaurant)
-                case 3:
-                    dataArrayC.append(restaurant)
-                default:
-                    break
-                }
-            }
-            
-        } catch {
-            fatalError("Failed to fetch restaurant: \(error)")
-        }
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {

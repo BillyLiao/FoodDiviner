@@ -128,6 +128,7 @@ public class SPTinderView: UIView, UIGestureRecognizerDelegate{
         }
     }
     
+    
     private func adjustVisibleCellPosition() {        
         UIView.animateWithDuration(0.3, animations: {
             for (position, cell) in self.visibleCells().enumerate() {
@@ -136,7 +137,7 @@ public class SPTinderView: UIView, UIGestureRecognizerDelegate{
         })
     }
     
-    private func animateRemovalForCell(cell: SPTinderViewCell, towards direction: SPTinderViewCellMovement, completion:()->()) {
+    public func animateRemovalForCell(cell: SPTinderViewCell, towards direction: SPTinderViewCellMovement, completion:()->()) {
         var newPosition = CGPointZero
         switch direction {
         case .None: return

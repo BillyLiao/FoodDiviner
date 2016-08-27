@@ -12,7 +12,7 @@ import FBSDKCoreKit
 import AVKit
 import AVFoundation
 import TETinderPageView
-import CoreData
+import RealmSwift
 import AFNetworking
 
 class fbLoginViewController: UIViewController, FBSDKLoginButtonDelegate{

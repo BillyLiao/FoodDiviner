@@ -18,6 +18,11 @@ PODS:
   - FDRatingView (0.0.3)
   - HCSStarRatingView (1.4.5)
   - NVActivityIndicatorView (2.9)
+  - Realm (1.0.2):
+    - Realm/Headers (= 1.0.2)
+  - Realm/Headers (1.0.2)
+  - RealmSwift (1.0.2):
+    - Realm (= 1.0.2)
   - SPTinderView (0.3.0)
   - SwiftyJSON (2.3.2)
   - TETinderPageView (0.0.3)
@@ -28,6 +33,7 @@ DEPENDENCIES:
   - FDRatingView (from `https://github.com/FelixSFD/FDRatingView.git`)
   - HCSStarRatingView (~> 1.4.5)
   - NVActivityIndicatorView
+  - RealmSwift
   - SPTinderView (~> 0.3)
   - SwiftyJSON
   - TETinderPageView
@@ -47,6 +53,8 @@ SPEC CHECKSUMS:
   FDRatingView: eae07e18c1257a7493e4e67f5e175e738714afd9
   HCSStarRatingView: bff3f89314d3b5013ce826ea11897d3129ff6b8c
   NVActivityIndicatorView: 0084f6be71bdf4735b5424ebfb530b1e3db3276c
+  Realm: 9d5c46a4d7d27958530a8dfc58f63a99e5c2cba3
+  RealmSwift: 82f3ac5e24530143dddfde2033acc0d308f27d96
   SPTinderView: 5468b586078f52ad9620448f4784687fc989c006
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   TETinderPageView: 2759ada073a99a3627c93657d9b2e67a31f22cf2

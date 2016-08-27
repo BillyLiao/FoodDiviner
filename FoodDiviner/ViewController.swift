@@ -8,7 +8,7 @@
 
 import UIKit
 import SPTinderView
-import CoreData
+import RealmSwift
 import SwiftyJSON
 import NVActivityIndicatorView
 
@@ -34,11 +34,9 @@ class ViewController: UIViewController, WebServiceDelegate {
     let user = NSUserDefaults()
     var stateNow = state.beforetrial
     var user_trial = NSMutableDictionary()
-    let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         manager = APIManager()
         manager.delegate = self
@@ -161,9 +159,8 @@ class ViewController: UIViewController, WebServiceDelegate {
         if let data = r {
             for element in data {
                 let jsonObj = JSON(element)
-                // Initial a restaurant instance, but don't save in moc!!!
-                let entity = NSEntityDescription.entityForName("Restaurant", inManagedObjectContext: moc)
-                let restaurant = NSManagedObject.init(entity: entity!, insertIntoManagedObjectContext: nil) as! Restaurant
+                
+                let restaurant = Restaurant()
                 
                 restaurant.address = jsonObj["address"].string
                 restaurant.cuisine = jsonObj["cuisine"][0].string
@@ -241,8 +238,11 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
     }
     
     func tinderView(view: SPTinderView, didMoveCellAt index: Int, towards direction: SPTinderViewCellMovement) {
+        guard let restaurant = restaurants?[index] else {return}
+        print(restaurant)
         switch stateNow{
         case .afterTrial:
+            
             switch direction{
             case .Left:
                 print("Swipe Left")
@@ -250,10 +250,21 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
             case .Right:
                 print("Swipe Right")
                 manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurants![index].restaurant_id, decision: "accept", run: run)
-                addRestaurant(restaurants![index], status: 1)
+                if RealmHelper.isRestaurantExist(restaurant) {
+                    RealmHelper.addRestaurantCollectionTime(restaurant)
+                }else {
+                    restaurant.status = 1
+                    restaurant.collectTime = 1
+                    RealmHelper.addRestaurant(restaurant)
+                }
             case .Top:
                 print("Swipe Top")
-                addRestaurant(restaurants![index], status: 2)
+                if RealmHelper.isRestaurantExist(restaurant) {
+                    RealmHelper.updateRestaurantStatus(restaurant, status: 2)
+                    RealmHelper.addRestaurantCollectionTime(restaurant)
+                }else{
+                    RealmHelper.addRestaurant(restaurant)
+                }
             default:
                 break
             }
@@ -300,56 +311,7 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
         self.presentViewController(destinationController, animated: true, completion: nil)
     }
     
-    // If the restaurant exists, then add the collection time.
-    func addRestaurant(restaurant: Restaurant, status: Int){
-        // Status: 1. Collect 2. Been but not rated 3. Rated
-        let restaurantID = restaurant.restaurant_id
-        let restaurantFetch = NSFetchRequest(entityName: "Restaurant")
-        restaurantFetch.predicate = NSPredicate(format: "restaurant_id == %@", restaurantID)
-        
-        do {
-            let fetchedRestaurant = try moc.executeFetchRequest(restaurantFetch) as! [Restaurant]
-            
-            print("Count: \(fetchedRestaurant.count), Restaurant: \(fetchedRestaurant)")
-            if fetchedRestaurant.count > 0 {
-                fetchedRestaurant[0].collectTime = Int(fetchedRestaurant[0].collectTime) + 1
-                do {
-                    try fetchedRestaurant[0].managedObjectContext?.save()
-                    print("Update restaurant succeed.")
-                }catch {
-                    let updateError = error as! NSError
-                    print("Update restaurant faild: \(updateError)")
-                }
-            }else {
-                let insertRestaurant = NSEntityDescription.insertNewObjectForEntityForName("Restaurant", inManagedObjectContext: self.moc) as! Restaurant
-                insertRestaurant.address = restaurant.address
-                insertRestaurant.avgRating = restaurant.avgRating
-                insertRestaurant.collectTime = 1
-                insertRestaurant.cuisine = restaurant.cuisine
-                insertRestaurant.name = restaurant.name
-                insertRestaurant.order = restaurant.order
-                insertRestaurant.phone = restaurant.phone
-                insertRestaurant.price = restaurant.price
-                insertRestaurant.restaurant_id = restaurant.restaurant_id
-                insertRestaurant.scenario = restaurant.scenario
-                insertRestaurant.tags = restaurant.tags
-                insertRestaurant.time = restaurant.time
-                insertRestaurant.userRating = 0
-                insertRestaurant.status = status
-                do {
-                    try insertRestaurant.managedObjectContext?.save()
-                    print("Save restaurant succeed.")
-                }catch {
-                    let saveError = error as! NSError
-                    print("Save restaurant failed: \(saveError)")
-                }
-            }
-        } catch {
-            fatalError("Failed to fetch restaurants: \(error)")
-        }
-        
-    }
-    
+    //TODO: Animate removal by buttons
     // Take the restaurant
     @IBAction func take(sender: AnyObject) {
         print("Take")
@@ -357,21 +319,18 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
     
     // Collect the restaurant
     @IBAction func like(sender: AnyObject) {
-        print("Like")
-        //let cellOnTop = tinderView(restaurantView, cellAt: restaurantView.getCellIndexOnTop())
-        
     }
     
     // Dismiss the restaurant
     @IBAction func dislike(sender: AnyObject) {
         print("Dislike")
-        
-        // Temporary: Clean user caches in backend.
+
+        //Temporary: Clean user caches in backend.
         manager.cleanCaches(user.valueForKey("user_id") as! NSNumber)
     }
     
     // Reload the data from internet
-    // TODO: Fix the reload data button...
+    //FIXME: reload button doesn't work...
     @IBAction func reload(sender: AnyObject) {
         let manager = APIManager()
         restaurants = []
