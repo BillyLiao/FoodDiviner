@@ -15,6 +15,7 @@ class RealmHelper {
         let realm = try! Realm()
         print("Add restaurant")
         
+        // In case the phone and time is nil.
         if restaurant.phone == nil {
             restaurant.phone = ""
         }
@@ -37,7 +38,7 @@ class RealmHelper {
     
     static func retriveRestaurantByStatus(status: Int) -> Results<Restaurant>{
         let realm = try! Realm()
-        return realm.objects(Restaurant).filter("status == \(status)")
+        return realm.objects(Restaurant).filter("status == \(status)").sorted("collectTime", ascending: false)
     }
     
     static func isRestaurantExist(restaurant: Restaurant) -> Bool {
