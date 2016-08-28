@@ -14,6 +14,8 @@ pod 'FDRatingView', :git => 'https://github.com/FelixSFD/FDRatingView.git'
 pod 'HCSStarRatingView', '~> 1.4.5'
 pod 'NVActivityIndicatorView'
 pod ‘RealmSwift’
+pod 'DeviceKit', '~> 0.3.4'
+
 end
 
 target 'FoodDivinerTests' do

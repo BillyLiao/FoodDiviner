@@ -86,6 +86,7 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-FoodDiviner/AFNetworking.framework"
   install_framework "Pods-FoodDiviner/Alamofire.framework"
+  install_framework "Pods-FoodDiviner/DeviceKit.framework"
   install_framework "Pods-FoodDiviner/FDRatingView.framework"
   install_framework "Pods-FoodDiviner/HCSStarRatingView.framework"
   install_framework "Pods-FoodDiviner/NVActivityIndicatorView.framework"
@@ -98,6 +99,7 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-FoodDiviner/AFNetworking.framework"
   install_framework "Pods-FoodDiviner/Alamofire.framework"
+  install_framework "Pods-FoodDiviner/DeviceKit.framework"
   install_framework "Pods-FoodDiviner/FDRatingView.framework"
   install_framework "Pods-FoodDiviner/HCSStarRatingView.framework"
   install_framework "Pods-FoodDiviner/NVActivityIndicatorView.framework"

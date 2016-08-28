@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '20D39C348BEC238D042822F5'
+               BlueprintIdentifier = '3D63D2A9104505F3468A05BF'
                BlueprintName = 'SPTinderView'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'SPTinderView.framework'>

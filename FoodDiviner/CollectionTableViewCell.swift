@@ -32,9 +32,23 @@ class CollectionTableViewCell: UITableViewCell {
     }
     
     func setRating(rating: Float!) {
-        let rateView = FDRatingView(frame: CGRectMake(starView.frame.origin.x, starView.frame.origin.y, starView.frame.width, starView.frame.height), style: .Star, numberOfElements: 5, fillValue: rating, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0), lineWidth: 0.7, spacing: 1)
-        rateView.heightAnchor.constraintEqualToConstant(starView.frame.height).active = true
-        rateView.widthAnchor.constraintEqualToConstant(starView.frame.width).active = true
+        let deviceHelper = DeviceHelper()
+        let rateView = FDRatingView(frame: CGRectMake(starView.frame.origin.x, starView.frame.origin.y, starView.frame.width, 16), style: .Star, numberOfElements: 5, fillValue: rating, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0), lineWidth: 0.7, spacing: 1)
+        rateView.backgroundColor = UIColor.blueColor()
+        //FIXME
+        switch deviceHelper.checkSize() {
+        case "iphone4":
+            rateView.frame = CGRectMake(starView.frame.origin.x, starView.frame.origin.y, starView.frame.width, 18)
+            print("iphone4")
+        case "iphone5":
+            print("iphone5")
+        case "iphone6":
+            rateView.frame = CGRectMake(starView.frame.origin.x, starView.frame.origin.y, starView.frame.width, 23)
+            print("iphone6")
+        default:
+            break
+        }
+
         self.addSubview(rateView)
     }
 }

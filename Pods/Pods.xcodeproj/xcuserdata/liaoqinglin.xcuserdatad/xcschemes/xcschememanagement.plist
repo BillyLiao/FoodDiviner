@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DeviceKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FDRatingView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -62,12 +67,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1BAB20A262C7AB3A9147BD7643534352</key>
+		<key>1C3436CEA5C3D39764C5F54374794ECB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1C3436CEA5C3D39764C5F54374794ECB</key>
+		<key>23412B228543E21A63EC54A8F624847B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>360A48F4E9A0F35AF12A054FCBD7D0DF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -77,12 +87,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7176C3DA7C8D6B297F7B4F3F76FE250C</key>
+		<key>4260D748BE3281843F83A4B7DB9B16DF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>79BF70C007D9B49A47AB6DEBA347A8E0</key>
+		<key>537EA4D520FF7A59A0F4827C15D10EAC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,22 +107,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8753265C80B73BAD3F0F876B4F3F8D2B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>97E5D28D3DA6F0CA23C263B2B5833B9F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B59AC5DBDE439277D3021470F1C19142</key>
+		<key>CBD1302E9A46222B409C403D39537FA2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EB79D69958C833F9EAE7278C1A8951EF</key>
+		<key>D68AA5E868A5317F5D9E43BFBEF31D3F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EF78824223C74AA13AE655CD2ACF32A3</key>
 		<dict>
 			<key>primary</key>
 			<true/>

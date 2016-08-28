@@ -124,7 +124,7 @@ class ViewController: UIViewController, WebServiceDelegate {
                                 restaurant.tags = restaurant.tags + ", \(jsonObj[i]["tags"][j].string!)"
                             }
                         }
-                        restaurants![i] = restaurant
+                        restaurants?.append(restaurant)
                     }
                 }else {
                     print("Couldn't get json from file, make sure that file contains valid json.")
@@ -245,10 +245,8 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
             
             switch direction{
             case .Left:
-                print("Swipe Left")
                 manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurants![index].restaurant_id, decision: "decline", run: run)
             case .Right:
-                print("Swipe Right")
                 manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurants![index].restaurant_id, decision: "accept", run: run)
                 if RealmHelper.isRestaurantExist(restaurant) {
                     RealmHelper.addRestaurantCollectionTime(restaurant)
@@ -258,7 +256,6 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
                     RealmHelper.addRestaurant(restaurant)
                 }
             case .Top:
-                print("Swipe Top")
                 if RealmHelper.isRestaurantExist(restaurant) {
                     RealmHelper.updateRestaurantStatus(restaurant, status: 2)
                     RealmHelper.addRestaurantCollectionTime(restaurant)

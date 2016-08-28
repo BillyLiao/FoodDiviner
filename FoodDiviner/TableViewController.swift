@@ -21,7 +21,6 @@ class TableViewController: UITableViewController{
     // Use didSet observer instead of FetchResultController
     var restaurants: Results<Restaurant>! {
         didSet{
-            print(restaurants)
             self.tableView.reloadData()
         }
     }
