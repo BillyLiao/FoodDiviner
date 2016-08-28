@@ -47,10 +47,11 @@ class fbLoginViewController: UIViewController, FBSDKLoginButtonDelegate{
         welcomeLabel.textAlignment = NSTextAlignment.Center
         self.view.addSubview(welcomeLabel)
         
-        var loginBtn = FBSDKLoginButton(frame: CGRectMake(40, 500, 240, 40))
+        var loginBtn = FBSDKLoginButton(frame: CGRectMake(0, 0, 240, 40))
         loginBtn.readPermissions = ["public_profile", "email", "user_friends"]
         loginBtn.delegate = self
         loginBtn.center.x = self.view.center.x
+        loginBtn.center.y = self.view.frame.height - 70
         loginBtn.layer.borderColor = UIColor.whiteColor().CGColor
         loginBtn.layer.borderWidth = 2
         loginBtn.titleLabel!.font = UIFont.systemFontOfSize(24)

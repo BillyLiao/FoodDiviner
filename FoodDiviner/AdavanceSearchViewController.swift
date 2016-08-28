@@ -11,6 +11,7 @@ import NVActivityIndicatorView
 
 class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewable{
 
+    @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var btn0: UIButton!
     @IBOutlet weak var btn100: UIButton!
@@ -37,6 +38,7 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
     var transport: String?
     let user = NSUserDefaults()
     let saveIndicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 90, 90), type: .SquareSpin, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0))
+    let deviceHelper = DeviceHelper()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -162,10 +164,65 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
         btnScooter.layer.borderWidth = 1
         btnScooter.layer.borderColor = borderColor
         
-        btnSubmit.center.x = self.view.center.x
         btnSubmit.layer.cornerRadius = 5
         btnSubmit.layer.borderWidth = 1
         btnSubmit.layer.borderColor = borderColor
+        
+        switch deviceHelper.checkSize() {
+        case "iphone4Family":
+            priceLabel.font = UIFont.systemFontOfSize(18)
+            weatherLabel.font = UIFont.systemFontOfSize(18)
+            transLabel.font = UIFont.systemFontOfSize(18)
+            btn0.titleLabel?.font = UIFont.systemFontOfSize(14)
+            btn100.titleLabel?.font = UIFont.systemFontOfSize(14)
+            btn200.titleLabel?.font = UIFont.systemFontOfSize(14)
+            btn300.titleLabel?.font = UIFont.systemFontOfSize(14)
+            btn500.titleLabel?.font = UIFont.systemFontOfSize(14)
+            btnRainy.titleLabel?.font = UIFont.systemFontOfSize(14)
+            btnSunny.titleLabel?.font = UIFont.systemFontOfSize(14)
+            btnWalk.titleLabel?.font = UIFont.systemFontOfSize(14)
+            btnMRT.titleLabel?.font = UIFont.systemFontOfSize(14)
+            btnBus.titleLabel?.font = UIFont.systemFontOfSize(14)
+            btnUbike.titleLabel?.font = UIFont.systemFontOfSize(14)
+            btnScooter.titleLabel?.font = UIFont.systemFontOfSize(14)
+            btnSubmit.titleLabel?.font = UIFont.systemFontOfSize(14)
+        case "iphone5Family":
+            priceLabel.font = UIFont.systemFontOfSize(20)
+            weatherLabel.font = UIFont.systemFontOfSize(20)
+            transLabel.font = UIFont.systemFontOfSize(20)
+            btn0.titleLabel?.font = UIFont.systemFontOfSize(16)
+            btn100.titleLabel?.font = UIFont.systemFontOfSize(16)
+            btn200.titleLabel?.font = UIFont.systemFontOfSize(16)
+            btn300.titleLabel?.font = UIFont.systemFontOfSize(16)
+            btn500.titleLabel?.font = UIFont.systemFontOfSize(16)
+            btnRainy.titleLabel?.font = UIFont.systemFontOfSize(16)
+            btnSunny.titleLabel?.font = UIFont.systemFontOfSize(16)
+            btnWalk.titleLabel?.font = UIFont.systemFontOfSize(16)
+            btnMRT.titleLabel?.font = UIFont.systemFontOfSize(16)
+            btnBus.titleLabel?.font = UIFont.systemFontOfSize(16)
+            btnUbike.titleLabel?.font = UIFont.systemFontOfSize(16)
+            btnScooter.titleLabel?.font = UIFont.systemFontOfSize(16)
+            btnSubmit.titleLabel?.font = UIFont.systemFontOfSize(16)
+        case "iphone6Family":
+            priceLabel.font = UIFont.systemFontOfSize(24)
+            weatherLabel.font = UIFont.systemFontOfSize(24)
+            transLabel.font = UIFont.systemFontOfSize(24)
+            btn0.titleLabel?.font = UIFont.systemFontOfSize(19)
+            btn100.titleLabel?.font = UIFont.systemFontOfSize(19)
+            btn200.titleLabel?.font = UIFont.systemFontOfSize(19)
+            btn300.titleLabel?.font = UIFont.systemFontOfSize(19)
+            btn500.titleLabel?.font = UIFont.systemFontOfSize(19)
+            btnRainy.titleLabel?.font = UIFont.systemFontOfSize(19)
+            btnSunny.titleLabel?.font = UIFont.systemFontOfSize(19)
+            btnWalk.titleLabel?.font = UIFont.systemFontOfSize(19)
+            btnMRT.titleLabel?.font = UIFont.systemFontOfSize(19)
+            btnBus.titleLabel?.font = UIFont.systemFontOfSize(19)
+            btnUbike.titleLabel?.font = UIFont.systemFontOfSize(19)
+            btnScooter.titleLabel?.font = UIFont.systemFontOfSize(19)
+            btnSubmit.titleLabel?.font = UIFont.systemFontOfSize(19)
+        default:
+            break
+        }
         
         saveIndicator.center.x = self.view.center.x
         saveIndicator.center.y = self.view.center.y - 60

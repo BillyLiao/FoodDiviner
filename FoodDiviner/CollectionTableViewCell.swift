@@ -16,6 +16,7 @@ class CollectionTableViewCell: UITableViewCell {
     @IBOutlet weak var rtName: UILabel!
     @IBOutlet weak var starView: UIView!
     var rating: Float!
+    let deviceHelper = DeviceHelper()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,18 +33,15 @@ class CollectionTableViewCell: UITableViewCell {
     }
     
     func setRating(rating: Float!) {
-        let deviceHelper = DeviceHelper()
         let rateView = FDRatingView(frame: CGRectMake(starView.frame.origin.x, starView.frame.origin.y, starView.frame.width, 16), style: .Star, numberOfElements: 5, fillValue: rating, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0), lineWidth: 0.7, spacing: 1)
         rateView.backgroundColor = UIColor.blueColor()
         //FIXME
         switch deviceHelper.checkSize() {
-        case "iphone4":
-            rateView.frame = CGRectMake(starView.frame.origin.x, starView.frame.origin.y, starView.frame.width, 18)
+        case "iphone4Family":
             print("iphone4")
-        case "iphone5":
+        case "iphone5Family":
             print("iphone5")
-        case "iphone6":
-            rateView.frame = CGRectMake(starView.frame.origin.x, starView.frame.origin.y, starView.frame.width, 23)
+        case "iphone6Family":
             print("iphone6")
         default:
             break
