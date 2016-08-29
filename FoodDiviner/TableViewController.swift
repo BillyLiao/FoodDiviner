@@ -40,17 +40,16 @@ class TableViewController: UITableViewController{
         self.tableView.rowHeight = 80
         let nib = UINib(nibName: cellLayout, bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "Cell")
-        
         restaurants = RealmHelper.retriveRestaurantByStatus(status!)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-        
+    
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func viewWillAppear(animated: Bool) {
-        print("haha")
+        print(self.view.frame.origin.y)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

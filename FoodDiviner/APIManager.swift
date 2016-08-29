@@ -69,7 +69,7 @@ class APIManager: NSObject {
         let url = "\(baseURL)/signup"
         let params = NSDictionary(dictionary: ["fb_id" : fb_id, "user_trial" : user_trial, "name" : name, "gender" : gender])
         manager.POST(url, parameters: params, success: { (task, resObject) in
-                self.delegate?.userDidSignUp(resObject!["user_id"] as! String)
+                self.delegate?.userDidSignUp((resObject!["user_id"] as! NSNumber) as! String)
                 print("Sign up succeed")
             }) { (task, err) in
                 print("Sign up : \(err.localizedDescription)")

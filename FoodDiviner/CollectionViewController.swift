@@ -26,37 +26,6 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        CollectTVC = TableViewController(style: .Plain, status: 1, cellLayout: "CollectionTableViewCell")
-        CollectTVC?.tableView.tableFooterView = UIView()
-        CollectTVC?.segueIdentifier = "DetailRestaurantViewController"
-        var rectCollect = CGRectMake(0, 0, CollectTVC!.view.frame.width, CollectTVC!.view.frame.height-100)
-        CollectTVC!.view.frame = rectCollect
-        
-        JudgeTVC = TableViewController(style: .Plain, status: 2, cellLayout: "CollectionTableViewCell")
-        JudgeTVC?.tableView.tableFooterView = UIView()
-        JudgeTVC?.segueIdentifier = "RatingViewController"
-        var rectJudge = CGRectMake(0, 0, JudgeTVC!.view.frame.width, JudgeTVC!.view.frame.height-100)
-        rectJudge.origin.x += rectJudge.size.width
-        JudgeTVC!.view.frame = rectJudge
-        
-        BeenTVC = TableViewController(style: .Plain, status: 3, cellLayout: "BeenTableViewCell")
-        BeenTVC?.tableView.tableFooterView = UIView()
-        BeenTVC?.segueIdentifier = "DetailRestaurantViewController"
-        var rectBeen = CGRectMake(0, 0, BeenTVC!.view.frame.width, BeenTVC!.view.frame.height-100)
-        rectBeen.origin.x += rectBeen.size.width*2
-        BeenTVC!.view.frame = rectBeen
-        
-        scrollView = UIScrollView(frame: CGRect(x: 0, y:55, width: self.view.frame.width, height: self.view.frame.height))
-        self.view.addSubview(scrollView!)
-        
-        scrollView!.addSubview(CollectTVC!.view)
-        scrollView!.addSubview(JudgeTVC!.view)
-        scrollView!.addSubview(BeenTVC!.view)
-        
-        scrollView?.contentSize = CGSize(width: CollectTVC!.view.frame.width*3, height: CollectTVC!.view.frame.height)
-        scrollView?.pagingEnabled = true
-        scrollView?.delegate = self
-        
         /* Set three button below the navigation bar */
         switchToCollectBtn = UIButton(frame: CGRect(x: 0, y: 0, width: self.view.frame.width/3, height: 50))
         switchToCollectBtn.setTitle("收藏", forState: .Normal)
@@ -76,6 +45,44 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate{
         self.view.addSubview(switchToBeenBtn)
         switchToBeenBtn.addTarget(self, action: "showBeenTable", forControlEvents: .TouchUpInside)
         
+        CollectTVC = TableViewController(style: .Plain, status: 1, cellLayout: "CollectionTableViewCell")
+        CollectTVC?.tableView.tableFooterView = UIView()
+        CollectTVC?.segueIdentifier = "DetailRestaurantViewController"
+        var rectCollect = CGRectMake(0, 0, CollectTVC!.view.frame.width, CollectTVC!.view.frame.height-100)
+        CollectTVC!.view.frame = rectCollect
+        
+        JudgeTVC = TableViewController(style: .Plain, status: 2, cellLayout: "CollectionTableViewCell")
+        JudgeTVC?.tableView.tableFooterView = UIView()
+        JudgeTVC?.segueIdentifier = "RatingViewController"
+        var rectJudge = CGRectMake(0, 0, JudgeTVC!.view.frame.width, JudgeTVC!.view.frame.height-100)
+        rectJudge.origin.x += rectJudge.size.width
+        JudgeTVC!.view.frame = rectJudge
+        
+        BeenTVC = TableViewController(style: .Plain, status: 3, cellLayout: "BeenTableViewCell")
+        BeenTVC?.tableView.tableFooterView = UIView()
+        BeenTVC?.segueIdentifier = "DetailRestaurantViewController"
+        var rectBeen = CGRectMake(0, 0, BeenTVC!.view.frame.width, BeenTVC!.view.frame.height-100)
+        rectBeen.origin.x += rectBeen.size.width*2
+        BeenTVC!.view.frame = rectBeen
+    
+        scrollView = UIScrollView(frame: CGRect(x: 0, y:55, width: self.view.frame.width, height: self.view.frame.height))
+        self.view.addSubview(scrollView!)
+        
+        scrollView!.addSubview(CollectTVC!.view)
+        scrollView!.addSubview(JudgeTVC!.view)
+        scrollView!.addSubview(BeenTVC!.view)
+        
+        scrollView?.contentSize = CGSize(width: CollectTVC!.view.frame.width*3, height: CollectTVC!.view.frame.height)
+        scrollView?.pagingEnabled = true
+        
+        /*
+        self.automaticallyAdjustsScrollViewInsets = false
+        self.scrollView?.contentInset.top = 20
+        self.scrollView?.contentOffset = CGPoint(x: 0, y: 20)
+         */
+        
+        scrollView?.delegate = self
+        
         /*Set the scoller*/
         let scrollerRect = CGRect(x: 0, y: 45, width: self.view.frame.width/3, height: 1)
         scroller = UIView(frame: scrollerRect)
@@ -84,9 +91,14 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate{
     }
     
     override func viewWillAppear(animated: Bool) {
+        print(self.view.frame.origin.y)
         CollectTVC?.restaurants = RealmHelper.retriveRestaurantByStatus(1)
         JudgeTVC?.restaurants = RealmHelper.retriveRestaurantByStatus(2)
         BeenTVC?.restaurants = RealmHelper.retriveRestaurantByStatus(3)
+    }
+    
+    override func viewDidLayoutSubviews() {
+
     }
     
     override func viewDidAppear(animated: Bool) {

@@ -30,7 +30,7 @@ class ViewController: UIViewController, WebServiceDelegate {
     }
     
     var manager: APIManager!
-    var restaurants: [Restaurant]?
+    var restaurants: [Restaurant]? = []
     let user = NSUserDefaults()
     var stateNow = state.beforetrial
     var user_trial = NSMutableDictionary()
@@ -135,6 +135,11 @@ class ViewController: UIViewController, WebServiceDelegate {
         } else {
             print("Invalid filename/path")
         }
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.restaurantView.reloadData()
+            print("haha")
+        })
   
     }
     

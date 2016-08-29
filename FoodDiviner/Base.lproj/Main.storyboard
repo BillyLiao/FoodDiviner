@@ -97,10 +97,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="dBP-GC-r7g"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2cM-dl-Xgc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1521" y="180"/>
+            <point key="canvasLocation" x="2027" y="180"/>
         </scene>
         <!--Adavance Search View Controller-->
         <scene sceneID="MQE-sg-UTX">
@@ -632,7 +633,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZW9-Hb-bdj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2027" y="180"/>
+            <point key="canvasLocation" x="2559" y="180"/>
         </scene>
         <!--Rating View Controller-->
         <scene sceneID="D9P-Ao-6J0">

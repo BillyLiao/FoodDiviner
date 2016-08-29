@@ -59,10 +59,9 @@ class DetailRestaurantViewController: UIViewController {
     func viewDidAppear() {
         
     }
-
+    
     @IBAction func backToMain(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
-        
     }
     
     override func didReceiveMemoryWarning() {
