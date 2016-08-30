@@ -105,6 +105,8 @@ class fbLoginViewController: UIViewController, FBSDKLoginButtonDelegate{
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+        FBSDKAccessToken.setCurrentAccessToken(nil)
+        FBSDKProfile.setCurrentProfile(nil)
         print("User logged out...")
     }
     

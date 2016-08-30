@@ -212,7 +212,7 @@ class ViewController: UIViewController, WebServiceDelegate {
         
     }
     
-    func userDidSignUp(user_id: String) {
+    func userDidSignUp(user_id: NSNumber) {
         user.setValue(user_id, forKey: "user_id")
         manager.getRestRecom(user.valueForKey("user_id") as! NSNumber, advance: user.valueForKey("advance") as! Bool, preferPrices: user.valueForKey("preferPrices") as? [Int], weather: user.valueForKey("weather") as? String, transport: user.valueForKey("transport") as? String, lat: user.valueForKey("lat") as? Double, lng: user.valueForKey("lng") as? Double)
     }

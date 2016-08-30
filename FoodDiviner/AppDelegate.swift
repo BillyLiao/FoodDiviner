@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var fbLogin:Bool = FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         // If FBSDKAccessToken.currentAccessToken != nil, then skip the login view(set root view to ViewController)
-        
+        /*
         if (FBSDKAccessToken.currentAccessToken() != nil) {
             
             FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, gender, email, age_range"]).startWithCompletionHandler({ (connection, result, error) -> Void in
@@ -53,11 +53,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
             self.window?.rootViewController = pageView
             self.window?.makeKeyAndVisible()
-        }else {
+        }else {*/
             self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
             self.window?.rootViewController = fbLoginViewController()
             self.window?.makeKeyAndVisible()
-        }
+        //}
         
         // Needed for FB Login
         return fbLogin
