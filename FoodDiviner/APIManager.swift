@@ -34,8 +34,7 @@ class APIManager: NSObject {
         }else {
             params = nil
         }
-        
-        print(params)
+        print("Get restaurants recommendation params: \(params)")
         manager.GET(url, parameters: params, success: { (task, responseObject) in
                 guard let data = responseObject else {
                     self.delegate?.requestFailed(self.error)

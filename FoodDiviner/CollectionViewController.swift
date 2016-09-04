@@ -9,11 +9,28 @@
 import UIKit
 import RealmSwift
 
-class CollectionViewController: UIViewController, UIScrollViewDelegate{
+class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource{
 
-    var CollectTVC: TableViewController?
-    var JudgeTVC: TableViewController?
-    var BeenTVC: TableViewController?
+    var CollectTV: UITableView?
+    var JudgeTV: UITableView?
+    var BeenTV: UITableView?
+    
+    var collectRestaurants: Results<Restaurant>? {
+        //Add observer to reload tableview
+        didSet{
+            CollectTV?.reloadData()
+        }
+    }
+    var judgeRestaurants: Results<Restaurant>? {
+        didSet{
+            JudgeTV?.reloadData()
+        }
+    }
+    var beenRestaurants: Results<Restaurant>? {
+        didSet{
+            BeenTV?.reloadData()
+        }
+    }
     
     var scrollView: UIScrollView?
     var scroller: UIView!
@@ -45,43 +62,44 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate{
         self.view.addSubview(switchToBeenBtn)
         switchToBeenBtn.addTarget(self, action: "showBeenTable", forControlEvents: .TouchUpInside)
         
-        CollectTVC = TableViewController(style: .Plain, status: 1, cellLayout: "CollectionTableViewCell")
-        CollectTVC?.tableView.tableFooterView = UIView()
-        CollectTVC?.segueIdentifier = "DetailRestaurantViewController"
-        var rectCollect = CGRectMake(0, 0, CollectTVC!.view.frame.width, CollectTVC!.view.frame.height-100)
-        CollectTVC!.view.frame = rectCollect
         
-        JudgeTVC = TableViewController(style: .Plain, status: 2, cellLayout: "CollectionTableViewCell")
-        JudgeTVC?.tableView.tableFooterView = UIView()
-        JudgeTVC?.segueIdentifier = "RatingViewController"
-        var rectJudge = CGRectMake(0, 0, JudgeTVC!.view.frame.width, JudgeTVC!.view.frame.height-100)
-        rectJudge.origin.x += rectJudge.size.width
-        JudgeTVC!.view.frame = rectJudge
+        CollectTV = UITableView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height-100), style: .Plain)
+        let collectNib = UINib(nibName: "CollectionTableViewCell", bundle: nil)
+        CollectTV!.registerNib(collectNib, forCellReuseIdentifier: "Cell")
+        CollectTV!.tableFooterView = UIView()
+        CollectTV!.rowHeight = 80
+        CollectTV!.dataSource = self
+        CollectTV!.delegate = self
         
-        BeenTVC = TableViewController(style: .Plain, status: 3, cellLayout: "BeenTableViewCell")
-        BeenTVC?.tableView.tableFooterView = UIView()
-        BeenTVC?.segueIdentifier = "DetailRestaurantViewController"
-        var rectBeen = CGRectMake(0, 0, BeenTVC!.view.frame.width, BeenTVC!.view.frame.height-100)
-        rectBeen.origin.x += rectBeen.size.width*2
-        BeenTVC!.view.frame = rectBeen
+        JudgeTV = UITableView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height-100), style: .Plain)
+        let judgeNib = UINib(nibName: "CollectionTableViewCell", bundle: nil)
+        JudgeTV!.registerNib(judgeNib, forCellReuseIdentifier: "Cell")
+        JudgeTV!.tableFooterView = UIView()
+        JudgeTV!.frame.origin.x += JudgeTV!.frame.width
+        JudgeTV!.rowHeight = 80
+        JudgeTV!.dataSource = self
+        JudgeTV!.delegate = self
+        
+        BeenTV = UITableView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height), style: .Plain)
+        let beenNib = UINib(nibName: "BeenTableViewCell", bundle: nil)
+        BeenTV!.registerNib(beenNib, forCellReuseIdentifier: "Cell")
+        BeenTV!.tableFooterView = UIView()
+        BeenTV!.frame.origin.x += BeenTV!.frame.width*2
+        BeenTV!.rowHeight = 80
+        BeenTV!.dataSource = self
+        BeenTV!.delegate = self
     
         scrollView = UIScrollView(frame: CGRect(x: 0, y:55, width: self.view.frame.width, height: self.view.frame.height))
-        self.view.addSubview(scrollView!)
         
-        scrollView!.addSubview(CollectTVC!.view)
-        scrollView!.addSubview(JudgeTVC!.view)
-        scrollView!.addSubview(BeenTVC!.view)
+        scrollView!.addSubview(CollectTV!)
+        scrollView!.addSubview(JudgeTV!)
+        scrollView!.addSubview(BeenTV!)
         
-        scrollView?.contentSize = CGSize(width: CollectTVC!.view.frame.width*3, height: CollectTVC!.view.frame.height)
+
+        scrollView?.contentSize = CGSize(width: CollectTV!.frame.width*3, height: CollectTV!.frame.height)
         scrollView?.pagingEnabled = true
-        
-        /*
-        self.automaticallyAdjustsScrollViewInsets = false
-        self.scrollView?.contentInset.top = 20
-        self.scrollView?.contentOffset = CGPoint(x: 0, y: 20)
-         */
-        
         scrollView?.delegate = self
+        self.view.addSubview(scrollView!)
         
         /*Set the scoller*/
         let scrollerRect = CGRect(x: 0, y: 45, width: self.view.frame.width/3, height: 1)
@@ -91,10 +109,9 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate{
     }
     
     override func viewWillAppear(animated: Bool) {
-        print(self.view.frame.origin.y)
-        CollectTVC?.restaurants = RealmHelper.retriveRestaurantByStatus(1)
-        JudgeTVC?.restaurants = RealmHelper.retriveRestaurantByStatus(2)
-        BeenTVC?.restaurants = RealmHelper.retriveRestaurantByStatus(3)
+        collectRestaurants = RealmHelper.retriveRestaurantByStatus(1)
+        judgeRestaurants = RealmHelper.retriveRestaurantByStatus(2)
+        beenRestaurants = RealmHelper.retriveRestaurantByStatus(3)
     }
     
     override func viewDidLayoutSubviews() {
@@ -126,17 +143,17 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate{
     }
  
     func showCollectTable(){
-        scrollView?.scrollRectToVisible(self.CollectTVC!.view.frame, animated: true)
+        scrollView?.scrollRectToVisible(CollectTV!.frame, animated: true)
         page = 0
     }
     
     func showJudgeTable(){
-        scrollView?.scrollRectToVisible(self.JudgeTVC!.view.frame, animated: true)
+        scrollView?.scrollRectToVisible(JudgeTV!.frame, animated: true)
         page = 1
     }
     
     func showBeenTable(){
-        scrollView?.scrollRectToVisible(self.BeenTVC!.view.frame, animated: true)
+        scrollView?.scrollRectToVisible(BeenTV!.frame, animated: true)
         page = 2
     }
     
@@ -155,14 +172,86 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate{
             switchToBeenBtn.setTitleColor(UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1), forState: .Normal)
         }
     }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch tableView{
+        case CollectTV!:
+            print("Number of rows in collect tableview: \(collectRestaurants!.count)")
+            return collectRestaurants!.count
+        case JudgeTV!:
+            print("Number of rows in judge tableview: \(judgeRestaurants!.count)")
+            return judgeRestaurants!.count
+        case BeenTV!:
+            print("Number of rows in been tableview: \(beenRestaurants!.count)")
+            return beenRestaurants!.count
+        default:
+            break
+        }
+        return 0
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        switch  tableView {
+        case CollectTV!:
+            var cell = CollectTV!.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CollectionTableViewCell
+            if let collectRestaurants = collectRestaurants {
+                cell.rtImageView.image = UIImage(named: "RestaurantTest")
+                cell.rtName.text = collectRestaurants[indexPath.row].name
+                cell.cltTime.text = "\(collectRestaurants[indexPath.row].collectTime)"
+                cell.setRating(collectRestaurants[indexPath.row].avgRating as Float)
+            }
+            cell.selectionStyle = .None
+            return cell
+        case JudgeTV!:
+            var cell = JudgeTV!.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CollectionTableViewCell
+            if let judgeRestaurants = judgeRestaurants {
+                cell.rtImageView.image = UIImage(named: "RestaurantTest")
+                cell.rtName.text = judgeRestaurants[indexPath.row].name
+                cell.cltTime.text = "\(judgeRestaurants[indexPath.row].collectTime)"
+                cell.setRating(judgeRestaurants[indexPath.row].avgRating as Float)
+            }
+            cell.selectionStyle = .None
+            return cell
+        case BeenTV!:
+            var cell = BeenTV!.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! BeenTableViewCell
+            if let beenRestaurants = beenRestaurants {
+                cell.rtImageView.image = UIImage(named: "RestaurantTest")
+                cell.rtName.text = beenRestaurants[indexPath.row].name
+                cell.beenDate.text = "7/23"
+            }
+            cell.selectionStyle = .None
+            return cell
+        default:
+            break
+        }
+        return UITableViewCell()
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        switch tableView {
+        case CollectTV!:
+            let destinationController = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DetailRestaurantViewController") as! DetailRestaurantViewController
+            destinationController.restaurant = collectRestaurants![indexPath.row]
+            self.presentViewController(destinationController, animated: true, completion: nil)
+        case JudgeTV!:
+            let destinationController = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("RatingViewController") as! RatingViewController
+            destinationController.restaurant = judgeRestaurants![indexPath.row]
+            self.presentViewController(destinationController, animated: true, completion: nil)
+        case BeenTV!:
+            let destinationController = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DetailRestaurantViewController") as! DetailRestaurantViewController
+            destinationController.restaurant = beenRestaurants![indexPath.row]
+            self.presentViewController(destinationController, animated: true, completion: nil)
+        default:
+            break
+        }
+    }
+    
     /*
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
     */
-
 }

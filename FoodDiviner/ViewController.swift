@@ -138,13 +138,11 @@ class ViewController: UIViewController, WebServiceDelegate {
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.restaurantView.reloadData()
-            print("haha")
         })
   
     }
     
     func requestFailed(e: NSError?) {
-        //TODO: Show Alert View
         let alertController = UIAlertController(title: "嗯...嗯...", message: "真是個大凶兆，讓我再仔細占卜一番?我想確認確認..", preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "再算一次", style: .Default) { (result) in
             self.manager.getRestRecom(self.user.valueForKey("user_id") as! NSNumber, advance: self.user.valueForKey("advance") as! Bool, preferPrices: self.user.valueForKey("preferPrices") as? [Int], weather: self.user.valueForKey("weather") as? String, transport: self.user.valueForKey("transport") as? String, lat: self.user.valueForKey("lat") as? Double, lng: self.user.valueForKey("lng") as? Double)
@@ -247,24 +245,29 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
         print(restaurant)
         switch stateNow{
         case .afterTrial:
-            
             switch direction{
             case .Left:
                 manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurants![index].restaurant_id, decision: "decline", run: run)
             case .Right:
                 manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurants![index].restaurant_id, decision: "accept", run: run)
                 if RealmHelper.isRestaurantExist(restaurant) {
+                    print("Right, update restaurant")
                     RealmHelper.addRestaurantCollectionTime(restaurant)
                 }else {
+                    print("Right, add restaurant")
                     restaurant.status = 1
                     restaurant.collectTime = 1
                     RealmHelper.addRestaurant(restaurant)
                 }
             case .Top:
                 if RealmHelper.isRestaurantExist(restaurant) {
+                    print("Up, update restaurant")
                     RealmHelper.updateRestaurantStatus(restaurant, status: 2)
                     RealmHelper.addRestaurantCollectionTime(restaurant)
                 }else{
+                    print("Up, add restaurant")
+                    restaurant.status = 2
+                    restaurant.collectTime = 1
                     RealmHelper.addRestaurant(restaurant)
                 }
             default:

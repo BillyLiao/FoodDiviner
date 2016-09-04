@@ -26,7 +26,11 @@ class CollectionTableViewCell: UITableViewCell {
         self.selectionStyle = UITableViewCellSelectionStyle.None
     }
 
+    override func setHighlighted(highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+    }
     override func setSelected(selected: Bool, animated: Bool) {
+        
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

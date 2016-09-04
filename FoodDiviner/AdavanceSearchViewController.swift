@@ -31,6 +31,7 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
     @IBOutlet weak var btnScooter: UIButton!
     
     @IBOutlet weak var btnSubmit: UIButton!
+    @IBOutlet weak var btnClear: UIButton!
     
     var advance: Bool!
     var weather: String?
@@ -168,6 +169,10 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
         btnSubmit.layer.borderWidth = 1
         btnSubmit.layer.borderColor = borderColor
         
+        btnClear.layer.cornerRadius = 5
+        btnClear.layer.borderWidth = 1
+        btnClear.layer.borderColor = borderColor
+        
         switch deviceHelper.checkSize() {
         case "iphone4Family":
             priceLabel.font = UIFont.systemFontOfSize(18)
@@ -186,6 +191,7 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
             btnUbike.titleLabel?.font = UIFont.systemFontOfSize(14)
             btnScooter.titleLabel?.font = UIFont.systemFontOfSize(14)
             btnSubmit.titleLabel?.font = UIFont.systemFontOfSize(14)
+            btnClear.titleLabel?.font = UIFont.systemFontOfSize(14)
         case "iphone5Family":
             priceLabel.font = UIFont.systemFontOfSize(20)
             weatherLabel.font = UIFont.systemFontOfSize(20)
@@ -203,6 +209,7 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
             btnUbike.titleLabel?.font = UIFont.systemFontOfSize(16)
             btnScooter.titleLabel?.font = UIFont.systemFontOfSize(16)
             btnSubmit.titleLabel?.font = UIFont.systemFontOfSize(16)
+            btnClear.titleLabel?.font = UIFont.systemFontOfSize(16)
         case "iphone6Family":
             priceLabel.font = UIFont.systemFontOfSize(24)
             weatherLabel.font = UIFont.systemFontOfSize(24)
@@ -220,6 +227,8 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
             btnUbike.titleLabel?.font = UIFont.systemFontOfSize(19)
             btnScooter.titleLabel?.font = UIFont.systemFontOfSize(19)
             btnSubmit.titleLabel?.font = UIFont.systemFontOfSize(19)
+            btnClear.titleLabel?.font = UIFont.systemFontOfSize(19)
+
         default:
             break
         }
@@ -231,6 +240,38 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
 
     override func viewDidAppear(animated: Bool) {
 
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        btn0.selected = false
+        btn100.selected = false
+        btn200.selected = false
+        btn300.selected = false
+        btn500.selected = false
+        btnRainy.selected = false
+        btnSunny.selected = false
+        btnWalk.selected = false
+        btnMRT.selected = false
+        btnBus.selected = false
+        btnUbike.selected = false
+        btnScooter.selected = false
+        
+        btnToggle(btn0)
+        btnToggle(btn100)
+        btnToggle(btn200)
+        btnToggle(btn300)
+        btnToggle(btn500)
+        btnToggle(btnRainy)
+        btnToggle(btnSunny)
+        btnToggle(btnWalk)
+        btnToggle(btnMRT)
+        btnToggle(btnBus)
+        btnToggle(btnUbike)
+        btnToggle(btnScooter)
     }
     
     override func didReceiveMemoryWarning() {
@@ -263,7 +304,7 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
                 btnToggle(self.btnRainy)
             }
         }else {
-            if sender.titleLabel == "Rainy" {
+            if sender.titleLabel!.text == "Rainy" {
                 print("Rainy unselected\n")
                 btnToggle(sender)
                 self.btnSunny.selected = true
@@ -320,52 +361,100 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
     @IBAction func savrFormResult(sender: AnyObject) {
         preferPrices = [Int](count:5, repeatedValue: 0)
         
-        // perferPrices
-        if btn0.selected == true {
-            preferPrices![0] = 1
-        }
-        if btn100.selected == true {
-            preferPrices![1] = 1
-        }
-        if btn200.selected == true {
-            preferPrices![2] = 1
-        }
-        if btn300.selected == true {
-            preferPrices![3] = 1
-        }
-        if btn500.selected == true {
-            preferPrices![4] = 1
-        }
-        
-        // weather
-        if btnSunny.selected == true {
-            weather = "sunny"
-        }else if btnRainy.selected == true {
-            weather = "rainy"
-        }
-        
-        // transport
-        if btnBus.selected == true {
-            transport = "bus"
-        }else if btnMRT.selected == true {
-            transport = "MRT"
-        }else if btnWalk.selected == true {
-            transport = "walk"
-        }else if btnScooter.selected == true {
-            transport = "scooter"
-        }else if btnUbike.selected == true {
-            transport = "ubike"
-        }
-        user.setObject(weather, forKey: "weather")
-        user.setObject(preferPrices, forKey: "preferPrices")
-        user.setObject(transport, forKey: "transport")
-        
-        let time = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), 2 * Int64(NSEC_PER_SEC))
-        startActivityAnimating(CGSizeMake(70, 70), message: "Saving now", type: .SquareSpin, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0))
-        dispatch_after(time, dispatch_get_main_queue()) {
+        // If info not completed, then show alert
+        if !((btn0.selected == true || btn100.selected == true || btn200.selected == true || btn300.selected == true || btn500.selected == true) && (btnSunny.selected == true || btnRainy.selected == true) && (btnBus.selected == true || btnMRT.selected == true || btnSunny.selected == true || btnWalk.selected == true || btnUbike.selected == true)){
+            
             self.stopActivityAnimating()
+            let alertController = UIAlertController(title: "似乎有些選項尚未填完呢!", message: "選項未填完的話，進階搜尋就不會生效哦！", preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: "填完選項", style: .Cancel, handler: { (result) in
+                return
+            })
+            alertController.addAction(cancelAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+            user.setObject(false, forKey: "advance")
+        }else {
+            // perferPrices
+            if btn0.selected == true {
+                preferPrices![0] = 1
+            }
+            if btn100.selected == true {
+                preferPrices![1] = 1
+            }
+            if btn200.selected == true {
+                preferPrices![2] = 1
+            }
+            if btn300.selected == true {
+                preferPrices![3] = 1
+            }
+            if btn500.selected == true {
+                preferPrices![4] = 1
+            }
+            
+            // weather
+            if btnSunny.selected == true {
+                weather = "sunny"
+            }else if btnRainy.selected == true {
+                weather = "rainy"
+            }
+            
+            // transport
+            if btnBus.selected == true {
+                transport = "bus"
+            }else if btnMRT.selected == true {
+                transport = "MRT"
+            }else if btnWalk.selected == true {
+                transport = "walk"
+            }else if btnScooter.selected == true {
+                transport = "scooter"
+            }else if btnUbike.selected == true {
+                transport = "ubike"
+            }
+            
+            user.setObject(weather, forKey: "weather")
+            user.setObject(preferPrices, forKey: "preferPrices")
+            user.setObject(transport, forKey: "transport")
+            user.setObject(true, forKey: "advance")
+
+            let time = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), 2 * Int64(NSEC_PER_SEC))
+            startActivityAnimating(CGSizeMake(70, 70), message: "Saving now", type: .SquareSpin, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0))
+            dispatch_after(time, dispatch_get_main_queue()) {
+                self.stopActivityAnimating()
+            }
         }
-        user.setObject(true, forKey: "advance")
+    }
+    
+    @IBAction func clear(sender: AnyObject) {
+        btn0.selected = false
+        btn100.selected = false
+        btn200.selected = false
+        btn300.selected = false
+        btn500.selected = false
+        btnRainy.selected = false
+        btnSunny.selected = false
+        btnWalk.selected = false
+        btnMRT.selected = false
+        btnBus.selected = false
+        btnUbike.selected = false
+        btnScooter.selected = false
+        
+        btnToggle(btn0)
+        btnToggle(btn100)
+        btnToggle(btn200)
+        btnToggle(btn300)
+        btnToggle(btn500)
+        btnToggle(btnRainy)
+        btnToggle(btnSunny)
+        btnToggle(btnWalk)
+        btnToggle(btnMRT)
+        btnToggle(btnBus)
+        btnToggle(btnUbike)
+        btnToggle(btnScooter)
+        
+        user.setObject(nil, forKey: "weather")
+        user.setObject(nil, forKey: "preferPrices")
+        user.setObject(nil, forKey: "transport")
+        user.setObject(false, forKey: "advance")
+
     }
     
     func btnToggle(sender: UIButton){

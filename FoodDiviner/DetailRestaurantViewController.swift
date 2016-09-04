@@ -31,6 +31,7 @@ class DetailRestaurantViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
+        print(self.view.frame)
         scrollView.frame = self.view.frame
         
         let rateView = FDRatingView(frame: CGRectMake(0, 0, starView.frame.width, starView.frame.height), style: .Star, numberOfElements: 5, fillValue: self.restaurant.avgRating as! Float, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0), lineWidth: 0.7, spacing: 3)
