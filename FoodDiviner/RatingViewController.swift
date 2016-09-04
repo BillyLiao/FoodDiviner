@@ -13,7 +13,6 @@ class RatingViewController: UIViewController {
 
     @IBOutlet weak var ratingView: HCSStarRatingView!
     @IBOutlet weak var backBtn: UIButton!
-    @IBOutlet weak var addTagBtn: UIButton!
     @IBOutlet weak var submitBtn: UIButton!
     var restaurant: Restaurant! = nil
     
@@ -24,8 +23,6 @@ class RatingViewController: UIViewController {
         
         backBtn.layer.cornerRadius = backBtn.frame.width/2
         backBtn.clipsToBounds = true
-        addTagBtn.layer.cornerRadius = addTagBtn.frame.width/2
-        addTagBtn.clipsToBounds = true
         
     }
 

@@ -11,8 +11,9 @@ import SPTinderView
 import RealmSwift
 import SwiftyJSON
 import NVActivityIndicatorView
+import CoreLocation
 
-class ViewController: UIViewController, WebServiceDelegate {
+class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDelegate{
     
     var restaurantView: SPTinderView!
     let cellIdentifier = "restaurantCell"
@@ -34,6 +35,7 @@ class ViewController: UIViewController, WebServiceDelegate {
     let user = NSUserDefaults()
     var stateNow = state.beforetrial
     var user_trial = NSMutableDictionary()
+    var locationManager: CLLocationManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +43,12 @@ class ViewController: UIViewController, WebServiceDelegate {
         manager = APIManager()
         manager.delegate = self
         restaurantView = SPTinderView()
+        
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
 
         if user.valueForKey("user_id") == nil {
             stateNow = state.beforetrial
@@ -164,17 +172,17 @@ class ViewController: UIViewController, WebServiceDelegate {
                 let jsonObj = JSON(element)
                 
                 let restaurant = Restaurant()
-                
                 restaurant.address = jsonObj["address"].string
                 restaurant.cuisine = jsonObj["cuisine"][0].string
                 restaurant.time = jsonObj["hours"].string
                 restaurant.name = jsonObj["name"].string
                 restaurant.order = jsonObj["ordering"][0].string
-                restaurant.phone = jsonObj["phone"].string
+                restaurant.phone = jsonObj["phone"][0].string
                 restaurant.price = jsonObj["price"].string
                 restaurant.restaurant_id = jsonObj["restaurant_id"].int
                 restaurant.scenario = jsonObj["scenario"][0].string
                 restaurant.tags = jsonObj["tags"][0].string
+                restaurant.image_id = jsonObj["image"][0].string
                 restaurant.avgRating = 5
                 
                 if jsonObj["cuisine"].count > 1 {
@@ -213,6 +221,12 @@ class ViewController: UIViewController, WebServiceDelegate {
     func userDidSignUp(user_id: NSNumber) {
         user.setValue(user_id, forKey: "user_id")
         manager.getRestRecom(user.valueForKey("user_id") as! NSNumber, advance: user.valueForKey("advance") as! Bool, preferPrices: user.valueForKey("preferPrices") as? [Int], weather: user.valueForKey("weather") as? String, transport: user.valueForKey("transport") as? String, lat: user.valueForKey("lat") as? Double, lng: user.valueForKey("lng") as? Double)
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        var userLocation:CLLocation = locations[0] 
+        user.setObject(userLocation.coordinate.latitude, forKey: "lat")
+        user.setObject(userLocation.coordinate.longitude, forKey: "lng")
     }
 }
 

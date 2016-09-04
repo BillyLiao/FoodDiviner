@@ -31,12 +31,13 @@ class RestaurantCell: SPTinderViewCell {
         titleView.frame = CGRectMake(0, self.frame.height-60, self.frame.width, 60)
         titleView.backgroundColor = UIColor.whiteColor()
         
-        infoLabel.frame = CGRectMake(15, titleView.frame.height*0.5, titleView.frame.width, titleView.frame.height/2)
+        infoLabel.frame = CGRectMake(5, titleView.frame.height*0.5, titleView.frame.width, titleView.frame.height/2)
         infoLabel.textColor = UIColor.lightGrayColor()
+        infoLabel.font = infoLabel.font.fontWithSize(15)
         titleView.addSubview(infoLabel)
         
-        nameLabel.frame = CGRectMake(15, 0, titleView.frame.width*0.6, titleView.frame.height/2)
-        nameLabel.font = nameLabel.font.fontWithSize(20)
+        nameLabel.frame = CGRectMake(5, 0, titleView.frame.width*0.6, titleView.frame.height/2)
+        nameLabel.font = nameLabel.font.fontWithSize(17)
         titleView.addSubview(nameLabel)
         
         imageView.frame = CGRectMake(0, 10, self.frame.width, self.frame.height-60)
