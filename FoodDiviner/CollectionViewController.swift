@@ -8,7 +8,7 @@
 
 import UIKit
 import RealmSwift
-
+import SDWebImage
 class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource{
 
     var CollectTV: UITableView?
@@ -192,7 +192,11 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
         case CollectTV!:
             var cell = CollectTV!.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CollectionTableViewCell
             if let collectRestaurants = collectRestaurants {
-                cell.rtImageView.image = UIImage(named: "RestaurantTest")
+                if let imageData = collectRestaurants[indexPath.row].photo {
+                    cell.rtImageView.image = UIImage(data: imageData)
+                }else {
+                    cell.rtImageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(collectRestaurants[indexPath.row].image_id)"))
+                }
                 cell.rtName.text = collectRestaurants[indexPath.row].name
                 cell.cltTime.text = "\(collectRestaurants[indexPath.row].collectTime)"
                 cell.setRating(collectRestaurants[indexPath.row].avgRating as Float)
@@ -202,7 +206,11 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
         case JudgeTV!:
             var cell = JudgeTV!.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CollectionTableViewCell
             if let judgeRestaurants = judgeRestaurants {
-                cell.rtImageView.image = UIImage(named: "RestaurantTest")
+                if let imageData = judgeRestaurants[indexPath.row].photo {
+                    cell.rtImageView.image = UIImage(data: imageData)
+                }else {
+                    cell.rtImageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(judgeRestaurants[indexPath.row].image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
+                }
                 cell.rtName.text = judgeRestaurants[indexPath.row].name
                 cell.cltTime.text = "\(judgeRestaurants[indexPath.row].collectTime)"
                 cell.setRating(judgeRestaurants[indexPath.row].avgRating as Float)
@@ -212,7 +220,11 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
         case BeenTV!:
             var cell = BeenTV!.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! BeenTableViewCell
             if let beenRestaurants = beenRestaurants {
-                cell.rtImageView.image = UIImage(named: "RestaurantTest")
+                if let imageData = beenRestaurants[indexPath.row].photo {
+                    cell.rtImageView.image = UIImage(data: imageData)
+                }else {
+                    cell.rtImageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(beenRestaurants[indexPath.row].image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
+                }
                 cell.rtName.text = beenRestaurants[indexPath.row].name
                 cell.beenDate.text = "7/23"
             }
