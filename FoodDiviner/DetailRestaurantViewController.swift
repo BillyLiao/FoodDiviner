@@ -45,7 +45,7 @@ class DetailRestaurantViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         //TODO: Implement distance, tags, rating, image
-        //TODO: If Image isn't loaded yet, show default image and activity indicator
+        //TODO: If Image isn't loaded yet, show activity indicator
         if restaurant != nil {
             restName.text = restaurant.name
             restCuisine.text = restaurant.cuisine
@@ -53,8 +53,23 @@ class DetailRestaurantViewController: UIViewController {
             restOrder.text = restaurant.order
             restPrice.text = restaurant.price
             //TODO: Only show time today
-            restTime.text = restaurant.time
+
+            restPhone.text = restaurant.phone
             restAddre.text = restaurant.address
+            
+            // If phone or time is Empty, then show "-"
+            if let phone = restaurant.phone {
+                restPhone.text = phone
+            }else {
+                restPhone.text = "無此資訊"
+            }
+            
+            if let time = restaurant.time{
+                restTime.text = time
+            }else {
+                restTime.text = "無此資訊"
+            }
+            
             if let imageData = restaurant.photo {
                 restImage.image = UIImage(data: imageData)
             }else {

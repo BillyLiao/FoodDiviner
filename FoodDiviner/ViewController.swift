@@ -248,12 +248,7 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
                 )
                 
                 // Use pod:SDWebImage to download the image from backend
-                cell.imageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(restaurant.image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"), completed: { (image, error, cacheType, url) in
-                    if let image = image {
-                        self.restaurants![index].photo = UIImageJPEGRepresentation(image, 0.6)
-                    }
-                })
-
+                cell.imageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(restaurant.image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
                 return cell
             }
         }

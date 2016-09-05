@@ -63,7 +63,7 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
         switchToBeenBtn.addTarget(self, action: "showBeenTable", forControlEvents: .TouchUpInside)
         
         
-        CollectTV = UITableView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height-100), style: .Plain)
+        CollectTV = UITableView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height-120), style: .Plain)
         let collectNib = UINib(nibName: "CollectionTableViewCell", bundle: nil)
         CollectTV!.registerNib(collectNib, forCellReuseIdentifier: "Cell")
         CollectTV!.tableFooterView = UIView()
@@ -71,7 +71,7 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
         CollectTV!.dataSource = self
         CollectTV!.delegate = self
         
-        JudgeTV = UITableView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height-100), style: .Plain)
+        JudgeTV = UITableView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height-120), style: .Plain)
         let judgeNib = UINib(nibName: "CollectionTableViewCell", bundle: nil)
         JudgeTV!.registerNib(judgeNib, forCellReuseIdentifier: "Cell")
         JudgeTV!.tableFooterView = UIView()
@@ -80,7 +80,7 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
         JudgeTV!.dataSource = self
         JudgeTV!.delegate = self
         
-        BeenTV = UITableView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height), style: .Plain)
+        BeenTV = UITableView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height-120), style: .Plain)
         let beenNib = UINib(nibName: "BeenTableViewCell", bundle: nil)
         BeenTV!.registerNib(beenNib, forCellReuseIdentifier: "Cell")
         BeenTV!.tableFooterView = UIView()
@@ -195,7 +195,7 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
                 if let imageData = collectRestaurants[indexPath.row].photo {
                     cell.rtImageView.image = UIImage(data: imageData)
                 }else {
-                    cell.rtImageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(collectRestaurants[indexPath.row].image_id)"))
+                    cell.rtImageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(collectRestaurants[indexPath.row].image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
                 }
                 cell.rtName.text = collectRestaurants[indexPath.row].name
                 cell.cltTime.text = "\(collectRestaurants[indexPath.row].collectTime)"
