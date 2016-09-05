@@ -49,6 +49,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SPTinderView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -67,17 +72,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0B729A443A2B75CFB63E75A46D9683CA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>171EE257E5A9E6AA3C7B48312E5B2522</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1C3436CEA5C3D39764C5F54374794ECB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>23412B228543E21A63EC54A8F624847B</key>
+		<key>227806135CF2BB7789A4BFEBDB52FF4F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>360A48F4E9A0F35AF12A054FCBD7D0DF</key>
+		<key>31B473CC0AB24E448C6B5914DE96E019</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>32150D542253D7A60316CC7EC68DE036</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,12 +107,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4260D748BE3281843F83A4B7DB9B16DF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>537EA4D520FF7A59A0F4827C15D10EAC</key>
+		<key>42B74ACA04EA1764B29C546641C73FE0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -112,17 +127,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CBD1302E9A46222B409C403D39537FA2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D68AA5E868A5317F5D9E43BFBEF31D3F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>EF78824223C74AA13AE655CD2ACF32A3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F46831125A84BF32DDB7C64E62ED0EEB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

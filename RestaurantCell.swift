@@ -41,7 +41,6 @@ class RestaurantCell: SPTinderViewCell {
         titleView.addSubview(nameLabel)
         
         imageView.frame = CGRectMake(0, 10, self.frame.width, self.frame.height-60)
-
         imageView.clipsToBounds = true //裁切超過Parent view的部分
         imageView.contentMode = .ScaleAspectFill
         self.addSubview(imageView)

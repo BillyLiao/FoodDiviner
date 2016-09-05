@@ -12,6 +12,7 @@ import RealmSwift
 import SwiftyJSON
 import NVActivityIndicatorView
 import CoreLocation
+import SDWebImage
 
 class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDelegate{
     
@@ -245,9 +246,14 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
                 cell.infoLabel.text = "\(restaurant.cuisine), \(restaurant.price)"
                 cell.setRatingView(restaurant.avgRating as! Float
                 )
-                if let imageData = restaurant.photo {
-                    cell.imageView.image = UIImage(data: imageData)
-                }
+                
+                // Use pod:SDWebImage to download the image from backend
+                cell.imageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(restaurant.image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"), completed: { (image, error, cacheType, url) in
+                    if let image = image {
+                        self.restaurants![index].photo = UIImageJPEGRepresentation(image, 0.6)
+                    }
+                })
+
                 return cell
             }
         }
@@ -333,7 +339,6 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
     //TODO: Animate removal by buttons
     // Take the restaurant
     @IBAction func take(sender: AnyObject) {
-        print("Take")
     }
     
     // Collect the restaurant
@@ -342,8 +347,6 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
     
     // Dismiss the restaurant
     @IBAction func dislike(sender: AnyObject) {
-        print("Dislike")
-
         //Temporary: Clean user caches in backend.
         manager.cleanCaches(user.valueForKey("user_id") as! NSNumber)
     }

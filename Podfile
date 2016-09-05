@@ -15,6 +15,7 @@ pod 'HCSStarRatingView', '~> 1.4.5'
 pod 'NVActivityIndicatorView'
 pod ‘RealmSwift’
 pod 'DeviceKit', '~> 0.3.4'
+pod 'SDWebImage', '~>3.8'
 
 end
 

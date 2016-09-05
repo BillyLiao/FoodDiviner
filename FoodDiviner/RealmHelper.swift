@@ -24,6 +24,10 @@ class RealmHelper {
             restaurant.time = ""
         }
         
+        if restaurant.image_id == nil {
+            restaurant.image_id = ""
+        }
+        
         try! realm.write() {
             realm.add(restaurant)
         }
