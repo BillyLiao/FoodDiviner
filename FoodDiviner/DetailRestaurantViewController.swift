@@ -56,11 +56,9 @@ class DetailRestaurantViewController: UIViewController {
 
             restAddre.text = restaurant.address
             
-            // If phone or time is Empty, then show "-"
             if let phone = restaurant.phone {
                 restPhone.text = restaurant.phone
             }else {
-                print("phone doesn't exist")
                 restPhone.text = "無此資訊"
             }
             

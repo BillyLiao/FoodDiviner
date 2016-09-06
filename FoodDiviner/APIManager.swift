@@ -21,10 +21,12 @@ class APIManager: NSObject {
     let manager = AFHTTPSessionManager()
     let error = NSError(domain: "webService", code: 400, userInfo: [NSLocalizedDescriptionKey: "Empty responseObject"])
     
-    
-    func getRestRecom(uid: NSNumber, advance: Bool, preferPrices: [Int]?, weather: String?, transport: String?, lat: Double?, lng: Double?){
+    init(){
         manager.requestSerializer = AFJSONRequestSerializer()
         manager.responseSerializer = AFJSONResponseSerializer()
+    }
+    
+    func getRestRecom(uid: NSNumber, advance: Bool, preferPrices: [Int]?, weather: String?, transport: String?, lat: Double?, lng: Double?){
         let url = "\(baseURL)/users/\(uid)/recommendation"
         let params: NSDictionary?
         
@@ -52,8 +54,6 @@ class APIManager: NSObject {
     
     
     func postUserChoice(user_id: NSNumber, restaurant_id: NSNumber, decision: String, run: Int){
-        manager.requestSerializer = AFJSONRequestSerializer()
-        manager.responseSerializer = AFJSONResponseSerializer()
         let url = "\(baseURL)/user_choose"
         let params = NSDictionary(dictionary: ["user_id" : user_id, "restaurant_id" : restaurant_id, "decision" : "accept", "run" : run])
         manager.POST(url, parameters: params, success: { (task, resObject) in
@@ -63,9 +63,22 @@ class APIManager: NSObject {
         }
     }
     
+    func postUserRating(user_id: NSNumber, restaurant_id: NSNumber, rate: Int, tags: [String]?){
+        let url = "\(baseURL)/users/\(user_id)/ratings"
+        var params = NSDictionary()
+        if let tags = tags {
+            params = NSDictionary(dictionary: ["restaurant_id": restaurant_id, "rate": rate, "tags": tags])
+        }else {
+            params = NSDictionary(dictionary: ["restaurant_id": restaurant_id, "rate": rate, "tags": []])
+        }
+        manager.POST(url, parameters: params, success: { (task, resObject) in
+                print("POST user rating succeed.")
+            }) { (task, error) in
+                print("POST user rating failed: \(error.localizedDescription)")
+        }
+    }
+    
     func signUp(fb_id: String!, user_trial: NSDictionary, name: String!, gender: String!) {
-        manager.requestSerializer = AFJSONRequestSerializer()
-        manager.responseSerializer = AFJSONResponseSerializer()
         let url = "\(baseURL)/signup"
         let params = NSDictionary(dictionary: ["fb_id" : fb_id, "user_trial" : user_trial, "name" : name, "gender" : gender])
         manager.POST(url, parameters: params, success: { (task, resObject) in
@@ -75,6 +88,7 @@ class APIManager: NSObject {
                 print("Sign up : \(err.localizedDescription)")
         }
     }
+    
     
     func cleanCaches(user_id: NSNumber){
         let url = "\(baseURL)/users/\(user_id)/caches"
