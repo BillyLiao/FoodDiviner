@@ -41,6 +41,7 @@ class APIManager: NSObject {
                     return
                 }
                 let result = data as! [NSDictionary]
+                print(result)
                 self.delegate?.userRecomGetRequestDidFinished(result)
             }) { (task, err) -> Void in
                 self.delegate?.requestFailed(err)

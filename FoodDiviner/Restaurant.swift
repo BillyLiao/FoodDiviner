@@ -14,14 +14,14 @@ class Restaurant: Object{
     dynamic var cuisine: String! = ""
     dynamic var name: String! = ""
     dynamic var order: String! = ""
-    dynamic var phone: String! = ""
+    dynamic var phone: String?
     dynamic var price: String! = ""
     dynamic var scenario: String! = ""
-    dynamic var time: String! = ""
+    dynamic var time: String?
     dynamic var restaurant_id: NSNumber! = 0
     dynamic var tags: String! = ""
     dynamic var photo: NSData!
-    dynamic var image_id: String! = ""
+    dynamic var image_id: String?
     dynamic var avgRating: NSNumber! = 0
     dynamic var userRating: NSNumber! = 0
     dynamic var lastBeenDate: NSDate! = NSDate()

@@ -416,7 +416,7 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
             user.setObject(true, forKey: "advance")
 
             let time = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), 2 * Int64(NSEC_PER_SEC))
-            startActivityAnimating(CGSizeMake(70, 70), message: "Saving now", type: .SquareSpin, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0))
+            startActivityAnimating(CGSizeMake(70, 70), message: "Saving...", type: .SquareSpin, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0))
             dispatch_after(time, dispatch_get_main_queue()) {
                 self.stopActivityAnimating()
             }

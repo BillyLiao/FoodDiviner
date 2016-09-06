@@ -178,7 +178,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                 restaurant.time = jsonObj["hours"].string
                 restaurant.name = jsonObj["name"].string
                 restaurant.order = jsonObj["ordering"][0].string
-                restaurant.phone = jsonObj["phone"][0].string
+                restaurant.phone = jsonObj["phone"].string
                 restaurant.price = jsonObj["price"].string
                 restaurant.restaurant_id = jsonObj["restaurant_id"].int
                 restaurant.scenario = jsonObj["scenario"][0].string

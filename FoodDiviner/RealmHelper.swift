@@ -16,18 +16,6 @@ class RealmHelper {
         print("Add restaurant")
         
         // In case the phone and time is nil.
-        if restaurant.phone == nil {
-            restaurant.phone = ""
-        }
-        
-        if restaurant.time == nil {
-            restaurant.time = ""
-        }
-        
-        if restaurant.image_id == nil {
-            restaurant.image_id = ""
-        }
-        
         try! realm.write() {
             realm.add(restaurant)
         }

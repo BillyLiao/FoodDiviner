@@ -54,13 +54,13 @@ class DetailRestaurantViewController: UIViewController {
             restPrice.text = restaurant.price
             //TODO: Only show time today
 
-            restPhone.text = restaurant.phone
             restAddre.text = restaurant.address
             
             // If phone or time is Empty, then show "-"
             if let phone = restaurant.phone {
-                restPhone.text = phone
+                restPhone.text = restaurant.phone
             }else {
+                print("phone doesn't exist")
                 restPhone.text = "無此資訊"
             }
             
