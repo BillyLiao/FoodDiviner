@@ -468,7 +468,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="E3e-Nu-vkZ">
                                                 <rect key="frame" x="0.0" y="29" width="298" height="21"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gaN-kf-dgQ" customClass="FDRatingView">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gaN-kf-dgQ">
                                                         <rect key="frame" x="0.0" y="0.0" width="147" height="21"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="21" id="jRz-Qu-EGs"/>
@@ -607,7 +607,7 @@
                                             </stackView>
                                         </subviews>
                                     </stackView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="甘丹鐵板燒" translatesAutoresizingMaskIntoConstraints="NO" id="K8m-fO-V09">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imagePlaceHolder" translatesAutoresizingMaskIntoConstraints="NO" id="K8m-fO-V09">
                                         <rect key="frame" x="0.0" y="0.0" width="328" height="284"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3M-eT-HHs">
@@ -652,7 +652,6 @@
                         <outlet property="restTime" destination="KCX-h9-zxU" id="t5y-su-uan"/>
                         <outlet property="scrollView" destination="YVe-g4-DGe" id="7h3-Fp-g05"/>
                         <outlet property="stackView2" destination="E3e-Nu-vkZ" id="gzk-tM-w3D"/>
-                        <outlet property="starView" destination="gaN-kf-dgQ" id="GtA-pI-1zx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZW9-Hb-bdj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -779,9 +778,9 @@
         <image name="Scenario" width="32" height="32"/>
         <image name="Take" width="75" height="75"/>
         <image name="Time" width="32" height="32"/>
+        <image name="imagePlaceHolder" width="600" height="600"/>
         <image name="star" width="32" height="32"/>
         <image name="star_filled" width="32" height="32"/>
-        <image name="甘丹鐵板燒" width="540" height="359"/>
         <image name="發現義大利麵" width="640" height="426"/>
     </resources>
 </document>

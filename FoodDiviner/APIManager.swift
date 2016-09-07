@@ -21,7 +21,7 @@ class APIManager: NSObject {
     let manager = AFHTTPSessionManager()
     let error = NSError(domain: "webService", code: 400, userInfo: [NSLocalizedDescriptionKey: "Empty responseObject"])
     
-    init(){
+    override init(){
         manager.requestSerializer = AFJSONRequestSerializer()
         manager.responseSerializer = AFJSONResponseSerializer()
     }

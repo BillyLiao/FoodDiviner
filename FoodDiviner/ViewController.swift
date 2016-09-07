@@ -246,9 +246,15 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
                 cell.infoLabel.text = "\(restaurant.cuisine), \(restaurant.price)"
                 cell.setRatingView(restaurant.avgRating as! Float
                 )
-                
                 // Use pod:SDWebImage to download the image from backend
-                cell.imageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(restaurant.image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
+                if let image_id = restaurant.image_id {
+                    print(image_id)
+                    cell.imageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"), completed: { (image, error, cacheType, url) in
+                        restaurant.photo = UIImageJPEGRepresentation(image, 0.6)
+                    })
+                }else {
+                    cell.imageView.image = UIImage(named: "imagePlaceHolder")
+                }
                 return cell
             }
         }
@@ -257,6 +263,7 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
     
     func tinderView(view: SPTinderView, didMoveCellAt index: Int, towards direction: SPTinderViewCellMovement) {
         guard let restaurant = restaurants?[index] else {return}
+        restaurant.photo = nil
         print(restaurant)
         switch stateNow{
         case .afterTrial:

@@ -19,7 +19,7 @@ class DetailRestaurantViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var restImage: UIImageView!
     @IBOutlet weak var restName: UILabel! 
-    @IBOutlet weak var starView: FDRatingView!
+    //@IBOutlet weak var starView: FDRatingView!
     @IBOutlet weak var restDistance: UILabel!
     @IBOutlet weak var restCuisine: UILabel!
     @IBOutlet weak var restScen: UILabel!
@@ -34,9 +34,9 @@ class DetailRestaurantViewController: UIViewController {
         self.view.backgroundColor = UIColor.whiteColor()
         scrollView.frame = self.view.frame
         
-        let rateView = FDRatingView(frame: CGRectMake(0, 0, starView.frame.width, starView.frame.height), style: .Star, numberOfElements: 5, fillValue: self.restaurant.avgRating as! Float, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0), lineWidth: 0.7, spacing: 3)
-        rateView.heightAnchor.constraintEqualToConstant(starView.frame.height).active = true
-        rateView.widthAnchor.constraintEqualToConstant(starView.frame.width).active = true
+        let rateView = FDRatingView(frame: CGRectMake(0, 0, stackView2.frame.width/2, stackView2.frame.height), style: .Star, numberOfElements: 5, fillValue: self.restaurant.avgRating as! Float, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0), lineWidth: 0.7, spacing: 3)
+        //rateView.heightAnchor.constraintEqualToConstant(starView.frame.height).active = true
+        //rateView.widthAnchor.constraintEqualToConstant(starView.frame.width).active = true
         stackView2.addSubview(rateView)
         
         backButton.layer.cornerRadius = backButton.frame.width/2
@@ -56,6 +56,7 @@ class DetailRestaurantViewController: UIViewController {
 
             restAddre.text = restaurant.address
             
+            // If phone or time is Empty, then show "無此資訊"
             if let phone = restaurant.phone {
                 restPhone.text = restaurant.phone
             }else {
@@ -68,11 +69,15 @@ class DetailRestaurantViewController: UIViewController {
                 restTime.text = "無此資訊"
             }
             
+            
             if let imageData = restaurant.photo {
                 restImage.image = UIImage(data: imageData)
             }else {
-                restImage.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(restaurant.image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
+                if let image_id = restaurant.image_id {
+                    restImage.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
+                }
             }
+            
         }
     }
     

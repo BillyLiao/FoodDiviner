@@ -190,53 +190,65 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch  tableView {
         case CollectTV!:
-            var cell = CollectTV!.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CollectionTableViewCell
-            if let collectRestaurants = collectRestaurants {
-                if let imageData = collectRestaurants[indexPath.row].photo {
-                    cell.rtImageView.image = UIImage(data: imageData)
-                }else {
-                    cell.rtImageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(collectRestaurants[indexPath.row].image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
+            if let cell = CollectTV!.dequeueReusableCellWithIdentifier("Cell") as? CollectionTableViewCell {
+                if let collectRestaurant = collectRestaurants?[indexPath.row] {
+                    if cell.rtImageView.image == nil {
+                        if let image_id = collectRestaurant.image_id {
+                            cell.rtImageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
+                        }else {
+                            cell.rtImageView.image = UIImage(named: "imagePlaceHolder")
+                        }
+                    }
+                    cell.rtName.text = collectRestaurant.name
+                    cell.cltTime.text = "\(collectRestaurant.collectTime)"
+                    cell.setRating(collectRestaurant.avgRating as Float)
                 }
-                cell.rtName.text = collectRestaurants[indexPath.row].name
-                cell.cltTime.text = "\(collectRestaurants[indexPath.row].collectTime)"
-                cell.setRating(collectRestaurants[indexPath.row].avgRating as Float)
+                cell.selectionStyle = .None
+                return cell
             }
-            cell.selectionStyle = .None
-            return cell
         case JudgeTV!:
-            var cell = JudgeTV!.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CollectionTableViewCell
-            if let judgeRestaurants = judgeRestaurants {
-                if let imageData = judgeRestaurants[indexPath.row].photo {
-                    cell.rtImageView.image = UIImage(data: imageData)
-                }else {
-                    cell.rtImageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(judgeRestaurants[indexPath.row].image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
+            if let cell = JudgeTV!.dequeueReusableCellWithIdentifier("Cell") as? CollectionTableViewCell {
+                if let judgeRestaurant = judgeRestaurants?[indexPath.row] {
+                    if cell.rtImageView.image == nil {
+                        if let image_id = judgeRestaurant.image_id {
+                            cell.rtImageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
+                        }else {
+                            cell.rtImageView.image = UIImage(named: "imagePlaceHolder")
+                        }
+                    }
+                    cell.rtName.text = judgeRestaurant.name
+                    cell.cltTime.text = "\(judgeRestaurant.collectTime)"
+                    cell.setRating(judgeRestaurant.avgRating as Float)
                 }
-                cell.rtName.text = judgeRestaurants[indexPath.row].name
-                cell.cltTime.text = "\(judgeRestaurants[indexPath.row].collectTime)"
-                cell.setRating(judgeRestaurants[indexPath.row].avgRating as Float)
+                cell.selectionStyle = .None
+                return cell
             }
-            cell.selectionStyle = .None
-            return cell
         case BeenTV!:
-            var cell = BeenTV!.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! BeenTableViewCell
-            if let beenRestaurants = beenRestaurants {
-                if let imageData = beenRestaurants[indexPath.row].photo {
-                    cell.rtImageView.image = UIImage(data: imageData)
-                }else {
-                    cell.rtImageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(beenRestaurants[indexPath.row].image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
+            if let cell = BeenTV!.dequeueReusableCellWithIdentifier("Cell") as? BeenTableViewCell {
+                if let beenRestaurant = beenRestaurants?[indexPath.row] {
+                    if cell.rtImageView.image == nil {
+                        if let image_id = beenRestaurant.image_id {
+                            if let image_id = beenRestaurant.image_id {
+                                cell.rtImageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
+                            }else {
+                            cell.rtImageView.image = UIImage(named: "imagePlaceHolder")
+                            }
+                        }
+                    cell.rtName.text = beenRestaurant.name
+                    cell.beenDate.text = "7/23"
+                    }
+                cell.selectionStyle = .None
+                return cell
                 }
-                cell.rtName.text = beenRestaurants[indexPath.row].name
-                cell.beenDate.text = "7/23"
             }
-            cell.selectionStyle = .None
-            return cell
         default:
             break
         }
         return UITableViewCell()
     }
-    
+
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
         switch tableView {
         case CollectTV!:
             let destinationController = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DetailRestaurantViewController") as! DetailRestaurantViewController
@@ -254,6 +266,9 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
             break
         }
     }
+    
+    
+    
     
     /*
     // MARK: - Navigation

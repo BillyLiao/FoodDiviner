@@ -28,9 +28,28 @@ class RealmHelper {
         }
     }
     
-    static func retriveRestaurantByStatus(status: Int) -> Results<Restaurant>{
+    static func retriveRestaurantByStatus(status: Int) -> Results<Restaurant> {
         let realm = try! Realm()
         return realm.objects(Restaurant).filter("status == \(status)").sorted("collectTime", ascending: false)
+    }
+    
+    static func retriveAllRestaurants() -> Results<Restaurant> {
+        let realm = try! Realm()
+        return realm.objects(Restaurant)
+    }
+    
+    static func cleanPhotosInRestaurants() {
+        let restaurants = retriveAllRestaurants()
+        for restaurant in restaurants {
+            restaurant.photo = nil
+        }
+    }
+    
+    static func addPhotosInRestaurant(restaurant: Restaurant, imageData: NSData){
+        let realm = try! Realm()
+        try! realm.write() {
+            restaurant.photo = imageData
+        }
     }
     
     static func isRestaurantExist(restaurant: Restaurant) -> Bool {
