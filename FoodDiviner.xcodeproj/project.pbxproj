@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		51104A821CF9753200241DBE /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51104A811CF9753200241DBE /* TableViewController.swift */; };
 		51104A841CF9B0F800241DBE /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51104A831CF9B0F800241DBE /* Restaurant.swift */; };
 		51104A861CF9E77900241DBE /* CollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51104A851CF9E77900241DBE /* CollectionTableViewCell.swift */; };
 		51104A881CF9E78400241DBE /* BeenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51104A871CF9E78400241DBE /* BeenTableViewCell.swift */; };
@@ -48,7 +47,6 @@
 
 /* Begin PBXFileReference section */
 		4C6A9CAADE7A4597541E0135 /* Pods-FoodDiviner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDiviner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDiviner/Pods-FoodDiviner.debug.xcconfig"; sourceTree = "<group>"; };
-		51104A811CF9753200241DBE /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		51104A831CF9B0F800241DBE /* Restaurant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		51104A851CF9E77900241DBE /* CollectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionTableViewCell.swift; sourceTree = "<group>"; };
 		51104A871CF9E78400241DBE /* BeenTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeenTableViewCell.swift; sourceTree = "<group>"; };
@@ -163,7 +161,6 @@
 				51104AC41CFC1DB800241DBE /* AdavanceSearchViewController.swift */,
 				514973A21CF7E63900D3B58B /* CollectionViewController.swift */,
 				51162E831D3495ED004F807F /* RatingViewController.swift */,
-				51104A811CF9753200241DBE /* TableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -372,7 +369,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5149739D1CF6ED6E00D3B58B /* RestaurantCell.swift in Sources */,
-				51104A821CF9753200241DBE /* TableViewController.swift in Sources */,
 				5157708E1D1A57FD00549A4E /* fbLoginViewController.swift in Sources */,
 				51104A881CF9E78400241DBE /* BeenTableViewCell.swift in Sources */,
 				51FA52351CEB20A70037562E /* ViewController.swift in Sources */,

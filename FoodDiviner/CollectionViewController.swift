@@ -42,8 +42,7 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        /* Set three button below the navigation bar */
+        /* Set three buttons below the navigation bar */
         switchToCollectBtn = UIButton(frame: CGRect(x: 0, y: 0, width: self.view.frame.width/3, height: 50))
         switchToCollectBtn.setTitle("收藏", forState: .Normal)
         switchToCollectBtn.setTitleColor(UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1), forState: .Normal)
@@ -190,39 +189,15 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch  tableView {
         case CollectTV!:
-            if let cell = CollectTV!.dequeueReusableCellWithIdentifier("Cell") as? CollectionTableViewCell {
-                if let collectRestaurant = collectRestaurants?[indexPath.row] {
-                    if cell.rtImageView.image == nil {
-                        if let image_id = collectRestaurant.image_id {
-                            cell.rtImageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
-                        }else {
-                            cell.rtImageView.image = UIImage(named: "imagePlaceHolder")
-                        }
-                    }
-                    cell.rtName.text = collectRestaurant.name
-                    cell.cltTime.text = "\(collectRestaurant.collectTime)"
-                    cell.setRating(collectRestaurant.avgRating as Float)
-                }
-                cell.selectionStyle = .None
-                return cell
-            }
+            let cell = CollectTV!.dequeueReusableCellWithIdentifier("Cell") as! CollectionTableViewCell
+            cell.restaurant = collectRestaurants![indexPath.row]
+            return cell
+            
         case JudgeTV!:
-            if let cell = JudgeTV!.dequeueReusableCellWithIdentifier("Cell") as? CollectionTableViewCell {
-                if let judgeRestaurant = judgeRestaurants?[indexPath.row] {
-                    if cell.rtImageView.image == nil {
-                        if let image_id = judgeRestaurant.image_id {
-                            cell.rtImageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
-                        }else {
-                            cell.rtImageView.image = UIImage(named: "imagePlaceHolder")
-                        }
-                    }
-                    cell.rtName.text = judgeRestaurant.name
-                    cell.cltTime.text = "\(judgeRestaurant.collectTime)"
-                    cell.setRating(judgeRestaurant.avgRating as Float)
-                }
-                cell.selectionStyle = .None
-                return cell
-            }
+            let cell = JudgeTV!.dequeueReusableCellWithIdentifier("Cell") as! CollectionTableViewCell
+            cell.restaurant = judgeRestaurants![indexPath.row]
+            return cell
+
         case BeenTV!:
             if let cell = BeenTV!.dequeueReusableCellWithIdentifier("Cell") as? BeenTableViewCell {
                 if let beenRestaurant = beenRestaurants?[indexPath.row] {
@@ -241,6 +216,7 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
                 return cell
                 }
             }
+ 
         default:
             break
         }
