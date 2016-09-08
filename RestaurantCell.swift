@@ -49,7 +49,6 @@ class RestaurantCell: SPTinderViewCell {
     
     func setRatingView(rating: Float?){
         if let rate = rating {
-            
             switch  deviceHelper.checkSize() {
             case "iphone4Family":
                 let ratingView = FDRatingView(frame: CGRectMake(titleView.frame.width*0.6, 0, 0, 20), style: .Star, numberOfElements: 5, fillValue: rate, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0), lineWidth: 0.7, spacing: 3)

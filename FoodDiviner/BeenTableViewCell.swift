@@ -35,7 +35,9 @@ class BeenTableViewCell: UITableViewCell {
     
     private func updateUI(){
         rtName.text = restaurant.name
-        beenDate.text = String(restaurant.lastBeenDate)
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+        beenDate.text = dateFormatter.stringFromDate(restaurant.lastBeenDate)
         if let image_id = restaurant.image_id {
             self.rtImageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
         }else {
@@ -50,8 +52,9 @@ class BeenTableViewCell: UITableViewCell {
     }
     
     private func setRating(rate: Float){
-        rateView
+        rateView.removeFromSuperview()
         rateView = FDRatingView(frame: CGRectMake(starView.frame.origin.x, starView.frame.origin.y, starView.frame.width, starView.frame.height), style: .Star, numberOfElements: 5, fillValue: rate, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0), lineWidth: 0.7, spacing: 3)
+        self.addSubview(rateView)
     }
 
 }

@@ -31,11 +31,11 @@ class CollectionTableViewCell: UITableViewCell {
         rtImageView.layer.cornerRadius = rtImageView.frame.size.width/2
         rtImageView.clipsToBounds = true
         rtImageView.layer.shouldRasterize = true
-
-        self.selectionStyle = .None
         
         rateView = FDRatingView(frame: self.starView.frame, style: .Star, numberOfElements: 5, fillValue: 5, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0), lineWidth: 0.7, spacing: 1)
         self.addSubview(rateView)
+        
+        self.selectionStyle = .None
         self.selectionStyle = UITableViewCellSelectionStyle.None
     }
 
@@ -49,6 +49,7 @@ class CollectionTableViewCell: UITableViewCell {
     }
     
     private func updateUI(){
+        
         rtName.text = restaurant.name
         cltTime.text = String(restaurant.collectTime)
         if let image_id = restaurant.image_id{
@@ -60,6 +61,8 @@ class CollectionTableViewCell: UITableViewCell {
     }
     
     private func setRating(rating: Float!) {
+        rateView.removeFromSuperview()
         rateView = FDRatingView(frame: self.starView.frame, style: .Star, numberOfElements: 5, fillValue: rating, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0), lineWidth: 0.7, spacing: 1)
+        self.addSubview(rateView)
     }
 }

@@ -33,6 +33,7 @@ class DetailRestaurantViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
         scrollView.frame = self.view.frame
+        print(self.restaurant.avgRating)
         let rateView = FDRatingView(frame: CGRectMake(0, 0, stackView2.frame.width/2, stackView2.frame.height), style: .Star, numberOfElements: 5, fillValue: self.restaurant.avgRating as! Float, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0), lineWidth: 0.7, spacing: 3)
         //rateView.heightAnchor.constraintEqualToConstant(starView.frame.height).active = true
         //rateView.widthAnchor.constraintEqualToConstant(starView.frame.width).active = true
