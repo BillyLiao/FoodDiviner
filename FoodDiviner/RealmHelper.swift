@@ -23,9 +23,14 @@ class RealmHelper {
     
     static func updateRestaurant(restaurant: Restaurant, status: Int){
         let realm = try! Realm()
-        try! realm.write() {
-            restaurant.status = status
+        if isRestaurantExist(restaurant){
+            if let result = realm.objects(Restaurant).filter("restaurant_id == \(restaurant.restaurant_id)").first! as? Restaurant {
+                try! realm.write() {
+                    result.status = status
+                }
+            }
         }
+
     }
     
     static func updateRestaurant(restaurant: Restaurant, status: Int, rate: Int, date: NSDate){
@@ -78,9 +83,7 @@ class RealmHelper {
             if let result = realm.objects(Restaurant).filter("restaurant_id == \(restaurant.restaurant_id)").first! as? Restaurant {
                 try! realm.write() {
                     let collectTime = Int(result.collectTime)
-                    print(collectTime)
                     result.collectTime = collectTime + 1
-                    print(result.collectTime)
                 }
             }
         }

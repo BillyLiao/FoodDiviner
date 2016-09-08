@@ -109,6 +109,7 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
     
     override func viewWillAppear(animated: Bool) {
         collectRestaurants = RealmHelper.retriveRestaurantByStatus(1)
+        print(collectRestaurants)
         judgeRestaurants = RealmHelper.retriveRestaurantByStatus(2)
         beenRestaurants = RealmHelper.retriveRestaurantByStatus(3)
     }
