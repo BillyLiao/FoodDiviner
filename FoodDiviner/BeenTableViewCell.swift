@@ -29,7 +29,7 @@ class BeenTableViewCell: UITableViewCell {
         self.selectionStyle = UITableViewCellSelectionStyle.None
         rtImageView.layer.cornerRadius = rtImageView.frame.size.width/2
         rtImageView.clipsToBounds = true
-        rateView = FDRatingView(frame: CGRectMake(starView.frame.origin.x, starView.frame.origin.y, starView.frame.width, starView.frame.height), style: .Star, numberOfElements: 5, fillValue: 3.67, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0), lineWidth: 0.7, spacing: 3)
+        rateView = FDRatingView(frame: CGRectMake(starView.frame.origin.x, starView.frame.origin.y, starView.frame.width, starView.frame.height), style: .Star, numberOfElements: 5, fillValue: 0, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0), lineWidth: 0.7, spacing: 3)
         self.addSubview(rateView)
     }
     
@@ -41,7 +41,7 @@ class BeenTableViewCell: UITableViewCell {
         }else {
             self.rtImageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/"), placeholderImage: UIImage(named:"imagePlaceHolder"))
         }
-        self.setRating(restaurant.avgRating as Float)
+        self.setRating(restaurant.userRating as Float)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -50,6 +50,7 @@ class BeenTableViewCell: UITableViewCell {
     }
     
     private func setRating(rate: Float){
+        rateView
         rateView = FDRatingView(frame: CGRectMake(starView.frame.origin.x, starView.frame.origin.y, starView.frame.width, starView.frame.height), style: .Star, numberOfElements: 5, fillValue: rate, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0), lineWidth: 0.7, spacing: 3)
     }
 

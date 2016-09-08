@@ -184,7 +184,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                 restaurant.scenario = jsonObj["scenario"][0].string
                 restaurant.tags = jsonObj["tags"][0].string
                 restaurant.image_id = jsonObj["image"][0].string
-                restaurant.avgRating = 5
+                restaurant.avgRating = 4
                 
                 if jsonObj["cuisine"].count > 1 {
                     for j in 1..<jsonObj["cuisine"].count {
@@ -284,7 +284,7 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
             case .Top:
                 if RealmHelper.isRestaurantExist(restaurant) {
                     print("Up, update restaurant")
-                    RealmHelper.updateRestaurantStatus(restaurant, status: 2)
+                    RealmHelper.updateRestaurant(restaurant, status: 2)
                     RealmHelper.addRestaurantCollectionTime(restaurant)
                 }else{
                     print("Up, add restaurant")

@@ -18,6 +18,7 @@ class RatingViewController: UIViewController {
     @IBOutlet weak var restaurantImage: UIImageView!
     
     var restaurant: Restaurant!
+    let user = NSUserDefaults()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +56,20 @@ class RatingViewController: UIViewController {
     }
     
     @IBAction func submitRating(sender: AnyObject) {
-        
+        if ratingView.value == 0 {
+            let alertController = UIAlertController(title: "尚未評分", message: "各位活菩薩，幫我評個分再走吧?", preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: "OK!", style: .Default, handler: nil)
+            alertController.addAction(cancelAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }else {
+            let manager = APIManager()
+            RealmHelper.updateRestaurant(restaurant, status: 3, rate: (ratingView.value as NSNumber) as Int, date: NSDate())
+            print((ratingView.value as NSNumber) as Int)
+            //TODO: Haven't sent tags.
+            //TOFIX: Backend internal error.
+            manager.postUserRating(user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, rate: (ratingView.value as NSNumber) as Int, tags: [])
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
 
     /*

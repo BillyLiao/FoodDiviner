@@ -21,10 +21,19 @@ class RealmHelper {
         }
     }
     
-    static func updateRestaurantStatus(restaurant: Restaurant, status: Int){
+    static func updateRestaurant(restaurant: Restaurant, status: Int){
         let realm = try! Realm()
         try! realm.write() {
             restaurant.status = status
+        }
+    }
+    
+    static func updateRestaurant(restaurant: Restaurant, status: Int, rate: Int, date: NSDate){
+        let realm = try! Realm()
+        try! realm.write() {
+            restaurant.status = status
+            restaurant.userRating = rate
+            restaurant.lastBeenDate = date
         }
     }
     

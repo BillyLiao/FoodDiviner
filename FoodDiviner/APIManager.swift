@@ -104,6 +104,4 @@ class APIManager: NSObject {
     }
     */
     
-    func postUserRating(){
-    }
 }
