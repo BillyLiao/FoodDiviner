@@ -611,7 +611,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="328" height="284"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3M-eT-HHs">
-                                        <rect key="frame" x="10" y="10" width="50" height="50"/>
+                                        <rect key="frame" x="8" y="8" width="50" height="50"/>
                                         <state key="normal" image="Back"/>
                                         <connections>
                                             <action selector="backToMain:" destination="bR9-wC-nqi" eventType="touchUpInside" id="kSM-vO-BvT"/>
@@ -670,62 +670,64 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="發現義大利麵" translatesAutoresizingMaskIntoConstraints="NO" id="9aF-bA-rWo">
-                                <rect key="frame" x="-4" y="0.0" width="320" height="284"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imagePlaceHolder" translatesAutoresizingMaskIntoConstraints="NO" id="9aF-bA-rWo">
+                                <rect key="frame" x="-4" y="0.0" width="328" height="284"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="發現義大利麵" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7hS-Bf-X8K">
-                                <rect key="frame" x="16" y="292" width="280" height="26"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="評價:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6f8-bh-wPV">
-                                <rect key="frame" x="16" y="326" width="47" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gbb-h1-KTp" customClass="HCSStarRatingView">
-                                <rect key="frame" x="73" y="319" width="172" height="36"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="LFU-z0-lXo">
+                                <rect key="frame" x="31" y="299" width="258" height="55"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="餐廳名稱" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7hS-Bf-X8K">
+                                        <rect key="frame" x="0.0" y="0.0" width="72" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="vgV-th-sqn"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EUU-Y5-EUS">
+                                        <rect key="frame" x="0.0" y="30" width="258" height="25"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="評價:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6f8-bh-wPV">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="yaC-8g-Kdk"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gbb-h1-KTp" customClass="HCSStarRatingView">
+                                                <rect key="frame" x="50" y="0.0" width="208" height="25"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="minimumValue">
+                                                        <real key="value" value="0.0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                                        <real key="value" value="0.0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="spacing">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="continuous" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="allowsHalfStars" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="accurateHalfStars" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyStarImage" value="star"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="filledStarImage" value="star_filled"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="172" id="d42-kX-9WO"/>
-                                    <constraint firstAttribute="height" constant="36" id="iap-4p-7e3"/>
+                                    <constraint firstItem="7hS-Bf-X8K" firstAttribute="height" secondItem="EUU-Y5-EUS" secondAttribute="height" id="f6E-4L-Pbv"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
-                                        <integer key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="minimumValue">
-                                        <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
-                                        <real key="value" value="3.6000000000000001"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="spacing">
-                                        <real key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="continuous" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="allowsHalfStars" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="accurateHalfStars" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyStarImage" value="star"/>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="filledStarImage" value="star_filled"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QuA-98-ORa">
-                                <rect key="frame" x="113" y="531" width="94" height="25"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="1VX-Ro-tfF"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Submit">
-                                    <color key="titleColor" red="1" green="0.52730950239999996" blue="0.32460628450000001" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="submitRating:" destination="fcd-vv-cJw" eventType="touchUpInside" id="ECz-21-p2g"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yBc-Vl-aBz">
-                                <rect key="frame" x="10" y="10" width="50" height="50"/>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yBc-Vl-aBz">
+                                <rect key="frame" x="6" y="10" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="2mL-To-FSR"/>
                                     <constraint firstAttribute="height" constant="50" id="Ey8-hz-pw7"/>
@@ -735,28 +737,41 @@
                                     <action selector="backToCollection:" destination="fcd-vv-cJw" eventType="touchUpInside" id="sya-e8-qi0"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QuA-98-ORa">
+                                <rect key="frame" x="120" y="498" width="80" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="LeU-Ce-D58"/>
+                                    <constraint firstAttribute="width" constant="80" id="elE-B6-PPf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Submit">
+                                    <color key="titleColor" red="1" green="0.52730950239999996" blue="0.32460628450000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="submitRating:" destination="fcd-vv-cJw" eventType="touchUpInside" id="ECz-21-p2g"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="7hS-Bf-X8K" firstAttribute="trailing" secondItem="jyz-En-ugs" secondAttribute="trailingMargin" id="C8h-IT-tLn"/>
+                            <constraint firstItem="LFU-z0-lXo" firstAttribute="leading" secondItem="jyz-En-ugs" secondAttribute="leadingMargin" constant="15" id="5kt-Id-OyM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="LFU-z0-lXo" secondAttribute="trailing" constant="15" id="BgT-Og-AU3"/>
                             <constraint firstItem="9aF-bA-rWo" firstAttribute="leading" secondItem="jyz-En-ugs" secondAttribute="leadingMargin" constant="-20" id="Cwh-GK-tv5"/>
-                            <constraint firstItem="QuA-98-ORa" firstAttribute="centerX" secondItem="9aF-bA-rWo" secondAttribute="centerX" id="IxX-4p-VvG"/>
-                            <constraint firstItem="7hS-Bf-X8K" firstAttribute="top" secondItem="9aF-bA-rWo" secondAttribute="bottom" constant="15" id="Jiv-o3-OiE"/>
+                            <constraint firstItem="yBc-Vl-aBz" firstAttribute="top" secondItem="jyz-En-ugs" secondAttribute="topMargin" constant="10" id="Na3-Vx-bzm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9aF-bA-rWo" secondAttribute="trailing" constant="-20" id="Qnx-UT-pHk"/>
                             <constraint firstItem="9aF-bA-rWo" firstAttribute="height" secondItem="jyz-En-ugs" secondAttribute="height" multiplier="0.5" id="ToC-Rc-pyf"/>
                             <constraint firstItem="9aF-bA-rWo" firstAttribute="top" secondItem="jyz-En-ugs" secondAttribute="topMargin" id="d2i-Hn-7iP"/>
-                            <constraint firstItem="7PJ-d1-TiU" firstAttribute="top" secondItem="QuA-98-ORa" secondAttribute="bottom" constant="12" id="eCn-Rm-kh2"/>
-                            <constraint firstItem="6f8-bh-wPV" firstAttribute="leading" secondItem="jyz-En-ugs" secondAttribute="leadingMargin" id="itK-w3-guY"/>
-                            <constraint firstItem="QuA-98-ORa" firstAttribute="leading" secondItem="jyz-En-ugs" secondAttribute="leadingMargin" constant="97" id="n6B-Ja-BEW"/>
-                            <constraint firstItem="Gbb-h1-KTp" firstAttribute="centerY" secondItem="6f8-bh-wPV" secondAttribute="centerY" id="pnz-yl-7gx"/>
-                            <constraint firstItem="7hS-Bf-X8K" firstAttribute="leading" secondItem="jyz-En-ugs" secondAttribute="leadingMargin" id="yHq-7y-c7u"/>
-                            <constraint firstItem="Gbb-h1-KTp" firstAttribute="leading" secondItem="6f8-bh-wPV" secondAttribute="trailing" constant="6" id="zMZ-qm-a2o"/>
-                            <constraint firstItem="6f8-bh-wPV" firstAttribute="top" secondItem="7hS-Bf-X8K" secondAttribute="bottom" constant="8" id="zUP-Ez-08O"/>
+                            <constraint firstItem="LFU-z0-lXo" firstAttribute="top" secondItem="9aF-bA-rWo" secondAttribute="bottom" constant="15" id="gCs-6h-fEX"/>
+                            <constraint firstItem="7PJ-d1-TiU" firstAttribute="top" secondItem="QuA-98-ORa" secondAttribute="bottom" constant="20" id="jan-X5-reX"/>
+                            <constraint firstItem="QuA-98-ORa" firstAttribute="centerX" secondItem="jyz-En-ugs" secondAttribute="centerX" id="k0F-DK-E8j"/>
+                            <constraint firstItem="yBc-Vl-aBz" firstAttribute="leading" secondItem="jyz-En-ugs" secondAttribute="leadingMargin" constant="-10" id="m8O-1K-dcp"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="backBtn" destination="yBc-Vl-aBz" id="5jT-kT-vOv"/>
                         <outlet property="ratingView" destination="Gbb-h1-KTp" id="v6U-3V-LLD"/>
+                        <outlet property="restaurantImage" destination="9aF-bA-rWo" id="6XO-Oo-N80"/>
+                        <outlet property="restaurantName" destination="7hS-Bf-X8K" id="gZ0-bd-aTq"/>
                         <outlet property="submitBtn" destination="QuA-98-ORa" id="3lG-Ju-jIj"/>
                     </connections>
                 </viewController>
@@ -781,6 +796,5 @@
         <image name="imagePlaceHolder" width="600" height="600"/>
         <image name="star" width="32" height="32"/>
         <image name="star_filled" width="32" height="32"/>
-        <image name="發現義大利麵" width="640" height="426"/>
     </resources>
 </document>

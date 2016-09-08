@@ -199,23 +199,9 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
             return cell
 
         case BeenTV!:
-            if let cell = BeenTV!.dequeueReusableCellWithIdentifier("Cell") as? BeenTableViewCell {
-                if let beenRestaurant = beenRestaurants?[indexPath.row] {
-                    if cell.rtImageView.image == nil {
-                        if let image_id = beenRestaurant.image_id {
-                            if let image_id = beenRestaurant.image_id {
-                                cell.rtImageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
-                            }else {
-                            cell.rtImageView.image = UIImage(named: "imagePlaceHolder")
-                            }
-                        }
-                    cell.rtName.text = beenRestaurant.name
-                    cell.beenDate.text = "7/23"
-                    }
-                cell.selectionStyle = .None
-                return cell
-                }
-            }
+            let cell = BeenTV!.dequeueReusableCellWithIdentifier("Cell") as! BeenTableViewCell
+            cell.restaurant = beenRestaurants![indexPath.row]
+            return cell
  
         default:
             break
