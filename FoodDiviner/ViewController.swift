@@ -308,8 +308,6 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
             switch direction{
             case .Left:
                 print("Swipe Left")
-                let adavanceSearchViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("advanceSearchViewController") as! AdavanceSearchViewController
-                self.presentViewController(adavanceSearchViewController, animated: true, completion: nil)
                 user_trial.setObject(false, forKey: "\(restaurants![index].restaurant_id)")
             case .Right:
                 print("Swipe Right")
