@@ -30,7 +30,6 @@ class APIManager: NSObject {
         let url = "\(baseURL)/users/\(uid)/recommendation"
         let params: NSDictionary?
         
-        // TODO: Problems in Backend.
         if advance == true {
             params = NSDictionary(dictionary: ["advance": advance, "prefer_prices": preferPrices!, "weather": weather!, "transport": transport!, "lat": lat!, "lng": lng!])
         }else {
