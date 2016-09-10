@@ -109,7 +109,6 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
     
     override func viewWillAppear(animated: Bool) {
         collectRestaurants = RealmHelper.retriveRestaurantByStatus(1)
-        print(collectRestaurants)
         judgeRestaurants = RealmHelper.retriveRestaurantByStatus(2)
         beenRestaurants = RealmHelper.retriveRestaurantByStatus(3)
     }
@@ -216,10 +215,12 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
         case CollectTV!:
             let destinationController = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DetailRestaurantViewController") as! DetailRestaurantViewController
             destinationController.restaurant = collectRestaurants![indexPath.row]
+            print(destinationController.restaurant)
             self.presentViewController(destinationController, animated: true, completion: nil)
         case JudgeTV!:
             let destinationController = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("RatingViewController") as! RatingViewController
             destinationController.restaurant = judgeRestaurants![indexPath.row]
+            print(destinationController.restaurant)
             self.presentViewController(destinationController, animated: true, completion: nil)
         case BeenTV!:
             let destinationController = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DetailRestaurantViewController") as! DetailRestaurantViewController

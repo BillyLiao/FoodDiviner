@@ -35,12 +35,12 @@ class RatingViewController: UIViewController {
         submitBtn.layer.borderColor = borderColor
         
         restaurantName.text = restaurant.name
-        if let image_id = restaurant.image_id{
-            if restaurant.photo != nil {
+        if let imageData = restaurant.photo {
+            restaurantImage.image = UIImage(data: imageData)
+        }else {
+            if let image_id = restaurant.image_id {
                 restaurantImage.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
             }
-        }else {
-            restaurantImage.image = UIImage(named: "imagePlaceHolder")
         }
     }
 

@@ -66,7 +66,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Add this to automatically redirect from white web page to App & Access FBSDKAccessToken.currentAccessToken()
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
-        
     }
 
 
