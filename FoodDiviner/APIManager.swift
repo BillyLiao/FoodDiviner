@@ -17,7 +17,7 @@ protocol WebServiceDelegate: class {
 class APIManager: NSObject {
     
     weak var delegate: WebServiceDelegate?
-    let baseURL = "http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com"
+    let baseURL = "http://api-server.jqemsuerdm.ap-northeast-1.elasticbeanstalk.com"
     let manager = AFHTTPSessionManager()
     let error = NSError(domain: "webService", code: 400, userInfo: [NSLocalizedDescriptionKey: "Empty responseObject"])
     

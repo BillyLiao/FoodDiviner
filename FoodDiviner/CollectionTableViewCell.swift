@@ -49,7 +49,6 @@ class CollectionTableViewCell: UITableViewCell {
     }
     
     private func updateUI(){
-        
         rtName.text = restaurant.name
         cltTime.text = String(restaurant.collectTime)
         if let image_id = restaurant.image_id{

@@ -100,7 +100,22 @@ public class SPTinderViewCell: UIView, UIGestureRecognizerDelegate {
        //
     }
     
-    func setCellMovementDirectionFromDrift(xDrift: CGFloat, yDrift: CGFloat){
+    public func setCellMovementDirection(movement: SPTinderViewCellMovement){
+        if movement != .None {
+            self.cellMovement = movement
+            if let cellMoveBlock = onCellDidMove {
+                cellMoveBlock(movement)
+            }
+        } else {
+            UIView.animateWithDuration(0.5, delay: 0.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [.AllowUserInteraction], animations: {
+                self.center = self.originalCenter
+                self.transform = CGAffineTransformIdentity
+                }, completion: nil)
+        }
+    }
+
+    
+    public func setCellMovementDirectionFromDrift(xDrift: CGFloat, yDrift: CGFloat){
         var movement: SPTinderViewCellMovement = .None
         if(xDrift > self.frame.width * scaleToRemoveCell) { movement = .Right }
         else if(-xDrift > self.frame.width * scaleToRemoveCell) { movement = .Left }
@@ -108,9 +123,12 @@ public class SPTinderViewCell: UIView, UIGestureRecognizerDelegate {
         else if(yDrift > self.frame.height * scaleToRemoveCell) { movement = .None }
         else { movement = .None }
         if movement != .None  {
+            print("cellMovement: \(movement)")
             self.cellMovement = movement
             if let cellMoveBlock = onCellDidMove {
+                print("Before cellMoveBlock")
                 cellMoveBlock(movement)
+                print("After cellMoveBlock")
             }
         } else {
             UIView.animateWithDuration(0.5, delay: 0.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [.AllowUserInteraction], animations: {

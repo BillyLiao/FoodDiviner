@@ -458,35 +458,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="h11-lb-nsM">
-                                <rect key="frame" x="31" y="503" width="258" height="50"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OPg-4Z-yRb">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="0Nh-Va-gVg"/>
-                                            <constraint firstAttribute="width" constant="50" id="pbZ-xx-dQb"/>
-                                        </constraints>
-                                        <state key="normal" image="Cancel"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jE5-1u-uom">
-                                        <rect key="frame" x="104" y="0.0" width="50" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="EPn-eX-wqS"/>
-                                            <constraint firstAttribute="width" constant="50" id="QNU-qP-aNS"/>
-                                        </constraints>
-                                        <state key="normal" image="Take"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vQ6-2i-9Qp">
-                                        <rect key="frame" x="208" y="0.0" width="50" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="gws-fz-paX"/>
-                                            <constraint firstAttribute="height" constant="50" id="jyc-Ow-Wqm"/>
-                                        </constraints>
-                                        <state key="normal" image="Collect"/>
-                                    </button>
-                                </subviews>
-                            </stackView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YVe-g4-DGe">
                                 <rect key="frame" x="-4" y="0.0" width="328" height="568"/>
                                 <subviews>
@@ -672,11 +643,7 @@
                             <constraint firstItem="YVe-g4-DGe" firstAttribute="top" secondItem="ffI-gz-McX" secondAttribute="top" id="7Oz-xo-lfX"/>
                             <constraint firstItem="YVe-g4-DGe" firstAttribute="leading" secondItem="ffI-gz-McX" secondAttribute="leadingMargin" constant="-20" id="A68-IF-8xV"/>
                             <constraint firstItem="YVe-g4-DGe" firstAttribute="bottom" secondItem="EFQ-wu-S0e" secondAttribute="top" id="HoR-hf-Y2Z"/>
-                            <constraint firstItem="h11-lb-nsM" firstAttribute="centerX" secondItem="ffI-gz-McX" secondAttribute="centerX" id="Lue-Ew-5zP"/>
-                            <constraint firstItem="EFQ-wu-S0e" firstAttribute="top" secondItem="h11-lb-nsM" secondAttribute="bottom" constant="15" id="Q7Q-1d-oP2"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="h11-lb-nsM" secondAttribute="trailing" constant="15" id="SVx-7F-f7g"/>
                             <constraint firstItem="YVe-g4-DGe" firstAttribute="centerX" secondItem="ffI-gz-McX" secondAttribute="centerX" id="Z3d-Oe-MkT"/>
-                            <constraint firstItem="h11-lb-nsM" firstAttribute="leading" secondItem="ffI-gz-McX" secondAttribute="leadingMargin" constant="15" id="pzm-tR-TBJ"/>
                         </constraints>
                     </view>
                     <connections>

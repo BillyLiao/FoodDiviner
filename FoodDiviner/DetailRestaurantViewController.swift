@@ -40,7 +40,6 @@ class DetailRestaurantViewController: UIViewController {
         stackView2.addSubview(rateView)
         
         backButton.layer.cornerRadius = backButton.frame.width/2
-        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -94,6 +93,70 @@ class DetailRestaurantViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func like() {
+        
+    }
+    
+    func take() {
+    
+    }
+    
+    func dislike() {
+        
+    }
+    
+    func delete() {
+        
+    }
+    
+    func go() {
+        
+    }
+    
+    func isFromMain() {
+        let likeBtn = UIButton()
+        likeBtn.heightAnchor.constraintEqualToConstant(70).active = true
+        likeBtn.widthAnchor.constraintEqualToConstant(70).active = true
+        likeBtn.imageView?.image = UIImage(named: "Collect")
+        
+        let dislikeBtn = UIButton()
+        dislikeBtn.heightAnchor.constraintEqualToConstant(70).active = true
+        dislikeBtn.widthAnchor.constraintEqualToConstant(70).active = true
+        dislikeBtn.imageView?.image = UIImage(named: "Cancel")
+        
+        let takeBtn = UIButton()
+        takeBtn.heightAnchor.constraintEqualToConstant(70).active = true
+        takeBtn.widthAnchor.constraintEqualToConstant(70).active = true
+        takeBtn.imageView?.image = UIImage(named: "Take")
+        
+        let stackView = UIStackView()
+        
+        stackView.center.x = self.view.frame.width/2
+        stackView.center.y = self.view.frame.height - 90
+        stackView.axis = UILayoutConstraintAxis.Horizontal
+        stackView.distribution = UIStackViewDistribution.EqualSpacing
+        stackView.alignment = UIStackViewAlignment.Center
+        stackView.spacing = 50
+        
+        stackView.addArrangedSubview(dislikeBtn)
+        stackView.addArrangedSubview(takeBtn)
+        stackView.addArrangedSubview(likeBtn)
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(stackView)
+        stackView.backgroundColor = UIColor.blueColor()
+        print(stackView.frame.origin.x)
+        print(stackView.frame.origin.y)
+    }
+    
+    func isFromBeen() {
+        
+    }
+    
+    func isFromLike() {
+        
+    }
+
 
     /*
     // MARK: - Navigation

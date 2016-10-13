@@ -337,12 +337,15 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
         if let restaurant = restaurants?[index] {
             destinationController.restaurant = restaurant
         }
+        destinationController.isFromMain()
         self.presentViewController(destinationController, animated: true, completion: nil)
     }
     
     //TODO: Animate removal by buttons
     // Take the restaurant
     @IBAction func take(sender: AnyObject) {
+        //restaurantView.animateRemovalForCellOnTop(.Top)
+        
     }
     
     // Collect the restaurant
