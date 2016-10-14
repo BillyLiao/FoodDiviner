@@ -26,5 +26,6 @@ class Restaurant: Object{
     dynamic var userRating: NSNumber! = 0
     dynamic var lastBeenDate: NSDate! = NSDate()
     dynamic var collectTime: NSNumber! = 0
+    dynamic var beenTime: NSNumber! = 0 
     dynamic var status: NSNumber! = 0
 }

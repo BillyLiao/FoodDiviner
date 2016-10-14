@@ -64,6 +64,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         case .afterTrial:
             print("After Trial.")
             loadIndicator.startAnimation()
+            lockButtons(true)
             manager.getRestRecom(user.valueForKey("user_id") as! NSNumber, advance: user.valueForKey("advance") as! Bool, preferPrices: user.valueForKey("preferPrices") as? [Int], weather: user.valueForKey("weather") as? String, transport: user.valueForKey("transport") as? String, lat: user.valueForKey("lat") as? Double, lng: user.valueForKey("lng") as? Double)
         default:
             break
@@ -166,6 +167,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     
     func userRecomGetRequestDidFinished(r: [NSDictionary]?) {
         loadIndicator.stopAnimation()
+        lockButtons(false)
         // Clean the temRestaurant array.
         restaurants = []
         if let data = r {
@@ -266,7 +268,6 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
     func tinderView(view: SPTinderView, didMoveCellAt index: Int, towards direction: SPTinderViewCellMovement) {
         guard let restaurant = restaurants?[index] else {return}
         restaurant.photo = nil
-        print(restaurant)
         switch stateNow{
         case .afterTrial:
             switch direction{
@@ -287,11 +288,11 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
                 if RealmHelper.isRestaurantExist(restaurant) {
                     print("Up, update restaurant")
                     RealmHelper.updateRestaurant(restaurant, status: 2)
-                    RealmHelper.addRestaurantCollectionTime(restaurant)
+                    RealmHelper.addRestaurantBeenTime(restaurant)
                 }else{
                     print("Up, add restaurant")
                     restaurant.status = 2
-                    restaurant.collectTime = 1
+                    restaurant.beenTime = 1
                     RealmHelper.addRestaurant(restaurant)
                 }
             default:
@@ -301,6 +302,7 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
             if index == 9 {
                 run = run + 1
                 loadIndicator.startAnimation()
+                lockButtons(true)
                 manager.getRestRecom(user.valueForKey("user_id") as! NSNumber, advance: user.valueForKey("advance") as! Bool, preferPrices: user.valueForKey("preferPrices") as? [Int], weather: user.valueForKey("weather") as? String, transport: user.valueForKey("transport") as? String, lat: user.valueForKey("lat") as? Double, lng: user.valueForKey("lng") as? Double)
             }
         case .beforetrial:
@@ -320,6 +322,7 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
             // If finish the trial, then sign up!
             if index == 4 {
                 loadIndicator.startAnimation()
+                lockButtons(true)
                 if user.valueForKey("user_id") == nil {
                     manager.signUp(user.valueForKey("fb_id") as! String, user_trial: user_trial, name: user.valueForKey("name") as! String, gender: user.valueForKey("gender") as! String)
                 }
@@ -343,23 +346,51 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
     // TODO: Animate removal by buttons
     // Take the restaurant
     @IBAction func take(sender: AnyObject) {
-        //restaurantView.animateRemovalForCellOnTop(.Top)
+        self.restaurants!.removeFirst()
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.restaurantView.reloadData()
+        })
         
+        if self.restaurants?.count == 0 {
+            run = run + 1
+            loadIndicator.startAnimation()
+            lockButtons(true)
+            manager.getRestRecom(user.valueForKey("user_id") as! NSNumber, advance: user.valueForKey("advance") as! Bool, preferPrices: user.valueForKey("preferPrices") as? [Int], weather: user.valueForKey("weather") as? String, transport: user.valueForKey("transport") as? String, lat: user.valueForKey("lat") as? Double, lng: user.valueForKey("lng") as? Double)
+        }
     }
     
     // Collect the restaurant
     @IBAction func like(sender: AnyObject) {
+        self.restaurants!.removeFirst()
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.restaurantView.reloadData()
+        })
+        
+        if self.restaurants?.count == 0 {
+            run = run + 1
+            loadIndicator.startAnimation()
+            lockButtons(true)
+            manager.getRestRecom(user.valueForKey("user_id") as! NSNumber, advance: user.valueForKey("advance") as! Bool, preferPrices: user.valueForKey("preferPrices") as? [Int], weather: user.valueForKey("weather") as? String, transport: user.valueForKey("transport") as? String, lat: user.valueForKey("lat") as? Double, lng: user.valueForKey("lng") as? Double)
+        }
     }
     
     // Dismiss the restaurant
     @IBAction func dislike(sender: AnyObject) {
-        //Temporary: Clean user caches in backend.
-        manager.cleanCaches(user.valueForKey("user_id") as! NSNumber)
+        self.restaurants!.removeFirst()
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.restaurantView.reloadData()
+        })
+        
+        if self.restaurants?.count == 0 {
+            run = run + 1
+            loadIndicator.startAnimation()
+            lockButtons(true)
+            manager.getRestRecom(user.valueForKey("user_id") as! NSNumber, advance: user.valueForKey("advance") as! Bool, preferPrices: user.valueForKey("preferPrices") as? [Int], weather: user.valueForKey("weather") as? String, transport: user.valueForKey("transport") as? String, lat: user.valueForKey("lat") as? Double, lng: user.valueForKey("lng") as? Double)
+        }
     }
     
     // Reload the data from internet
     @IBAction func reload(sender: AnyObject) {
-        
         //Clear the screen first
         restaurants = []
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -368,7 +399,22 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
         
         self.manager.getRestRecom(self.user.valueForKey("user_id") as! NSNumber, advance: self.user.valueForKey("advance") as! Bool, preferPrices: self.user.valueForKey("preferPrices") as? [Int], weather: self.user.valueForKey("weather") as? String, transport: self.user.valueForKey("transport") as? String, lat: self.user.valueForKey("lat") as? Double, lng: self.user.valueForKey("lng") as? Double)
         self.loadIndicator.startAnimation()
-
+        lockButtons(true)
+    }
+    
+    // In case user the buttons when loading
+    func lockButtons(lock: Bool){
+        if lock == true {
+            dislikeButton.enabled = false
+            likeButton.enabled = false
+            takeButton.enabled = false
+            reloadButton.enabled = false
+        }else {
+            dislikeButton.enabled = true
+            likeButton.enabled = true
+            takeButton.enabled = true
+            reloadButton.enabled = true
+        }
     }
 }
 

@@ -99,4 +99,16 @@ class RealmHelper {
         }
     }
     
+    static func addRestaurantBeenTime(restaurant: Restaurant) {
+        let realm = try! Realm()
+        if isRestaurantExist(restaurant) {
+            if let result = realm.objects(Restaurant).filter("restarant_id == \(restaurant.restaurant_id)").first! as? Restaurant {
+                try! realm.write() {
+                    let beenTime = Int(result.beenTime)
+                    result.beenTime = beenTime + 1
+                }
+            }
+        }
+    }
+    
 }

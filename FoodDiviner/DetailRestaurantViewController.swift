@@ -99,8 +99,8 @@ class DetailRestaurantViewController: UIViewController {
     }
     
     func take() {
-        print("Take")
         if RealmHelper.isRestaurantExist(restaurant) {
+            RealmHelper.addRestaurantBeenTime(restaurant)
             RealmHelper.updateRestaurant(restaurant, status: 2)
         }else {
 
@@ -109,7 +109,7 @@ class DetailRestaurantViewController: UIViewController {
     }
     
     func dislike() {
-        print("Dislike")
+        
     }
     
     func remove() {
