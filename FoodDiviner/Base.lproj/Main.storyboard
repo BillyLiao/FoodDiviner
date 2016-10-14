@@ -790,8 +790,8 @@
     </scenes>
     <resources>
         <image name="Back" width="32" height="32"/>
-        <image name="Cancel" width="50" height="50"/>
-        <image name="Collect" width="50" height="50"/>
+        <image name="Cancel" width="75" height="75"/>
+        <image name="Collect" width="75" height="75"/>
         <image name="Cost" width="32" height="32"/>
         <image name="Cuisine" width="32" height="32"/>
         <image name="Location" width="32" height="32"/>

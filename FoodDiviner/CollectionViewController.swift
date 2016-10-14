@@ -214,19 +214,17 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
         switch tableView {
         case CollectTV!:
             let destinationController = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DetailRestaurantViewController") as! DetailRestaurantViewController
-            destinationController.isFromLike()
             destinationController.restaurant = collectRestaurants![indexPath.row]
-            print(destinationController.restaurant)
+            destinationController.isFromLike()
             self.presentViewController(destinationController, animated: true, completion: nil)
         case JudgeTV!:
             let destinationController = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("RatingViewController") as! RatingViewController
             destinationController.restaurant = judgeRestaurants![indexPath.row]
-            print(destinationController.restaurant)
             self.presentViewController(destinationController, animated: true, completion: nil)
         case BeenTV!:
             let destinationController = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DetailRestaurantViewController") as! DetailRestaurantViewController
-            destinationController.isFromBeen()
             destinationController.restaurant = beenRestaurants![indexPath.row]
+            destinationController.isFromBeen()
             self.presentViewController(destinationController, animated: true, completion: nil)
         default:
             break

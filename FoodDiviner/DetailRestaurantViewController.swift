@@ -85,6 +85,7 @@ class DetailRestaurantViewController: UIViewController {
     }
     
     @IBAction func backToMain(sender: AnyObject) {
+        
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -109,55 +110,51 @@ class DetailRestaurantViewController: UIViewController {
         
     }
     
-    func go() {
-        
-    }
-    
     func isFromMain() {
-        let likeBtn = UIButton()
-        likeBtn.heightAnchor.constraintEqualToConstant(70).active = true
-        likeBtn.widthAnchor.constraintEqualToConstant(70).active = true
-        likeBtn.imageView?.image = UIImage(named: "Collect")
+        let likeBtn = UIButton(frame: CGRectMake(0, 0, 55, 55))
+        likeBtn.setImage(UIImage(named: "Collect"), forState: .Normal)
+        likeBtn.frame.origin.y = self.view.frame.height-70
+        likeBtn.center.x = self.view.frame.width/4
         
-        let dislikeBtn = UIButton()
-        dislikeBtn.heightAnchor.constraintEqualToConstant(70).active = true
-        dislikeBtn.widthAnchor.constraintEqualToConstant(70).active = true
-        dislikeBtn.imageView?.image = UIImage(named: "Cancel")
+        let dislikeBtn = UIButton(frame: CGRectMake(0, 0, 55, 55))
+        dislikeBtn.setImage(UIImage(named: "Cancel"), forState: .Normal)
+        dislikeBtn.frame.origin.y = self.view.frame.height-70
+        dislikeBtn.center.x = self.view.frame.width/4*3
         
-        let takeBtn = UIButton()
-        takeBtn.heightAnchor.constraintEqualToConstant(70).active = true
-        takeBtn.widthAnchor.constraintEqualToConstant(70).active = true
-        takeBtn.imageView?.image = UIImage(named: "Take")
         
-        let stackView = UIStackView()
+        let takeBtn = UIButton(frame: CGRectMake(0, 0, 55, 55))
+        takeBtn.setImage(UIImage(named: "Take"), forState: .Normal)
+        takeBtn.frame.origin.y = self.view.frame.height-70
+        takeBtn.center.x = self.view.frame.width/2
         
-        stackView.center.x = self.view.frame.width/2
-        stackView.center.y = self.view.frame.height - 90
-        stackView.axis = UILayoutConstraintAxis.Horizontal
-        stackView.distribution = UIStackViewDistribution.EqualSpacing
-        stackView.alignment = UIStackViewAlignment.Center
-        stackView.spacing = 50
-        
-        stackView.addArrangedSubview(dislikeBtn)
-        stackView.addArrangedSubview(takeBtn)
-        stackView.addArrangedSubview(likeBtn)
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(stackView)
-        stackView.backgroundColor = UIColor.blueColor()
-        print(stackView.frame.origin.x)
-        print(stackView.frame.origin.y)
-    }
-    
-    func isFromBeen() {
-        
+        self.scrollView.addSubview(likeBtn)
+        self.scrollView.addSubview(dislikeBtn)
+        self.scrollView.addSubview(takeBtn)
     }
     
     func isFromLike() {
+        let deleteBtn = UIButton(frame: CGRectMake(0, 0, 55, 55))
+        deleteBtn.setImage(UIImage(named: "Delete"), forState: .Normal)
+        deleteBtn.frame.origin.y = self.view.frame.height-70
+        deleteBtn.center.x = self.view.frame.width/3
         
+        let takeBtn = UIButton(frame: CGRectMake(0, 0, 55, 55))
+        takeBtn.setImage(UIImage(named: "Take"), forState: .Normal)
+        takeBtn.frame.origin.y = self.view.frame.height-70
+        takeBtn.center.x = self.view.frame.width/3*2
+        
+        self.scrollView.addSubview(deleteBtn)
+        self.scrollView.addSubview(takeBtn)
     }
 
-
+    func isFromBeen() {
+        let takeBtn = UIButton(frame: CGRectMake(0, 0, 55, 55))
+        takeBtn.setImage(UIImage(named: "Take"), forState: .Normal)
+        takeBtn.frame.origin.y = self.view.frame.height-70
+        takeBtn.center.x = self.view.frame.width/2
+        
+        self.scrollView.addSubview(takeBtn)
+    }
     /*
     // MARK: - Navigation
 

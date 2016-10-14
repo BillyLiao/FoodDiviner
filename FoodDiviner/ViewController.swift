@@ -216,7 +216,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.restaurantView.reloadData()
         })
-        
     }
     
     func userDidSignUp(user_id: NSNumber) {
@@ -341,7 +340,7 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
         self.presentViewController(destinationController, animated: true, completion: nil)
     }
     
-    //TODO: Animate removal by buttons
+    // TODO: Animate removal by buttons
     // Take the restaurant
     @IBAction func take(sender: AnyObject) {
         //restaurantView.animateRemovalForCellOnTop(.Top)
