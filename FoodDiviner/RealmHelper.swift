@@ -21,6 +21,16 @@ class RealmHelper {
         }
     }
     
+    static func deleteRestaurant(restaurant: Restaurant) {
+        let realm = try! Realm()
+        
+        if isRestaurantExist(restaurant) {
+            try! realm.write() {
+                realm.delete(restaurant)
+            }
+        }
+    }
+    
     static func updateRestaurant(restaurant: Restaurant, status: Int){
         let realm = try! Realm()
         if isRestaurantExist(restaurant){
@@ -32,7 +42,7 @@ class RealmHelper {
         }
 
     }
-    
+
     static func updateRestaurant(restaurant: Restaurant, status: Int, rate: Int, date: NSDate){
         let realm = try! Realm()
         try! realm.write() {

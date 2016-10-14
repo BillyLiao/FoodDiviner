@@ -73,7 +73,7 @@ class DetailRestaurantViewController: UIViewController {
                 restImage.image = UIImage(data: imageData)
             }else {
                 if let image_id = restaurant.image_id {
-                    restImage.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
+                    restImage.sd_setImageWithURL(NSURL(string:"http://api-server.jqemsuerdm.ap-northeast-1.elasticbeanstalk.com/images/\(image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
                 }
             }
             
@@ -95,19 +95,31 @@ class DetailRestaurantViewController: UIViewController {
     }
     
     func like() {
-        
+
     }
     
     func take() {
-    
+        print("Take")
+        if RealmHelper.isRestaurantExist(restaurant) {
+            RealmHelper.updateRestaurant(restaurant, status: 2)
+        }else {
+
+        }
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func dislike() {
-        
+        print("Dislike")
     }
     
-    func delete() {
-        
+    func remove() {
+        RealmHelper.deleteRestaurant(restaurant)
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func takeAgain() {
+        RealmHelper.updateRestaurant(restaurant, status: 2)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func isFromMain() {
@@ -115,17 +127,19 @@ class DetailRestaurantViewController: UIViewController {
         likeBtn.setImage(UIImage(named: "Collect"), forState: .Normal)
         likeBtn.frame.origin.y = self.view.frame.height-70
         likeBtn.center.x = self.view.frame.width/4
+        likeBtn.addTarget(self, action: #selector(DetailRestaurantViewController.like), forControlEvents: .TouchUpInside)
         
         let dislikeBtn = UIButton(frame: CGRectMake(0, 0, 55, 55))
         dislikeBtn.setImage(UIImage(named: "Cancel"), forState: .Normal)
         dislikeBtn.frame.origin.y = self.view.frame.height-70
         dislikeBtn.center.x = self.view.frame.width/4*3
-        
+        dislikeBtn.addTarget(self, action: #selector(DetailRestaurantViewController.dislike), forControlEvents: .TouchUpInside)
         
         let takeBtn = UIButton(frame: CGRectMake(0, 0, 55, 55))
         takeBtn.setImage(UIImage(named: "Take"), forState: .Normal)
         takeBtn.frame.origin.y = self.view.frame.height-70
         takeBtn.center.x = self.view.frame.width/2
+        takeBtn.addTarget(self, action: #selector(DetailRestaurantViewController.take), forControlEvents: .TouchUpInside)
         
         self.scrollView.addSubview(likeBtn)
         self.scrollView.addSubview(dislikeBtn)
@@ -137,11 +151,13 @@ class DetailRestaurantViewController: UIViewController {
         deleteBtn.setImage(UIImage(named: "Delete"), forState: .Normal)
         deleteBtn.frame.origin.y = self.view.frame.height-70
         deleteBtn.center.x = self.view.frame.width/3
+        deleteBtn.addTarget(self, action: #selector(DetailRestaurantViewController.remove), forControlEvents: .TouchUpInside)
         
         let takeBtn = UIButton(frame: CGRectMake(0, 0, 55, 55))
         takeBtn.setImage(UIImage(named: "Take"), forState: .Normal)
         takeBtn.frame.origin.y = self.view.frame.height-70
         takeBtn.center.x = self.view.frame.width/3*2
+        takeBtn.addTarget(self, action: #selector(DetailRestaurantViewController.take), forControlEvents: .TouchUpInside)
         
         self.scrollView.addSubview(deleteBtn)
         self.scrollView.addSubview(takeBtn)
@@ -152,6 +168,7 @@ class DetailRestaurantViewController: UIViewController {
         takeBtn.setImage(UIImage(named: "Take"), forState: .Normal)
         takeBtn.frame.origin.y = self.view.frame.height-70
         takeBtn.center.x = self.view.frame.width/2
+        takeBtn.addTarget(self, action: #selector(DetailRestaurantViewController.takeAgain), forControlEvents: .TouchUpInside)
         
         self.scrollView.addSubview(takeBtn)
     }

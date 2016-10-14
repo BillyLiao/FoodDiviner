@@ -52,9 +52,9 @@ class CollectionTableViewCell: UITableViewCell {
         rtName.text = restaurant.name
         cltTime.text = String(restaurant.collectTime)
         if let image_id = restaurant.image_id{
-            self.rtImageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
+            self.rtImageView.sd_setImageWithURL(NSURL(string:"http://api-server.jqemsuerdm.ap-northeast-1.elasticbeanstalk.com/images/\(image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
         }else {
-            self.rtImageView.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/"), placeholderImage: UIImage(named:"imagePlaceHolder"))
+            self.rtImageView.sd_setImageWithURL(NSURL(string:"http://api-server.jqemsuerdm.ap-northeast-1.elasticbeanstalk.com/images/"), placeholderImage: UIImage(named:"imagePlaceHolder"))
         }
         self.setRating(restaurant.avgRating as Float)
     }

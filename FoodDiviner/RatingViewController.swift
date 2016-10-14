@@ -39,7 +39,7 @@ class RatingViewController: UIViewController {
             restaurantImage.image = UIImage(data: imageData)
         }else {
             if let image_id = restaurant.image_id {
-                restaurantImage.sd_setImageWithURL(NSURL(string:"http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/images/\(image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
+                restaurantImage.sd_setImageWithURL(NSURL(string:"http://api-server.jqemsuerdm.ap-northeast-1.elasticbeanstalk.com/images/\(image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
             }
         }
     }

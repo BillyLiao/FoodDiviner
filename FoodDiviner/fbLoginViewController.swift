@@ -18,7 +18,7 @@ import AFNetworking
 class fbLoginViewController: UIViewController, FBSDKLoginButtonDelegate{
 
     var loginImageView: UIImageView!
-    let baseURL = "http://flask-env.ansdqhgbnp.us-west-2.elasticbeanstalk.com/"
+    let baseURL = "http://api-server.jqemsuerdm.ap-northeast-1.elasticbeanstalk.com/"
     let manager = AFHTTPSessionManager()
     let user = NSUserDefaults.standardUserDefaults()
     let authIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
