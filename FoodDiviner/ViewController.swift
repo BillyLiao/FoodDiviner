@@ -285,6 +285,7 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
                     RealmHelper.addRestaurant(restaurant)
                 }
             case .Top:
+                manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurants![index].restaurant_id, decision: "accept", run: run)
                 if RealmHelper.isRestaurantExist(restaurant) {
                     print("Up, update restaurant")
                     RealmHelper.updateRestaurant(restaurant, status: 2)
@@ -343,14 +344,26 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
         self.presentViewController(destinationController, animated: true, completion: nil)
     }
     
-    // TODO: Animate removal by buttons
     // Take the restaurant
     @IBAction func take(sender: AnyObject) {
+        let firstRestaurant = self.restaurants![0]
+        manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: firstRestaurant.restaurant_id, decision: "accept", run: run)
+        if RealmHelper.isRestaurantExist(firstRestaurant) {
+            print("Up, update restaurant")
+            RealmHelper.updateRestaurant(firstRestaurant, status: 2)
+            RealmHelper.addRestaurantBeenTime(firstRestaurant)
+        }else{
+            print("Up, add restaurant")
+            firstRestaurant.status = 2
+            firstRestaurant.beenTime = 1
+            RealmHelper.addRestaurant(firstRestaurant)
+        }
+        
         self.restaurants!.removeFirst()
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.restaurantView.reloadData()
         })
-        
+
         if self.restaurants?.count == 0 {
             run = run + 1
             loadIndicator.startAnimation()
@@ -361,6 +374,19 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
     
     // Collect the restaurant
     @IBAction func like(sender: AnyObject) {
+        let firstRestaurant = self.restaurants![0]
+        manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: firstRestaurant.restaurant_id, decision: "accept", run: run)
+        
+        if RealmHelper.isRestaurantExist(firstRestaurant) {
+            print("Right, update restaurant")
+            RealmHelper.addRestaurantCollectionTime(firstRestaurant)
+        }else {
+            print("Right, add restaurant")
+            firstRestaurant.status = 1
+            firstRestaurant.collectTime = 1
+            RealmHelper.addRestaurant(firstRestaurant)
+        }
+        
         self.restaurants!.removeFirst()
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.restaurantView.reloadData()
@@ -376,6 +402,9 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
     
     // Dismiss the restaurant
     @IBAction func dislike(sender: AnyObject) {
+        let firstRestaurant = self.restaurants![0]
+        manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: firstRestaurant.restaurant_id, decision: "decline", run: run)
+
         self.restaurants!.removeFirst()
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.restaurantView.reloadData()
