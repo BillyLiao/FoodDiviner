@@ -336,11 +336,33 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
     
     func tinderView(view: SPTinderView, didTappedCellAt index: Int) {
         let destinationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DetailRestaurantViewController") as! DetailRestaurantViewController
-        //TODO: Pass the data to destinationController
         if let restaurant = restaurants?[index] {
             destinationController.restaurant = restaurant
         }
         destinationController.isFromMain()
+        destinationController.onDeletion { (restaurant: Restaurant, takeOrNot: String) in
+            
+            switch takeOrNot {
+            case "accept":
+                self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "accept", run: self.run)
+            case "declne":
+                self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "accept", run: self.run)
+            default:
+                break
+            }
+            
+            self.restaurants!.removeFirst()
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.restaurantView.reloadData()
+            })
+            if self.restaurants?.count == 0 {
+                self.run = self.run + 1
+                self.loadIndicator.startAnimation()
+                self.lockButtons(true)
+                self.manager.getRestRecom(self.user.valueForKey("user_id") as! NSNumber, advance: self.user.valueForKey("advance") as! Bool, preferPrices: self.user.valueForKey("preferPrices") as? [Int], weather: self.user.valueForKey("weather") as? String, transport: self.user.valueForKey("transport") as? String, lat: self.user.valueForKey("lat") as? Double, lng: self.user.valueForKey("lng") as? Double)
+            }
+
+        }
         self.presentViewController(destinationController, animated: true, completion: nil)
     }
     

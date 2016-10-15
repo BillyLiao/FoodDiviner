@@ -29,6 +29,9 @@ class DetailRestaurantViewController: UIViewController {
     @IBOutlet weak var restTime: UILabel!
     @IBOutlet weak var restAddre: UILabel!
     
+    typealias restaurantDeleted = (Restaurant, String)-> ()
+    var restaurantWillDeleted: restaurantDeleted?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
@@ -85,7 +88,6 @@ class DetailRestaurantViewController: UIViewController {
     }
     
     @IBAction func backToMain(sender: AnyObject) {
-        
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -95,21 +97,40 @@ class DetailRestaurantViewController: UIViewController {
     }
     
     func like() {
+        if RealmHelper.isRestaurantExist(restaurant) {
+            RealmHelper.addRestaurantCollectionTime(restaurant)
+        }else {
+            restaurant.collectTime = 1
+            restaurant.status = 1
+            RealmHelper.addRestaurant(restaurant)
+        }
 
+        if let restaurantDeletedBlock = restaurantWillDeleted {
+            restaurantDeletedBlock(restaurant, "accept")
+        }
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func take() {
+    func takeFromMain() {
         if RealmHelper.isRestaurantExist(restaurant) {
             RealmHelper.addRestaurantBeenTime(restaurant)
             RealmHelper.updateRestaurant(restaurant, status: 2)
         }else {
-
+            restaurant.beenTime = 1
+            restaurant.status = 2
+            RealmHelper.addRestaurant(restaurant)
+        }
+        if let restaurantDeletedBlock = restaurantWillDeleted {
+            restaurantDeletedBlock(restaurant, "accept")
         }
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func dislike() {
-        
+        if let restaurantDeletedBlock = restaurantWillDeleted {
+            restaurantDeletedBlock(restaurant, "decline")
+        }
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func remove() {
@@ -117,7 +138,8 @@ class DetailRestaurantViewController: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func takeAgain() {
+    func take() {
+        RealmHelper.addRestaurantBeenTime(restaurant)
         RealmHelper.updateRestaurant(restaurant, status: 2)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -139,7 +161,7 @@ class DetailRestaurantViewController: UIViewController {
         takeBtn.setImage(UIImage(named: "Take"), forState: .Normal)
         takeBtn.frame.origin.y = self.view.frame.height-70
         takeBtn.center.x = self.view.frame.width/2
-        takeBtn.addTarget(self, action: #selector(DetailRestaurantViewController.take), forControlEvents: .TouchUpInside)
+        takeBtn.addTarget(self, action: #selector(DetailRestaurantViewController.takeFromMain), forControlEvents: .TouchUpInside)
         
         self.scrollView.addSubview(likeBtn)
         self.scrollView.addSubview(dislikeBtn)
@@ -168,10 +190,15 @@ class DetailRestaurantViewController: UIViewController {
         takeBtn.setImage(UIImage(named: "Take"), forState: .Normal)
         takeBtn.frame.origin.y = self.view.frame.height-70
         takeBtn.center.x = self.view.frame.width/2
-        takeBtn.addTarget(self, action: #selector(DetailRestaurantViewController.takeAgain), forControlEvents: .TouchUpInside)
+        takeBtn.addTarget(self, action: #selector(DetailRestaurantViewController.take), forControlEvents: .TouchUpInside)
         
         self.scrollView.addSubview(takeBtn)
     }
+    
+    func onDeletion(deletionBlock: restaurantDeleted) {
+        self.restaurantWillDeleted = deletionBlock
+    }
+    
     /*
     // MARK: - Navigation
 
