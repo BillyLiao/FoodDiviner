@@ -56,7 +56,7 @@ class RealmHelper {
         let realm = try! Realm()
         return realm.objects(Restaurant).filter("status == \(status)").sorted("collectTime", ascending: false)
     }
-    
+
     static func retriveAllRestaurants() -> Results<Restaurant> {
         let realm = try! Realm()
         return realm.objects(Restaurant)
@@ -102,7 +102,7 @@ class RealmHelper {
     static func addRestaurantBeenTime(restaurant: Restaurant) {
         let realm = try! Realm()
         if isRestaurantExist(restaurant) {
-            if let result = realm.objects(Restaurant).filter("restarant_id == \(restaurant.restaurant_id)").first! as? Restaurant {
+            if let result = realm.objects(Restaurant).filter("restaurant_id == \(restaurant.restaurant_id)").first! as? Restaurant {
                 try! realm.write() {
                     let beenTime = Int(result.beenTime)
                     result.beenTime = beenTime + 1

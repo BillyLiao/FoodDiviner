@@ -9,10 +9,10 @@
 import UIKit
 import FDRatingView
 import SDWebImage
+import MapKit
 
 class DetailRestaurantViewController: UIViewController {
     
-    var restaurant: Restaurant! = nil
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView2: UIStackView!
@@ -29,6 +29,8 @@ class DetailRestaurantViewController: UIViewController {
     @IBOutlet weak var restTime: UILabel!
     @IBOutlet weak var restAddre: UILabel!
     
+    var restaurant: Restaurant! = nil
+    let user = NSUserDefaults()
     typealias restaurantDeleted = (Restaurant, String)-> ()
     var restaurantWillDeleted: restaurantDeleted?
     
@@ -54,23 +56,12 @@ class DetailRestaurantViewController: UIViewController {
             restScen.text = restaurant.scenario
             restOrder.text = restaurant.order
             restPrice.text = restaurant.price
-            //TODO: Only show time today
-
             restAddre.text = restaurant.address
-            
+            //TODO: Only show time today
             // If phone or time is Empty, then show "無此資訊"
-            if let phone = restaurant.phone {
-                restPhone.text = restaurant.phone
-            }else {
-                restPhone.text = "無此資訊"
-            }
-            
-            if let time = restaurant.time{
-                restTime.text = time
-            }else {
-                restTime.text = "無此資訊"
-            }
-            
+            restPhone.text = restaurant.phone ?? "無此資訊"
+            restTime.text = restaurant.time ?? "無此資訊"
+            distanceFromUserLocation()
             
             if let imageData = restaurant.photo {
                 restImage.image = UIImage(data: imageData)
@@ -197,6 +188,26 @@ class DetailRestaurantViewController: UIViewController {
     
     func onDeletion(deletionBlock: restaurantDeleted) {
         self.restaurantWillDeleted = deletionBlock
+    }
+    
+    func distanceFromUserLocation() {
+        let geocoder = CLGeocoder()
+        var location: CLLocation!
+        
+        geocoder.geocodeAddressString(restaurant.address) { (placemarks, error) in
+            if error != nil {
+                print("Error: \(error)")
+            }else {
+                if let placemark = placemarks?.first {
+                    location = placemark.location
+                }
+                var distanceInMeters: CLLocationDistance!
+                distanceInMeters = location.distanceFromLocation(CLLocation(latitude: self.user.valueForKey("lat") as! Double, longitude: self.user.valueForKey("lng") as! Double))
+                let distanceInKilometers: CLLocationDistance!
+                distanceInKilometers = distanceInMeters/1000
+                self.restDistance.text = String(format: "約%.2fkm", distanceInKilometers)
+            }
+        }
     }
     
     /*

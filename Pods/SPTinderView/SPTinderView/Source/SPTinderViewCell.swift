@@ -123,12 +123,9 @@ public class SPTinderViewCell: UIView, UIGestureRecognizerDelegate {
         else if(yDrift > self.frame.height * scaleToRemoveCell) { movement = .None }
         else { movement = .None }
         if movement != .None  {
-            print("cellMovement: \(movement)")
             self.cellMovement = movement
             if let cellMoveBlock = onCellDidMove {
-                print("Before cellMoveBlock")
                 cellMoveBlock(movement)
-                print("After cellMoveBlock")
             }
         } else {
             UIView.animateWithDuration(0.5, delay: 0.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [.AllowUserInteraction], animations: {

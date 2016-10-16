@@ -123,18 +123,14 @@ public class SPTinderView: UIView, UIGestureRecognizerDelegate{
         guard let _dataSource = dataSource where index < numberOfCells else { return }
         if let cell = _dataSource.tinderView(self, cellAt: index) {
             cell.onCellDidMove = { direction in
-                print("onCellDidMove Direction: \(direction)")
                 if direction != .None {
-                    print("Before animate")
                     self.animateRemovalForCell(cell, towards: direction, completion:  {
-                        print("Animate complete")
                         if let _delegate = self.delegate {
                             _delegate.tinderView(self, didMoveCellAt: index, towards: direction)
                         }
                     })
                 }
             }
-            print("After onCellDidMove")
             self.insertSubview(cell, atIndex: 0)
             self.sendSubviewToBack(cell)
             cell.center = self.center
@@ -159,7 +155,6 @@ public class SPTinderView: UIView, UIGestureRecognizerDelegate{
 
 
     public func animateRemovalForCell(cell: SPTinderViewCell, towards direction: SPTinderViewCellMovement, completion:()->()) {
-        print("animateRemoval")
         var newPosition = CGPointZero
         switch direction {
         case .None: return

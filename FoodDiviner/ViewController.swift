@@ -32,7 +32,11 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     }
     
     var manager: APIManager!
-    var restaurants: [Restaurant]? = []
+    var restaurants: [Restaurant]? = [] {
+        didSet{
+            self.restaurantView.reloadData()
+        }
+    }
     let user = NSUserDefaults()
     var stateNow = state.beforetrial
     var user_trial = NSMutableDictionary()
@@ -96,6 +100,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
             do {
                 let data = try NSData(contentsOfURL: NSURL(fileURLWithPath: path), options: .DataReadingMapped)
                 let jsonObj = JSON(data: data)
+                var tempRestaurants: [Restaurant] = []
                 if jsonObj != JSON.null {
                     for i in 0..<jsonObj.count {
                         var restaurant = Restaurant()
@@ -134,22 +139,19 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                                 restaurant.tags = restaurant.tags + ", \(jsonObj[i]["tags"][j].string!)"
                             }
                         }
-                        restaurants?.append(restaurant)
+                        tempRestaurants.append(restaurant)
                     }
+                    restaurants = tempRestaurants
                 }else {
                     print("Couldn't get json from file, make sure that file contains valid json.")
                 }
             } catch let err as NSError {
                 print(err.localizedDescription)
             }
+            
         } else {
             print("Invalid filename/path")
         }
-        
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.restaurantView.reloadData()
-        })
-  
     }
     
     func requestFailed(e: NSError?) {
@@ -168,8 +170,11 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     func userRecomGetRequestDidFinished(r: [NSDictionary]?) {
         loadIndicator.stopAnimation()
         lockButtons(false)
-        // Clean the temRestaurant array.
+        // Clean the restaurants array.
         restaurants = []
+        
+        var tempRestaurnts: [Restaurant] = []
+        
         if let data = r {
             for element in data {
                 let jsonObj = JSON(element)
@@ -211,13 +216,10 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                         restaurant.order = restaurant.order + ", \(jsonObj["ordering"][j].string!)"
                     }
                 }
-                restaurants?.append(restaurant)
+                tempRestaurnts.append(restaurant)
             }
         }
-        
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.restaurantView.reloadData()
-        })
+        self.restaurants = tempRestaurnts
     }
     
     func userDidSignUp(user_id: NSNumber) {
@@ -352,9 +354,7 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
             }
             
             self.restaurants!.removeFirst()
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.restaurantView.reloadData()
-            })
+
             if self.restaurants?.count == 0 {
                 self.run = self.run + 1
                 self.loadIndicator.startAnimation()
@@ -382,9 +382,6 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
         }
         
         self.restaurants!.removeFirst()
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.restaurantView.reloadData()
-        })
 
         if self.restaurants?.count == 0 {
             run = run + 1
@@ -410,9 +407,6 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
         }
         
         self.restaurants!.removeFirst()
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.restaurantView.reloadData()
-        })
         
         if self.restaurants?.count == 0 {
             run = run + 1
@@ -428,9 +422,6 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
         manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: firstRestaurant.restaurant_id, decision: "decline", run: run)
 
         self.restaurants!.removeFirst()
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.restaurantView.reloadData()
-        })
         
         if self.restaurants?.count == 0 {
             run = run + 1
@@ -444,9 +435,6 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
     @IBAction func reload(sender: AnyObject) {
         //Clear the screen first
         restaurants = []
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.restaurantView.reloadData()
-        })
         
         self.manager.getRestRecom(self.user.valueForKey("user_id") as! NSNumber, advance: self.user.valueForKey("advance") as! Bool, preferPrices: self.user.valueForKey("preferPrices") as? [Int], weather: self.user.valueForKey("weather") as? String, transport: self.user.valueForKey("transport") as? String, lat: self.user.valueForKey("lat") as? Double, lng: self.user.valueForKey("lng") as? Double)
         self.loadIndicator.startAnimation()

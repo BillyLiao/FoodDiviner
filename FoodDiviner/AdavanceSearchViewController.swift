@@ -112,9 +112,6 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
     
     func initAdvanceView(){
         /* Set Advanced Options View */
-        let optionHeight = (self.view.frame.height*2/3)/8
-        let optionWidth = (self.view.frame.width-60)/4
-        
         let borderColor = UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0).CGColor
         
         btn0.layer.cornerRadius = 5
@@ -228,14 +225,9 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
             btnScooter.titleLabel?.font = UIFont.systemFontOfSize(19)
             btnSubmit.titleLabel?.font = UIFont.systemFontOfSize(19)
             btnClear.titleLabel?.font = UIFont.systemFontOfSize(19)
-
         default:
             break
         }
-        
-        saveIndicator.center.x = self.view.center.x
-        saveIndicator.center.y = self.view.center.y - 60
-        self.view.addSubview(saveIndicator)
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -373,6 +365,11 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
             self.presentViewController(alertController, animated: true, completion: nil)
             user.setObject(false, forKey: "advance")
         }else {
+            
+            saveIndicator.center.x = self.view.center.x
+            saveIndicator.center.y = self.view.center.y - 60
+            self.view.addSubview(saveIndicator)
+            
             // perferPrices
             if btn0.selected == true {
                 preferPrices![0] = 1
@@ -419,6 +416,7 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
             startActivityAnimating(CGSizeMake(70, 70), message: "Saving...", type: .SquareSpin, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0))
             dispatch_after(time, dispatch_get_main_queue()) {
                 self.stopActivityAnimating()
+                self.saveIndicator.removeFromSuperview()
             }
         }
     }
@@ -454,7 +452,6 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
         user.setObject(nil, forKey: "preferPrices")
         user.setObject(nil, forKey: "transport")
         user.setObject(false, forKey: "advance")
-
     }
     
     func btnToggle(sender: UIButton){
