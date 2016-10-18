@@ -1251,11 +1251,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodDiviner/DetailRestaurantViewController.swift"
-            timestampString = "498299641.474022"
+            timestampString = "498474731.234903"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
             landmarkName = "isFromMain()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1361,11 +1361,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodDiviner/DetailRestaurantViewController.swift"
-            timestampString = "498299641.474022"
+            timestampString = "498474731.234903"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "198"
-            endingLineNumber = "198"
+            startingLineNumber = "199"
+            endingLineNumber = "199"
             landmarkName = "distanceFromUserLocation()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1377,11 +1377,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodDiviner/DetailRestaurantViewController.swift"
-            timestampString = "498299641.474022"
+            timestampString = "498474731.234903"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
             landmarkName = "distanceFromUserLocation()"
             landmarkType = "5">
          </BreakpointContent>

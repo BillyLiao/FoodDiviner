@@ -135,17 +135,18 @@ class DetailRestaurantViewController: UIViewController {
     }
     
     func isFromMain() {
-        let likeBtn = UIButton(frame: CGRectMake(0, 0, 55, 55))
-        likeBtn.setImage(UIImage(named: "Collect"), forState: .Normal)
-        likeBtn.frame.origin.y = self.view.frame.height-70
-        likeBtn.center.x = self.view.frame.width/4
-        likeBtn.addTarget(self, action: #selector(DetailRestaurantViewController.like), forControlEvents: .TouchUpInside)
         
         let dislikeBtn = UIButton(frame: CGRectMake(0, 0, 55, 55))
         dislikeBtn.setImage(UIImage(named: "Cancel"), forState: .Normal)
         dislikeBtn.frame.origin.y = self.view.frame.height-70
-        dislikeBtn.center.x = self.view.frame.width/4*3
+        dislikeBtn.center.x = self.view.frame.width/4
         dislikeBtn.addTarget(self, action: #selector(DetailRestaurantViewController.dislike), forControlEvents: .TouchUpInside)
+        
+        let likeBtn = UIButton(frame: CGRectMake(0, 0, 55, 55))
+        likeBtn.setImage(UIImage(named: "Collect"), forState: .Normal)
+        likeBtn.frame.origin.y = self.view.frame.height-70
+        likeBtn.center.x = self.view.frame.width/4*3
+        likeBtn.addTarget(self, action: #selector(DetailRestaurantViewController.like), forControlEvents: .TouchUpInside)
         
         let takeBtn = UIButton(frame: CGRectMake(0, 0, 55, 55))
         takeBtn.setImage(UIImage(named: "Take"), forState: .Normal)
