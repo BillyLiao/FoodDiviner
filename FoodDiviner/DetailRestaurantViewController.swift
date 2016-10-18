@@ -40,15 +40,14 @@ class DetailRestaurantViewController: UIViewController {
         scrollView.frame = self.view.frame
         scrollView.contentSize = CGSizeMake(self.view.frame.width, self.view.frame.height*1.5)
         let rateView = FDRatingView(frame: CGRectMake(0, 0, stackView2.frame.width/2, stackView2.frame.height), style: .Star, numberOfElements: 5, fillValue: self.restaurant.avgRating as! Float, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0), lineWidth: 0.7, spacing: 3)
-        //rateView.heightAnchor.constraintEqualToConstant(starView.frame.height).active = true
-        //rateView.widthAnchor.constraintEqualToConstant(starView.frame.width).active = true
         stackView2.addSubview(rateView)
-        
         backButton.layer.cornerRadius = backButton.frame.width/2
+        
+        distanceFromUserLocation()
     }
     
     override func viewWillAppear(animated: Bool) {
-        //TODO: Implement distance, tags, rating, image
+        //TODO: Implement tags
         //TODO: If Image isn't loaded yet, show activity indicator
         if restaurant != nil {
             restName.text = restaurant.name
@@ -58,10 +57,10 @@ class DetailRestaurantViewController: UIViewController {
             restPrice.text = restaurant.price
             restAddre.text = restaurant.address
             //TODO: Only show time today
+            
             // If phone or time is Empty, then show "無此資訊"
             restPhone.text = restaurant.phone ?? "無此資訊"
             restTime.text = restaurant.time ?? "無此資訊"
-            distanceFromUserLocation()
             
             if let imageData = restaurant.photo {
                 restImage.image = UIImage(data: imageData)

@@ -43,11 +43,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             pageView.offscreenLeftButtonSpecifics.color = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
             pageView.offscreenRightButtonSpecifics.color = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
             pageView.rightButtonSpecifics.color = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
+            pageView.rightButtonSpecifics.size = CGSize(width: 35, height: 35)
             pageView.leftButtonSpecifics.color = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
+            pageView.leftButtonSpecifics.size = CGSize(width: 35, height: 35)
             
             // center icon
             pageView.centerButtonSpecifics.color = UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0)
-            pageView.centerButtonSpecifics.size = CGSize(width: 35.0, height: 35.0)
+            pageView.centerButtonSpecifics.size = CGSize(width: 40.0, height: 40.0)
             pageView.selectedIndex = 1
             pageView.view.backgroundColor = UIColor.redColor()
             self.window = UIWindow(frame: UIScreen.mainScreen().bounds)

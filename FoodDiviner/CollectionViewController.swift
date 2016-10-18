@@ -127,15 +127,18 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let ratio = scrollView.contentOffset.x / scrollView.contentSize.width
+        if ratio == 0 {
+            return 
+        }
         let scrollRect = CGRect(x: ratio * self.view.frame.width, y: 50, width: self.view.frame.width/3, height: 1)
         scroller.frame = scrollRect
-        if ratio<0.25 {
+        if ratio<0.25{
             page = 0
             changeButtonState()
         }else if ratio>0.25 && ratio<0.5{
             page = 1
             changeButtonState()
-        }else {
+        }else{
             page = 2
             changeButtonState()
         }
