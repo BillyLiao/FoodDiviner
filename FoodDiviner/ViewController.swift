@@ -361,7 +361,6 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
                 self.lockButtons(true)
                 self.manager.getRestRecom(self.user.valueForKey("user_id") as! NSNumber, advance: self.user.valueForKey("advance") as! Bool, preferPrices: self.user.valueForKey("preferPrices") as? [Int], weather: self.user.valueForKey("weather") as? String, transport: self.user.valueForKey("transport") as? String, lat: self.user.valueForKey("lat") as? Double, lng: self.user.valueForKey("lng") as? Double)
             }
-
         }
         self.presentViewController(destinationController, animated: true, completion: nil)
     }
@@ -381,7 +380,23 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
             RealmHelper.addRestaurant(firstRestaurant)
         }
         
-        self.restaurants!.removeFirst()
+        let takeView = UIView(frame: CGRectMake(0, 0, self.view.frame.width/2, 55))
+        takeView.backgroundColor = UIColor(red: 12.0/255.0, green: 156.0/255.0, blue: 1, alpha: 1)
+        takeView.alpha = 0
+        takeView.center.x = self.view.frame.width/2
+        takeView.center.y = self.view.frame.height/3
+        self.view.addSubview(takeView)
+        
+        UIView.animateWithDuration(0, animations: { 
+            takeView.transform = CGAffineTransformMakeRotation(0.1)
+            }) { (success) in
+                UIView.animateWithDuration(0.3, animations: {
+                    takeView.alpha = 1
+                }) { (success) in
+                    takeView.removeFromSuperview()
+                    self.restaurants!.removeFirst()
+                }
+        }
 
         if self.restaurants?.count == 0 {
             run = run + 1
@@ -405,6 +420,7 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
             firstRestaurant.collectTime = 1
             RealmHelper.addRestaurant(firstRestaurant)
         }
+        
         
         self.restaurants!.removeFirst()
         
