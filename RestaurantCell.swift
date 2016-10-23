@@ -45,6 +45,8 @@ class RestaurantCell: SPTinderViewCell {
         imageView.contentMode = .ScaleAspectFill
         self.addSubview(imageView)
         self.addSubview(titleView)
+        
+        self.setupStatusImage()
     }
     
     func setRatingView(rating: Float?){

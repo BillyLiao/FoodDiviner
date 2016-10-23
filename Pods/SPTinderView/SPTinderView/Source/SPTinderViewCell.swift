@@ -18,8 +18,10 @@ public class SPTinderViewCell: UIView, UIGestureRecognizerDelegate {
             self.layer.cornerRadius = cornerRadius
         }
     }
-    
     var cellMovement: SPTinderViewCellMovement = .None
+    var likeImage: UIButton!
+    var dislikeImage: UIButton!
+    var superlikeImage: UIButton!
     
     typealias cellMovementChange = (SPTinderViewCellMovement) -> ()
     var onCellDidMove: cellMovementChange?
@@ -56,6 +58,57 @@ public class SPTinderViewCell: UIView, UIGestureRecognizerDelegate {
         self.layer.masksToBounds = false
     }
     
+    public func setupStatusImage() {
+        let imageFrame = CGRectMake(0, 0, self.frame.width/2, 55)
+        let likeColor = UIColor(red: 224.0/255.0, green: 68.0/255.0, blue: 98.0/255.0, alpha: 1)
+        let dislikeColor = UIColor(red: 23.0/255.0, green: 231.0/255.0, blue: 164.0/255.0, alpha: 1)
+        let superlikeColor = UIColor(red: 12.0/255.0, green: 156.0/255.0, blue: 1, alpha: 1)
+
+        likeImage = UIButton(frame: imageFrame)
+        dislikeImage = UIButton(frame: imageFrame)
+        superlikeImage = UIButton(frame: imageFrame)
+        
+        likeImage.center.x = self.frame.width/3
+        likeImage.center.y = 100
+        likeImage.setTitle("Like", forState: .Normal)
+        likeImage.layer.cornerRadius = 5
+        likeImage.layer.borderWidth = 3
+        likeImage.layer.borderColor = likeColor.CGColor
+        likeImage.titleLabel?.font = UIFont.systemFontOfSize(20)
+        likeImage.setTitleColor(likeColor, forState: .Normal)
+        likeImage.alpha = 0
+        
+        dislikeImage.center.x = self.frame.width*2/3
+        dislikeImage.center.y = 100
+        dislikeImage.setTitle("Dislike", forState: .Normal)
+        dislikeImage.layer.cornerRadius = 5
+        dislikeImage.layer.borderWidth = 3
+        dislikeImage.layer.borderColor = dislikeColor.CGColor
+        dislikeImage.titleLabel?.font = UIFont.systemFontOfSize(20)
+        dislikeImage.setTitleColor(dislikeColor, forState: .Normal)
+        dislikeImage.alpha = 0
+        
+        superlikeImage.center.x = self.frame.width/2
+        superlikeImage.center.y = self.frame.height*2/3
+        superlikeImage.setTitle("Take", forState: .Normal)
+        superlikeImage.layer.cornerRadius = 5
+        superlikeImage.layer.borderWidth = 3
+        superlikeImage.layer.borderColor = superlikeColor.CGColor
+        superlikeImage.titleLabel?.font = UIFont.systemFontOfSize(20)
+        superlikeImage.setTitleColor(superlikeColor, forState: .Normal)
+        superlikeImage.alpha = 0
+        
+        self.addSubview(likeImage)
+        self.addSubview(dislikeImage)
+        self.addSubview(superlikeImage)
+        
+        UIView.animateWithDuration(0) { 
+            self.dislikeImage.transform = CGAffineTransformMakeRotation(0.25)
+            self.likeImage.transform = CGAffineTransformMakeRotation(-0.25)
+            self.superlikeImage.transform = CGAffineTransformMakeRotation(0.1)
+        }
+    }
+    
     public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         guard let _ = touches.first else { return }
         originalCenter = self.center
@@ -70,10 +123,25 @@ public class SPTinderViewCell: UIView, UIGestureRecognizerDelegate {
             let deltaY = thisLoc.y - prevLoc.y
             // There's also a little bit of transformation. When the cell is being dragged, it should feel the angle of drag as well
             let xDrift = self.center.x + deltaX - originalCenter.x
+            let yDrift = self.center.y + deltaY - originalCenter.y
+            
+            let likeAlpha = xDrift / (self.frame.width * scaleToRemoveCell)
+            let dislikeAlpha = -xDrift / (self.frame.width * scaleToRemoveCell)
+            let superlikeAlpha = -yDrift / (self.frame.height * scaleToRemoveCell)
+            
             let rotationAngle = xDrift * -0.05 * CGFloat(M_PI / 90)
             // Note: Must set the animation option to `AllowUserInteraction` to prevent the main thread being blocked while animation is ongoin
             let rotatedTransfer = CGAffineTransformMakeRotation(rotationAngle)
             UIView.animateWithDuration(0.0, delay: 0.0, options: [.AllowUserInteraction], animations: {
+                
+                if likeAlpha > dislikeAlpha && likeAlpha > superlikeAlpha {
+                    self.setImaegAlpha(likeAlpha: likeAlpha, dislikeAlpha: 0, superlikeAlpha: 0)
+                }else if dislikeAlpha > likeAlpha && dislikeAlpha > superlikeAlpha {
+                    self.setImaegAlpha(likeAlpha: 0, dislikeAlpha: dislikeAlpha, superlikeAlpha: 0)
+                }else {
+                    self.setImaegAlpha(likeAlpha: 0, dislikeAlpha: 0, superlikeAlpha: superlikeAlpha)
+                }
+                
                 self.transform = rotatedTransfer
                 self.center.x += deltaX
                 self.center.y += deltaY
@@ -85,6 +153,7 @@ public class SPTinderViewCell: UIView, UIGestureRecognizerDelegate {
     public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let xDrift = self.center.x - originalCenter.x
         let yDrift = self.center.y - originalCenter.y
+        self.setImaegAlpha(likeAlpha: 0, dislikeAlpha: 0, superlikeAlpha: 0)
         self.setCellMovementDirectionFromDrift(xDrift, yDrift: yDrift)
     }
     
@@ -134,6 +203,12 @@ public class SPTinderViewCell: UIView, UIGestureRecognizerDelegate {
                 }, completion: nil)
         }
     }
+    
+    private func setImaegAlpha(likeAlpha likeAlpha: CGFloat, dislikeAlpha: CGFloat, superlikeAlpha: CGFloat){
+        likeImage.alpha = likeAlpha
+        dislikeImage.alpha = dislikeAlpha
+        superlikeImage.alpha = superlikeAlpha
+    }
 }
 
 /**
@@ -144,6 +219,7 @@ public class SPTinderViewCell: UIView, UIGestureRecognizerDelegate {
  - Bottom: When the cell has moved towards bottom
  - Right:  When the cell has moved towards right
  */
+
 public enum SPTinderViewCellMovement: Int {
     case None
     case Top

@@ -1203,11 +1203,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/SPTinderView/SPTinderView/Source/SPTinderViewCell.swift"
-            timestampString = "495191114.870367"
+            timestampString = "498901268.984222"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
+            startingLineNumber = "175"
+            endingLineNumber = "175"
             landmarkName = "setCellMovementDirection(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1219,11 +1219,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/SPTinderView/SPTinderView/Source/SPTinderViewCell.swift"
-            timestampString = "495191114.870367"
+            timestampString = "498901268.984222"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
             landmarkName = "setCellMovementDirection(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1235,11 +1235,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/SPTinderView/SPTinderView/Source/SPTinderViewCell.swift"
-            timestampString = "495191114.870367"
+            timestampString = "498901268.984222"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
             landmarkName = "setCellMovementDirection(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1383,6 +1383,22 @@
             startingLineNumber = "200"
             endingLineNumber = "200"
             landmarkName = "distanceFromUserLocation()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/SPTinderView/SPTinderView/Source/SPTinderViewCell.swift"
+            timestampString = "498840543.426487"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "setupStatusImage()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
