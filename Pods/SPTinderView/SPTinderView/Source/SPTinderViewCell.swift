@@ -12,6 +12,10 @@ import UIKit
 
 @IBDesignable
 public class SPTinderViewCell: UIView, UIGestureRecognizerDelegate {
+    private let like = "like"
+    private let nope = "nope"
+    private let take = "take"
+    
     @IBInspectable var reuseIdentifier: String?
     @IBInspectable var cornerRadius: CGFloat = 0 {
         didSet {
@@ -19,12 +23,13 @@ public class SPTinderViewCell: UIView, UIGestureRecognizerDelegate {
         }
     }
     var cellMovement: SPTinderViewCellMovement = .None
-    var likeImage: UIButton!
-    var dislikeImage: UIButton!
-    var superlikeImage: UIButton!
     
     typealias cellMovementChange = (SPTinderViewCellMovement) -> ()
     var onCellDidMove: cellMovementChange?
+    
+    var likeSticker: UILabel!
+    var nopeSticker: UILabel!
+    var takeSticker: UILabel!
     
     private var originalCenter = CGPoint(x: 0, y: 0)
     private var scaleToRemoveCell: CGFloat = 0.3
@@ -59,54 +64,22 @@ public class SPTinderViewCell: UIView, UIGestureRecognizerDelegate {
     }
     
     public func setupStatusImage() {
-        let imageFrame = CGRectMake(0, 0, self.frame.width/2, 55)
-        let likeColor = UIColor(red: 224.0/255.0, green: 68.0/255.0, blue: 98.0/255.0, alpha: 1)
-        let dislikeColor = UIColor(red: 23.0/255.0, green: 231.0/255.0, blue: 164.0/255.0, alpha: 1)
-        let superlikeColor = UIColor(red: 12.0/255.0, green: 156.0/255.0, blue: 1, alpha: 1)
-
-        likeImage = UIButton(frame: imageFrame)
-        dislikeImage = UIButton(frame: imageFrame)
-        superlikeImage = UIButton(frame: imageFrame)
+        likeSticker = UILabel.init(state: like)
+        nopeSticker = UILabel.init(state: nope)
+        takeSticker = UILabel.init(state: take)
         
-        likeImage.center.x = self.frame.width/3
-        likeImage.center.y = 100
-        likeImage.setTitle("Like", forState: .Normal)
-        likeImage.layer.cornerRadius = 5
-        likeImage.layer.borderWidth = 3
-        likeImage.layer.borderColor = likeColor.CGColor
-        likeImage.titleLabel?.font = UIFont.systemFontOfSize(20)
-        likeImage.setTitleColor(likeColor, forState: .Normal)
-        likeImage.alpha = 0
+        likeSticker.center.x = self.frame.width/3
+        likeSticker.center.y = 100
         
-        dislikeImage.center.x = self.frame.width*2/3
-        dislikeImage.center.y = 100
-        dislikeImage.setTitle("Dislike", forState: .Normal)
-        dislikeImage.layer.cornerRadius = 5
-        dislikeImage.layer.borderWidth = 3
-        dislikeImage.layer.borderColor = dislikeColor.CGColor
-        dislikeImage.titleLabel?.font = UIFont.systemFontOfSize(20)
-        dislikeImage.setTitleColor(dislikeColor, forState: .Normal)
-        dislikeImage.alpha = 0
+        nopeSticker.center.x = self.frame.width*2/3
+        nopeSticker.center.y = 100
         
-        superlikeImage.center.x = self.frame.width/2
-        superlikeImage.center.y = self.frame.height*2/3
-        superlikeImage.setTitle("Take", forState: .Normal)
-        superlikeImage.layer.cornerRadius = 5
-        superlikeImage.layer.borderWidth = 3
-        superlikeImage.layer.borderColor = superlikeColor.CGColor
-        superlikeImage.titleLabel?.font = UIFont.systemFontOfSize(20)
-        superlikeImage.setTitleColor(superlikeColor, forState: .Normal)
-        superlikeImage.alpha = 0
+        takeSticker.center.x = self.frame.width/2
+        takeSticker.center.y = UIScreen.mainScreen().bounds.height/2
         
-        self.addSubview(likeImage)
-        self.addSubview(dislikeImage)
-        self.addSubview(superlikeImage)
-        
-        UIView.animateWithDuration(0) { 
-            self.dislikeImage.transform = CGAffineTransformMakeRotation(0.25)
-            self.likeImage.transform = CGAffineTransformMakeRotation(-0.25)
-            self.superlikeImage.transform = CGAffineTransformMakeRotation(0.1)
-        }
+        self.addSubview(likeSticker)
+        self.addSubview(nopeSticker)
+        self.addSubview(takeSticker)
     }
     
     public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -205,9 +178,9 @@ public class SPTinderViewCell: UIView, UIGestureRecognizerDelegate {
     }
     
     private func setImaegAlpha(likeAlpha likeAlpha: CGFloat, dislikeAlpha: CGFloat, superlikeAlpha: CGFloat){
-        likeImage.alpha = likeAlpha
-        dislikeImage.alpha = dislikeAlpha
-        superlikeImage.alpha = superlikeAlpha
+        likeSticker.alpha = likeAlpha
+        nopeSticker.alpha = dislikeAlpha
+        takeSticker.alpha = superlikeAlpha
     }
 }
 
@@ -219,6 +192,61 @@ public class SPTinderViewCell: UIView, UIGestureRecognizerDelegate {
  - Bottom: When the cell has moved towards bottom
  - Right:  When the cell has moved towards right
  */
+extension UILabel {
+    
+    
+    convenience init(state: String){
+        
+        self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width/2, 55))
+        self.layer.borderWidth = 5
+        self.layer.cornerRadius = 5
+        self.font = UIFont.systemFontOfSize(50)
+        self.alpha = 0
+        self.textAlignment = .Center
+        
+        switch state {
+        case "like":
+            self.setToLike()
+        case "nope":
+            self.setToNope()
+        case "take":
+            self.setToTake()
+        default:
+            break
+        }
+        
+    }
+    
+    func setToLike(){
+        let likeColor = UIColor(red: 232.0/255.0, green: 74.0/255.0, blue: 95.0/255.0, alpha: 1)
+        self.layer.borderColor = likeColor.CGColor
+        self.textColor = likeColor
+        self.text = "LIKE"
+        UIView.animateWithDuration(0) {
+            self.transform = CGAffineTransformMakeRotation(-0.25)
+        }
+    }
+    
+    func setToNope(){
+        let nopeColor = UIColor(red: 102.0/255.0, green: 211.0/255.0, blue: 126.0/255.0, alpha: 1)
+        self.layer.borderColor = nopeColor.CGColor
+        self.textColor = nopeColor
+        self.text = "NOPE"
+        UIView.animateWithDuration(0) {
+            self.transform = CGAffineTransformMakeRotation(0.25)
+        }
+    }
+    
+    func setToTake(){
+        let takeColor = UIColor(red: 12.0/255.0, green: 156.0/255.0, blue: 1, alpha: 1)
+        self.layer.borderColor = takeColor.CGColor
+        self.textColor = takeColor
+        self.text = "TAKE"
+        UIView.animateWithDuration(0) {
+            self.transform = CGAffineTransformMakeRotation(-0.15)
+        }
+    }
+}
 
 public enum SPTinderViewCellMovement: Int {
     case None
