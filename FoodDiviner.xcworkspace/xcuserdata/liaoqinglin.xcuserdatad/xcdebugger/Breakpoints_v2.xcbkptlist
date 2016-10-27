@@ -1203,7 +1203,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/SPTinderView/SPTinderView/Source/SPTinderViewCell.swift"
-            timestampString = "499191166.170313"
+            timestampString = "499243385.992897"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "148"
@@ -1219,7 +1219,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/SPTinderView/SPTinderView/Source/SPTinderViewCell.swift"
-            timestampString = "499191166.170313"
+            timestampString = "499243385.992897"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "149"
@@ -1235,7 +1235,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/SPTinderView/SPTinderView/Source/SPTinderViewCell.swift"
-            timestampString = "499191166.170313"
+            timestampString = "499243385.992897"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "150"
@@ -1267,11 +1267,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodDiviner/ViewController.swift"
-            timestampString = "498907709.5989"
+            timestampString = "499247381.954267"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "428"
-            endingLineNumber = "428"
+            startingLineNumber = "422"
+            endingLineNumber = "422"
             landmarkName = "like(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1425,13 +1425,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodDiviner/StickerLabel.swift"
-            timestampString = "499178667.731651"
+            timestampString = "499224826.406649"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "init()"
-            landmarkType = "5">
+            startingLineNumber = "28"
+            endingLineNumber = "28">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

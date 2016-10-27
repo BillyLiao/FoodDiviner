@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5109E7081DC1AC93007E1917 /* StickerImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5109E7071DC1AC93007E1917 /* StickerImageView.swift */; };
 		51104A841CF9B0F800241DBE /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51104A831CF9B0F800241DBE /* Restaurant.swift */; };
 		51104A861CF9E77900241DBE /* CollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51104A851CF9E77900241DBE /* CollectionTableViewCell.swift */; };
 		51104A881CF9E78400241DBE /* BeenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51104A871CF9E78400241DBE /* BeenTableViewCell.swift */; };
@@ -49,6 +50,7 @@
 
 /* Begin PBXFileReference section */
 		4C6A9CAADE7A4597541E0135 /* Pods-FoodDiviner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDiviner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDiviner/Pods-FoodDiviner.debug.xcconfig"; sourceTree = "<group>"; };
+		5109E7071DC1AC93007E1917 /* StickerImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickerImageView.swift; sourceTree = "<group>"; };
 		51104A831CF9B0F800241DBE /* Restaurant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		51104A851CF9E77900241DBE /* CollectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionTableViewCell.swift; sourceTree = "<group>"; };
 		51104A871CF9E78400241DBE /* BeenTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeenTableViewCell.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				51EE7CFB1D83BFC800B77AE8 /* MultilineLabel.swift */,
+				5109E7071DC1AC93007E1917 /* StickerImageView.swift */,
 				5149739C1CF6ED6E00D3B58B /* RestaurantCell.swift */,
 				51104A851CF9E77900241DBE /* CollectionTableViewCell.swift */,
 				51104AC01CFABB2000241DBE /* CollectionTableViewCell.xib */,
@@ -388,6 +391,7 @@
 				51104AC51CFC1DB800241DBE /* AdavanceSearchViewController.swift in Sources */,
 				51E714A11D708C75006AB57E /* RealmHelper.swift in Sources */,
 				519383081D729CB700F7E2CB /* DeviceHelper.swift in Sources */,
+				5109E7081DC1AC93007E1917 /* StickerImageView.swift in Sources */,
 				514973A31CF7E63900D3B58B /* CollectionViewController.swift in Sources */,
 				51BDCA8A1DA50B6A00903C22 /* TrialHelper.swift in Sources */,
 				51104A861CF9E77900241DBE /* CollectionTableViewCell.swift in Sources */,

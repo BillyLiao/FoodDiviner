@@ -27,9 +27,9 @@ public class SPTinderViewCell: UIView, UIGestureRecognizerDelegate {
     typealias cellMovementChange = (SPTinderViewCellMovement) -> ()
     var onCellDidMove: cellMovementChange?
     
-    var likeSticker: UILabel!
-    var nopeSticker: UILabel!
-    var takeSticker: UILabel!
+    var likeSticker: UIImageView!
+    var nopeSticker: UIImageView!
+    var takeSticker: UIImageView!
     
     private var originalCenter = CGPoint(x: 0, y: 0)
     private var scaleToRemoveCell: CGFloat = 0.3
@@ -64,16 +64,16 @@ public class SPTinderViewCell: UIView, UIGestureRecognizerDelegate {
     }
     
     public func setupStatusImage() {
-        likeSticker = UILabel.init(state: like)
-        nopeSticker = UILabel.init(state: nope)
-        takeSticker = UILabel.init(state: take)
         
+        likeSticker = UIImageView.init(state: like)
         likeSticker.center.x = self.frame.width/3
         likeSticker.center.y = 100
         
+        nopeSticker = UIImageView.init(state: nope)
         nopeSticker.center.x = self.frame.width*2/3
         nopeSticker.center.y = 100
-        
+
+        takeSticker = UIImageView.init(state: take)
         takeSticker.center.x = self.frame.width/2
         takeSticker.center.y = UIScreen.mainScreen().bounds.height/2
         
@@ -192,59 +192,82 @@ public class SPTinderViewCell: UIView, UIGestureRecognizerDelegate {
  - Bottom: When the cell has moved towards bottom
  - Right:  When the cell has moved towards right
  */
-extension UILabel {
-    
-    
-    convenience init(state: String){
+
+extension UIImage {
+    public func imageRotatedByDegrees(degrees: CGFloat, flip: Bool) -> UIImage {
+        let radiansToDegrees: (CGFloat) -> CGFloat = {
+            return $0 * (180.0 / CGFloat(M_PI))
+        }
         
-        self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width/2, 55))
-        self.layer.borderWidth = 5
-        self.layer.cornerRadius = 5
-        self.font = UIFont.systemFontOfSize(50)
+        let degreesToRadians: (CGFloat) -> CGFloat = {
+            return $0 / 180.0 * CGFloat(M_PI)
+        }
+        
+        // calculate the size of the rotated view's containing box for our drawing space
+        let rotatedViewBox = UIView(frame: CGRect(origin: CGPointZero, size: size))
+        let t = CGAffineTransformMakeRotation(degreesToRadians(degrees))
+        rotatedViewBox.transform = t
+        let rotatedSize = rotatedViewBox.frame.size
+        
+        // Create the bitmap context
+        UIGraphicsBeginImageContext(rotatedSize)
+        let bitmap = UIGraphicsGetCurrentContext()
+        
+        // Move the origin to the middle of the image so we will rotate and scale around the center
+        CGContextTranslateCTM(bitmap, rotatedSize.width/2, rotatedSize.height/2)
+        
+        // Rotate the image context
+        CGContextRotateCTM(bitmap, degreesToRadians(degrees))
+        
+        // Now, draw the rotated/scaled image into the context
+        var yFlip: CGFloat
+        
+        if(flip){
+            yFlip = CGFloat(-1.0)
+        }else {
+            yFlip = CGFloat(1.0)
+        }
+        
+        CGContextScaleCTM(bitmap, yFlip, -1.0)
+        CGContextDrawImage(bitmap, CGRectMake(-size.width / 2, -size.height / 2, size.width, size.height), CGImage)
+    
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage
+    }
+}
+
+extension UIImageView {
+    public convenience init(state: String){
+        self.init(frame: CGRectMake(0, 0, 250, 0))
+        
         self.alpha = 0
-        self.textAlignment = .Center
+        self.contentMode = .ScaleAspectFill
         
-        switch state {
+        switch  state {
         case "like":
-            self.setToLike()
+            self.image = UIImage(named: "likeSticker")?.imageRotatedByDegrees(-20, flip: false)
         case "nope":
-            self.setToNope()
+            self.image = UIImage(named: "nopeSticker")?.imageRotatedByDegrees(20, flip: false)
         case "take":
-            self.setToTake()
+            self.image = UIImage(named: "takeSticker")?.imageRotatedByDegrees(-20, flip: false)
         default:
             break
         }
-        
     }
     
-    func setToLike(){
-        let likeColor = UIColor(red: 232.0/255.0, green: 74.0/255.0, blue: 95.0/255.0, alpha: 1)
-        self.layer.borderColor = likeColor.CGColor
-        self.textColor = likeColor
-        self.text = "LIKE"
-        UIView.animateWithDuration(0) {
-            self.transform = CGAffineTransformMakeRotation(-0.25)
+    public func startAppearing(completion: () -> Void) {
+        UIView.animateWithDuration(0.15, animations: { 
+            self.alpha = 1
+            }) { (success) in
+                completion()
+                self.appearingDidEnd()
         }
     }
     
-    func setToNope(){
-        let nopeColor = UIColor(red: 102.0/255.0, green: 211.0/255.0, blue: 126.0/255.0, alpha: 1)
-        self.layer.borderColor = nopeColor.CGColor
-        self.textColor = nopeColor
-        self.text = "NOPE"
-        UIView.animateWithDuration(0) {
-            self.transform = CGAffineTransformMakeRotation(0.25)
-        }
-    }
-    
-    func setToTake(){
-        let takeColor = UIColor(red: 12.0/255.0, green: 156.0/255.0, blue: 1, alpha: 1)
-        self.layer.borderColor = takeColor.CGColor
-        self.textColor = takeColor
-        self.text = "TAKE"
-        UIView.animateWithDuration(0) {
-            self.transform = CGAffineTransformMakeRotation(-0.15)
-        }
+    private func appearingDidEnd() {
+        self.removeFromSuperview()
     }
 }
 

@@ -380,24 +380,14 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
             RealmHelper.addRestaurant(firstRestaurant)
         }
         
-        let takeView = UIView(frame: CGRectMake(0, 0, self.view.frame.width/2, 55))
-        takeView.backgroundColor = UIColor(red: 12.0/255.0, green: 156.0/255.0, blue: 1, alpha: 1)
-        takeView.alpha = 0
-        takeView.center.x = self.view.frame.width/2
-        takeView.center.y = self.view.frame.height/3
-        self.view.addSubview(takeView)
-        
-        UIView.animateWithDuration(0, animations: { 
-            takeView.transform = CGAffineTransformMakeRotation(0.1)
-            }) { (success) in
-                UIView.animateWithDuration(0.3, animations: {
-                    takeView.alpha = 1
-                }) { (success) in
-                    takeView.removeFromSuperview()
-                    self.restaurants!.removeFirst()
-                }
+        let takeSticker = UIImageView(state: "take")
+        takeSticker.center.x = self.view.frame.width/2
+        takeSticker.center.y = self.view.frame.height/3
+        self.view.addSubview(takeSticker)
+        takeSticker.startAppearing { 
+            self.restaurants?.removeFirst()
         }
-
+        
         if self.restaurants?.count == 0 {
             run = run + 1
             loadIndicator.startAnimation()
@@ -410,7 +400,6 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
     @IBAction func like(sender: AnyObject) {
         let firstRestaurant = self.restaurants![0]
         manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: firstRestaurant.restaurant_id, decision: "accept", run: run)
-        
         if RealmHelper.isRestaurantExist(firstRestaurant) {
             print("Right, update restaurant")
             RealmHelper.addRestaurantCollectionTime(firstRestaurant)
@@ -421,8 +410,13 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
             RealmHelper.addRestaurant(firstRestaurant)
         }
         
-        
-        self.restaurants!.removeFirst()
+        let likeSticker = UIImageView(state: "like")
+        likeSticker.center.x = self.view.frame.width/2
+        likeSticker.center.y = self.view.frame.height/3
+        self.view.addSubview(likeSticker)
+        likeSticker.startAppearing { 
+            self.restaurants?.removeFirst()
+        }
         
         if self.restaurants?.count == 0 {
             run = run + 1
@@ -437,7 +431,13 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
         let firstRestaurant = self.restaurants![0]
         manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: firstRestaurant.restaurant_id, decision: "decline", run: run)
 
-        self.restaurants!.removeFirst()
+        let nopeSticker = UIImageView(state: "nope")
+        nopeSticker.center.x = self.view.frame.width/2
+        nopeSticker.center.y = self.view.frame.height/3
+        self.view.addSubview(nopeSticker)
+        nopeSticker.startAppearing { 
+            self.restaurants?.removeFirst()
+        }
         
         if self.restaurants?.count == 0 {
             run = run + 1
@@ -451,7 +451,7 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
     @IBAction func reload(sender: AnyObject) {
         //Clear the screen first
         restaurants = []
-        
+
         self.manager.getRestRecom(self.user.valueForKey("user_id") as! NSNumber, advance: self.user.valueForKey("advance") as! Bool, preferPrices: self.user.valueForKey("preferPrices") as? [Int], weather: self.user.valueForKey("weather") as? String, transport: self.user.valueForKey("transport") as? String, lat: self.user.valueForKey("lat") as? Double, lng: self.user.valueForKey("lng") as? Double)
         self.loadIndicator.startAnimation()
         lockButtons(true)
