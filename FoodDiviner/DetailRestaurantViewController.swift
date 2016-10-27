@@ -98,7 +98,14 @@ class DetailRestaurantViewController: UIViewController {
         if let restaurantDeletedBlock = restaurantWillDeleted {
             restaurantDeletedBlock(restaurant, "accept")
         }
-        self.dismissViewControllerAnimated(true, completion: nil)
+        
+        let likeSticker = UIImageView(state: "like")
+        likeSticker.center.x = self.restImage.frame.width/2
+        likeSticker.center.y = self.restImage.frame.height/2
+        self.view.addSubview(likeSticker)
+        likeSticker.startAppearing { 
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
     func takeFromMain() {
@@ -113,14 +120,28 @@ class DetailRestaurantViewController: UIViewController {
         if let restaurantDeletedBlock = restaurantWillDeleted {
             restaurantDeletedBlock(restaurant, "accept")
         }
-        self.dismissViewControllerAnimated(true, completion: nil)
+        
+        let takeSticker = UIImageView(state: "take")
+        takeSticker.center.x = self.restImage.frame.width/2
+        takeSticker.center.y = self.restImage.frame.height/2
+        self.view.addSubview(takeSticker)
+        takeSticker.startAppearing { 
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
     func dislike() {
         if let restaurantDeletedBlock = restaurantWillDeleted {
             restaurantDeletedBlock(restaurant, "decline")
         }
-        self.dismissViewControllerAnimated(true, completion: nil)
+        
+        let nopeSticker = UIImageView(state: "nope")
+        nopeSticker.center.x = self.restImage.frame.width/2
+        nopeSticker.center.y = self.restImage.frame.height/2
+        self.view.addSubview(nopeSticker)
+        nopeSticker.startAppearing {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
     func remove() {
