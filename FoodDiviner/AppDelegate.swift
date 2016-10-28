@@ -27,7 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, gender, email, age_range"]).startWithCompletionHandler({ (connection, result, error) -> Void in
                 if error == nil {
-                    print(result)
                 }
             })
             

@@ -103,27 +103,19 @@ public class SPTinderView: UIView, UIGestureRecognizerDelegate{
         }
     }
     
-    private func removeFromTop(direction: SPTinderViewCellMovement){
-        guard let _dataSource = dataSource where currentIndex < numberOfCells else { return }
-        if let cell = _dataSource.tinderView(self, cellAt: currentIndex) {
-            cell.onCellDidMove = { direction in
-                if direction != .None {
-                    self.animateRemovalForCell(cell, towards: direction, completion: { 
-                        if let _delegate = self.delegate {
-                            _delegate.tinderView(self, didMoveCellAt: self.currentIndex, towards: direction)
-                        }
-                    })
-                }
-            }
-        }
+    public func getCellOnTop() -> SPTinderViewCell? {
+        guard let _dataSource = dataSource where currentIndex < numberOfCells else { return nil }
+        return _dataSource.tinderView(self, cellAt: currentIndex)
     }
-
     
     private func insertCell(at index: Int) {
         guard let _dataSource = dataSource where index < numberOfCells else { return }
         if let cell = _dataSource.tinderView(self, cellAt: index) {
+            print("outsideInsertCell: \(index)")
             cell.onCellDidMove = { direction in
+                print("insideInsertCell Step1: \(index)")
                 if direction != .None {
+                    print("insideInsertCell Step2: \(index)")
                     self.animateRemovalForCell(cell, towards: direction, completion:  {
                         if let _delegate = self.delegate {
                             _delegate.tinderView(self, didMoveCellAt: index, towards: direction)
@@ -136,14 +128,6 @@ public class SPTinderView: UIView, UIGestureRecognizerDelegate{
             cell.center = self.center
         }
     }
-    
-    /*
-    public func animateRemovalForCellOnTop(movement: SPTinderViewCellMovement){
-        guard let _dataSource = dataSource where currentIndex < numberOfCells else { return }
-        if let cell = _dataSource.tinderView(self, cellAt: currentIndex) {
-        }
-    }
-    */
     
     private func adjustVisibleCellPosition() {        
         UIView.animateWithDuration(0.3, animations: {
@@ -171,6 +155,7 @@ public class SPTinderView: UIView, UIGestureRecognizerDelegate{
                 
                 cell.removeFromSuperview()
                 self.recycleACell(cell)
+                print("animateRemoval")
                 self.insertCell(at: self.currentIndex + self.visibleCount)
                 self.currentIndex += 1
                 self.adjustVisibleCellPosition()

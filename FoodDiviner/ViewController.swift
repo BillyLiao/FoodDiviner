@@ -410,12 +410,15 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
             RealmHelper.addRestaurant(firstRestaurant)
         }
         
+        let tempCell = self.restaurantView.getCellOnTop() as! RestaurantCell
+        tempCell.setCellMovementDirection(SPTinderViewCellMovement.Right)
+        
         let likeSticker = UIImageView(state: "like")
         likeSticker.center.x = self.view.frame.width/2
         likeSticker.center.y = self.view.frame.height/3
         self.view.addSubview(likeSticker)
         likeSticker.startAppearing { 
-            self.restaurants?.removeFirst()
+
         }
         
         if self.restaurants?.count == 0 {
