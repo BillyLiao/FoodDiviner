@@ -15,10 +15,10 @@
 		51104AC31CFB03DB00241DBE /* BeenTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51104AC21CFB03DB00241DBE /* BeenTableViewCell.xib */; };
 		51104AC51CFC1DB800241DBE /* AdavanceSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51104AC41CFC1DB800241DBE /* AdavanceSearchViewController.swift */; };
 		51162E841D3495ED004F807F /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51162E831D3495ED004F807F /* RatingViewController.swift */; };
+		511842E11DC5F2AE00783D6B /* RestaurantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511842E01DC5F2AE00783D6B /* RestaurantView.swift */; };
 		514627BE1D19330300B0D901 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514627BD1D19330300B0D901 /* APIManager.swift */; };
 		514627C01D1981C400B0D901 /* DetailRestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514627BF1D1981C400B0D901 /* DetailRestaurantViewController.swift */; };
 		514627C21D1A0BC500B0D901 /* trialRestaurant.json in Resources */ = {isa = PBXBuildFile; fileRef = 514627C11D1A0BC500B0D901 /* trialRestaurant.json */; };
-		5149739D1CF6ED6E00D3B58B /* RestaurantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5149739C1CF6ED6E00D3B58B /* RestaurantCell.swift */; };
 		514973A31CF7E63900D3B58B /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514973A21CF7E63900D3B58B /* CollectionViewController.swift */; };
 		5157708E1D1A57FD00549A4E /* fbLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5157708D1D1A57FD00549A4E /* fbLoginViewController.swift */; };
 		515770921D1A59CA00549A4E /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5157708F1D1A59CA00549A4E /* FBSDKCoreKit.framework */; };
@@ -58,10 +58,10 @@
 		51104AC21CFB03DB00241DBE /* BeenTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BeenTableViewCell.xib; sourceTree = "<group>"; };
 		51104AC41CFC1DB800241DBE /* AdavanceSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdavanceSearchViewController.swift; sourceTree = "<group>"; };
 		51162E831D3495ED004F807F /* RatingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingViewController.swift; sourceTree = "<group>"; };
+		511842E01DC5F2AE00783D6B /* RestaurantView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantView.swift; sourceTree = "<group>"; };
 		514627BD1D19330300B0D901 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		514627BF1D1981C400B0D901 /* DetailRestaurantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailRestaurantViewController.swift; sourceTree = "<group>"; };
 		514627C11D1A0BC500B0D901 /* trialRestaurant.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = trialRestaurant.json; sourceTree = "<group>"; };
-		5149739C1CF6ED6E00D3B58B /* RestaurantCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestaurantCell.swift; path = ../RestaurantCell.swift; sourceTree = "<group>"; };
 		514973A21CF7E63900D3B58B /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		5157708D1D1A57FD00549A4E /* fbLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fbLoginViewController.swift; sourceTree = "<group>"; };
 		5157708F1D1A59CA00549A4E /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -152,8 +152,8 @@
 			children = (
 				51EE7CFB1D83BFC800B77AE8 /* MultilineLabel.swift */,
 				5109E7071DC1AC93007E1917 /* StickerImageView.swift */,
-				5149739C1CF6ED6E00D3B58B /* RestaurantCell.swift */,
 				51104A851CF9E77900241DBE /* CollectionTableViewCell.swift */,
+				511842E01DC5F2AE00783D6B /* RestaurantView.swift */,
 				51104AC01CFABB2000241DBE /* CollectionTableViewCell.xib */,
 				51104A871CF9E78400241DBE /* BeenTableViewCell.swift */,
 				51104AC21CFB03DB00241DBE /* BeenTableViewCell.xib */,
@@ -377,7 +377,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5149739D1CF6ED6E00D3B58B /* RestaurantCell.swift in Sources */,
+				511842E11DC5F2AE00783D6B /* RestaurantView.swift in Sources */,
 				5157708E1D1A57FD00549A4E /* fbLoginViewController.swift in Sources */,
 				51EE7CFC1D83BFC800B77AE8 /* MultilineLabel.swift in Sources */,
 				51104A881CF9E78400241DBE /* BeenTableViewCell.swift in Sources */,

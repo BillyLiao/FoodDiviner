@@ -7,27 +7,31 @@
 //
 
 import UIKit
-import SPTinderView
+import ZLSwipeableViewSwift
 import FDRatingView
 
-class RestaurantCell: SPTinderViewCell {
+class RestaurantView: ZLSwipeableView {
+    
     let titleView: UIView = UIView(frame: CGRectZero)
     let imageView: UIImageView = UIImageView(frame: CGRectZero)
     let nameLabel: UILabel = UILabel(frame: CGRectZero)
     let infoLabel: UILabel = UILabel(frame: CGRectZero)
     let deviceHelper = DeviceHelper()
+    var likeSticker: UIImageView!
+    var nopeSticker: UIImageView!
+    var takeSticker: UIImageView!
+    var restaurant: Restaurant!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
-    required init(reuseIdentifier: String) {
-        super.init(reuseIdentifier: reuseIdentifier)
-        self.frame = CGRect(origin: CGPointZero, size: CGSize(width: UIScreen.mainScreen().bounds.width - 16 , height: UIScreen.mainScreen().bounds.height-100))
+    init() {
+        super.init(frame: CGRectZero)
+        self.frame = CGRect(origin: CGPointZero, size: CGSize(width: UIScreen.mainScreen().bounds.width - 16 , height: UIScreen.mainScreen().bounds.height * (2/3)))
+        self.center.x = UIScreen.mainScreen().bounds.width/2
+        self.frame.origin.y = 15
+        self.backgroundColor = UIColor.blueColor()
         titleView.frame = CGRectMake(0, self.frame.height-60, self.frame.width, 60)
         titleView.backgroundColor = UIColor.whiteColor()
         
@@ -43,11 +47,15 @@ class RestaurantCell: SPTinderViewCell {
         imageView.frame = CGRectMake(0, 10, self.frame.width, self.frame.height-60)
         imageView.clipsToBounds = true //裁切超過Parent view的部分
         imageView.contentMode = .ScaleAspectFill
+        titleView.backgroundColor = UIColor.redColor()
         self.addSubview(imageView)
         self.addSubview(titleView)
-        
-        self.setupStatusImage()
     }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     func setRatingView(rating: Float?){
         if let rate = rating {
@@ -70,6 +78,25 @@ class RestaurantCell: SPTinderViewCell {
 
         }
     }
+    
+    func setupStatusImage() {
+        likeSticker = UIImageView.init(state: "like")
+        likeSticker.center.x = self.frame.width/3
+        likeSticker.center.y = 100
+        
+        nopeSticker = UIImageView.init(state: "nope")
+        nopeSticker.center.x = self.frame.width*2/3
+        nopeSticker.center.y = 100
+        
+        takeSticker = UIImageView.init(state: "take")
+        takeSticker.center.x = self.frame.width/2
+        takeSticker.center.y = UIScreen.mainScreen().bounds.height/2
+        
+        self.addSubview(likeSticker)
+        self.addSubview(nopeSticker)
+        self.addSubview(takeSticker)
+    }
+
 
     
 }

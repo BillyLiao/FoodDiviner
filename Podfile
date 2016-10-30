@@ -5,7 +5,6 @@ use_frameworks!
 
 target 'FoodDiviner' do
 
-pod 'SPTinderView', '~> 0.3'
 pod 'TETinderPageView'
 pod ‘Alamofire’, ‘~> 3.4’
 pod ‘AFNetworking’, ‘~> 3.0’
@@ -16,6 +15,7 @@ pod 'NVActivityIndicatorView'
 pod ‘RealmSwift’
 pod 'DeviceKit', '~> 0.3.4'
 pod 'SDWebImage', '~>3.8'
+pod ‘ZLSwipeableViewSwift’
 
 end
 

@@ -93,9 +93,9 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-FoodDiviner/Realm.framework"
   install_framework "Pods-FoodDiviner/RealmSwift.framework"
   install_framework "Pods-FoodDiviner/SDWebImage.framework"
-  install_framework "Pods-FoodDiviner/SPTinderView.framework"
   install_framework "Pods-FoodDiviner/SwiftyJSON.framework"
   install_framework "Pods-FoodDiviner/TETinderPageView.framework"
+  install_framework "Pods-FoodDiviner/ZLSwipeableViewSwift.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-FoodDiviner/AFNetworking.framework"
@@ -107,7 +107,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-FoodDiviner/Realm.framework"
   install_framework "Pods-FoodDiviner/RealmSwift.framework"
   install_framework "Pods-FoodDiviner/SDWebImage.framework"
-  install_framework "Pods-FoodDiviner/SPTinderView.framework"
   install_framework "Pods-FoodDiviner/SwiftyJSON.framework"
   install_framework "Pods-FoodDiviner/TETinderPageView.framework"
+  install_framework "Pods-FoodDiviner/ZLSwipeableViewSwift.framework"
 fi

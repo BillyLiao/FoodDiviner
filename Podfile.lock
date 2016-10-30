@@ -27,9 +27,9 @@ PODS:
   - SDWebImage (3.8.1):
     - SDWebImage/Core (= 3.8.1)
   - SDWebImage/Core (3.8.1)
-  - SPTinderView (0.3.0)
   - SwiftyJSON (2.3.2)
   - TETinderPageView (0.0.3)
+  - ZLSwipeableViewSwift (0.0.7)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
@@ -40,9 +40,9 @@ DEPENDENCIES:
   - NVActivityIndicatorView
   - RealmSwift
   - SDWebImage (~> 3.8)
-  - SPTinderView (~> 0.3)
   - SwiftyJSON
   - TETinderPageView
+  - ZLSwipeableViewSwift
 
 EXTERNAL SOURCES:
   FDRatingView:
@@ -63,8 +63,8 @@ SPEC CHECKSUMS:
   Realm: 9d5c46a4d7d27958530a8dfc58f63a99e5c2cba3
   RealmSwift: 82f3ac5e24530143dddfde2033acc0d308f27d96
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
-  SPTinderView: 5468b586078f52ad9620448f4784687fc989c006
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   TETinderPageView: 2759ada073a99a3627c93657d9b2e67a31f22cf2
+  ZLSwipeableViewSwift: f5ee94c2e4220f900f5a129118af2aef23062900
 
 COCOAPODS: 0.39.0

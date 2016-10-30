@@ -7,16 +7,15 @@
 //
 
 import UIKit
-import SPTinderView
 import RealmSwift
 import SwiftyJSON
 import NVActivityIndicatorView
 import CoreLocation
 import SDWebImage
+import ZLSwipeableViewSwift
 
 class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDelegate{
     
-    var restaurantView: SPTinderView!
     let cellIdentifier = "restaurantCell"
     let loadIndicator: NVActivityIndicatorView = NVActivityIndicatorView(frame: CGRectMake(0, 0, 90, 90), type: .BallScaleMultiple, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0))
     var run: Int = 1
@@ -34,20 +33,19 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     var manager: APIManager!
     var restaurants: [Restaurant]? = [] {
         didSet{
-            self.restaurantView.reloadData()
         }
     }
     let user = NSUserDefaults()
     var stateNow = state.beforetrial
     var user_trial = NSMutableDictionary()
     var locationManager: CLLocationManager!
+    var restaurantView: RestaurantView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         manager = APIManager()
         manager.delegate = self
-        restaurantView = SPTinderView()
         
         locationManager = CLLocationManager()
         locationManager.delegate = self
@@ -68,22 +66,18 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         case .afterTrial:
             print("After Trial.")
             loadIndicator.startAnimation()
-            lockButtons(true)
+            //lockButtons(true)
             manager.getRestRecom(user.valueForKey("user_id") as! NSNumber, advance: user.valueForKey("advance") as! Bool, preferPrices: user.valueForKey("preferPrices") as? [Int], weather: user.valueForKey("weather") as? String, transport: user.valueForKey("transport") as? String, lat: user.valueForKey("lat") as? Double, lng: user.valueForKey("lng") as? Double)
         default:
             break
         }
         
-        restaurantView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height-180)
-        restaurantView.registerClass(RestaurantCell.self, forCellReuseIdentifier: cellIdentifier)
-        restaurantView.dataSource = self
-        restaurantView.delegate = self
+        restaurantView = RestaurantView()
+        self.view.addSubview(restaurantView)
         
         self.loadIndicator.center = self.view.center
         self.loadIndicator.center.y -= 60
-        
         self.view.addSubview(self.loadIndicator)
-        self.view.addSubview(restaurantView)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -169,7 +163,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     
     func userRecomGetRequestDidFinished(r: [NSDictionary]?) {
         loadIndicator.stopAnimation()
-        lockButtons(false)
+        //lockButtons(false)
         // Clean the restaurants array.
         restaurants = []
         
@@ -228,12 +222,13 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        var userLocation:CLLocation = locations[0] 
+        var userLocation:CLLocation = locations[0]
         user.setObject(userLocation.coordinate.latitude, forKey: "lat")
         user.setObject(userLocation.coordinate.longitude, forKey: "lng")
     }
 }
 
+/*
 extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
     func numberOfItemsInTinderView(view: SPTinderView) -> Int {
         if let restaurants = restaurants {
@@ -475,7 +470,8 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
         }
     }
 }
-
+*/
+ 
 /*
 extension NSLayoutConstraint {
     override public var description: String {
@@ -484,3 +480,81 @@ extension NSLayoutConstraint {
     }
 }
 */
+
+extension UIImage {
+    public func imageRotatedByDegrees(degrees: CGFloat, flip: Bool) -> UIImage {
+        let radiansToDegrees: (CGFloat) -> CGFloat = {
+            return $0 * (180.0 / CGFloat(M_PI))
+        }
+        
+        let degreesToRadians: (CGFloat) -> CGFloat = {
+            return $0 / 180.0 * CGFloat(M_PI)
+        }
+        
+        // calculate the size of the rotated view's containing box for our drawing space
+        let rotatedViewBox = UIView(frame: CGRect(origin: CGPointZero, size: size))
+        let t = CGAffineTransformMakeRotation(degreesToRadians(degrees))
+        rotatedViewBox.transform = t
+        let rotatedSize = rotatedViewBox.frame.size
+        
+        // Create the bitmap context
+        UIGraphicsBeginImageContext(rotatedSize)
+        let bitmap = UIGraphicsGetCurrentContext()
+        
+        // Move the origin to the middle of the image so we will rotate and scale around the center
+        CGContextTranslateCTM(bitmap, rotatedSize.width/2, rotatedSize.height/2)
+        
+        // Rotate the image context
+        CGContextRotateCTM(bitmap, degreesToRadians(degrees))
+        
+        // Now, draw the rotated/scaled image into the context
+        var yFlip: CGFloat
+        
+        if(flip){
+            yFlip = CGFloat(-1.0)
+        }else {
+            yFlip = CGFloat(1.0)
+        }
+        
+        CGContextScaleCTM(bitmap, yFlip, -1.0)
+        CGContextDrawImage(bitmap, CGRectMake(-size.width / 2, -size.height / 2, size.width, size.height), CGImage)
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage
+    }
+}
+
+extension UIImageView {
+    public convenience init(state: String){
+        self.init(frame: CGRectMake(0, 0, 250, 0))
+        
+        self.alpha = 0
+        self.contentMode = .ScaleAspectFill
+        
+        switch  state {
+        case "like":
+            self.image = UIImage(named: "likeSticker")?.imageRotatedByDegrees(-20, flip: false)
+        case "nope":
+            self.image = UIImage(named: "nopeSticker")?.imageRotatedByDegrees(20, flip: false)
+        case "take":
+            self.image = UIImage(named: "takeSticker")?.imageRotatedByDegrees(-20, flip: false)
+        default:
+            break
+        }
+    }
+    
+    public func startAppearing(completion: () -> Void) {
+        UIView.animateWithDuration(0.15, animations: {
+            self.alpha = 1
+        }) { (success) in
+            completion()
+            self.appearingDidEnd()
+        }
+    }
+    
+    private func appearingDidEnd() {
+        self.removeFromSuperview()
+    }
+}

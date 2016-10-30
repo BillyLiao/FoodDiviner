@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '6C89F8CAC1A93F441C7D950A'
-               BlueprintName = 'SPTinderView'
+               BlueprintIdentifier = '138B3CC86BE684A6ADE7CD38'
+               BlueprintName = 'ZLSwipeableViewSwift'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'SPTinderView.framework'>
+               BuildableName = 'ZLSwipeableViewSwift.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

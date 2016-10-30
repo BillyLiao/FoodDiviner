@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'C8111125C026F3BC5D0F0C97'
+               BlueprintIdentifier = '3ACC253CD6B53A7C1DF19102'
                BlueprintName = 'FDRatingView'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'FDRatingView.framework'>
