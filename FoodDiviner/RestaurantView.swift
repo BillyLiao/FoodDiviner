@@ -9,6 +9,7 @@
 import UIKit
 import ZLSwipeableViewSwift
 import FDRatingView
+import SDWebImage
 
 class RestaurantView: ZLSwipeableView {
     
@@ -50,6 +51,19 @@ class RestaurantView: ZLSwipeableView {
         titleView.backgroundColor = UIColor.redColor()
         self.addSubview(imageView)
         self.addSubview(titleView)
+    }
+    
+    convenience init(restaurant: Restaurant) {
+        self.init()
+        self.nameLabel.text = restaurant.name
+        self.infoLabel.text = restaurant.cuisine
+        if let image_id = restaurant.image_id {
+            self.imageView.sd_setImageWithURL(NSURL(string:"http://api-server.jqemsuerdm.ap-northeast-1.elasticbeanstalk.com/images/\(image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"), completed: { (image, error, cacheType, url) in
+                restaurant.photo = UIImageJPEGRepresentation(image, 0.6)
+            })
+        }else {
+            self.imageView.image = UIImage(named: "imagePlaceHolder")
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
