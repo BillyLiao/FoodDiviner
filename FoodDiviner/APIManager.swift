@@ -27,10 +27,6 @@ class APIManager: NSObject {
         manager.responseSerializer = AFJSONResponseSerializer()
     }
     
-    /*
-    self.manager.getRestRecom(self.user.valueForKey("user_id") as! NSNumber, advance: self.user.valueForKey("advance") as! Bool, preferPrices: self.user.valueForKey("preferPrices") as? [Int], weather: self.user.valueForKey("weather") as? String, transport: self.user.valueForKey("transport") as? String, lat: self.user.valueForKey("lat") as? Double, lng: self.user.valueForKey("lng") as? Double)
-    */
-    
     func getRestRecom(){
         let url = "\(baseURL)/users/\(self.user.valueForKey("user_id") as! NSNumber)/recommendation"
         let params: NSDictionary?

@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import SwiftyJSON
 
 class Restaurant: Object{
     dynamic var address: String! = ""
@@ -28,4 +29,46 @@ class Restaurant: Object{
     dynamic var collectTime: NSNumber! = 0
     dynamic var beenTime: NSNumber! = 0 
     dynamic var status: NSNumber! = 0
+    
+    convenience init(json: JSON) {
+        self.init()
+        address = json["address"].string
+        cuisine = json["cuisine"][0].string
+        time = json["hours"].string
+        name = json["name"].string
+        order = json["ordering"][0].string
+        phone = json["phone"].string
+        price = json["price"].string
+        restaurant_id = json["restaurant_id"].int
+        scenario = json["scenario"][0].string
+        tags = json["tags"][0].string
+        image_id = json["image"][0].string
+        avgRating = 4
+        
+        if json["cuisine"].count > 1 {
+            for j in 1..<json["cuisine"].count {
+                cuisine = cuisine + ", \(json["cuisine"][j].string!)"
+            }
+        }
+        
+        if json["scenario"].count > 1 {
+            for j in 1..<json["scenario"].count {
+                scenario = scenario + ", \(json["scenario"][j].string!)"
+            }
+        }
+        
+        if json["tags"].count > 1 {
+            for j in 1..<json["tags"].count {
+                tags = tags + ", \(json["tags"][j].string!)"
+            }
+        }
+        
+        if json["ordering"].count > 1 {
+            for j in 1..<json["ordering"].count {
+                order = order + ", \(json["ordering"][j].string!)"
+            }
+        }
+
+    }
+    
 }

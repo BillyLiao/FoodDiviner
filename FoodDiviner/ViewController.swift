@@ -70,8 +70,8 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         case .afterTrial:
             print("After Trial.")
             loadIndicator.startAnimation()
-            //lockButtons(true)
-            manager.getRestRecom(user.valueForKey("user_id") as! NSNumber, advance: user.valueForKey("advance") as! Bool, preferPrices: user.valueForKey("preferPrices") as? [Int], weather: user.valueForKey("weather") as? String, transport: user.valueForKey("transport") as? String, lat: user.valueForKey("lat") as? Double, lng: user.valueForKey("lng") as? Double)
+            lockButtons(true)
+            manager.getRestRecom()
         default:
             break
         }
@@ -91,7 +91,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         restaurantView.didSwipe = {cardView, inDirection, directionVector in
             let view = cardView as! RestaurantView
             let restaurant = view.restaurant
-            
+        
             switch inDirection {
             case Direction.Right:
                 self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "accept", run: self.run)
@@ -132,8 +132,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                 self.manager.getRestRecom()
             }
         }
-        
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -153,7 +151,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         }
         
         if restaurantIndex >= restaurants!.count {
-            //TODO: Show activityIndicator & request new data
             return nil
         }
         
@@ -243,53 +240,15 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     
     func userRecomGetRequestDidFinished(r: [NSDictionary]?) {
         loadIndicator.stopAnimation()
-        //lockButtons(false)
+        lockButtons(false)
         // Clean the restaurants array.
-        restaurants = []
         
         var tempRestaurnts: [Restaurant] = []
         
         if let data = r {
             for element in data {
                 let jsonObj = JSON(element)
-                
-                let restaurant = Restaurant()
-                restaurant.address = jsonObj["address"].string
-                restaurant.cuisine = jsonObj["cuisine"][0].string
-                restaurant.time = jsonObj["hours"].string
-                restaurant.name = jsonObj["name"].string
-                restaurant.order = jsonObj["ordering"][0].string
-                restaurant.phone = jsonObj["phone"].string
-                restaurant.price = jsonObj["price"].string
-                restaurant.restaurant_id = jsonObj["restaurant_id"].int
-                restaurant.scenario = jsonObj["scenario"][0].string
-                restaurant.tags = jsonObj["tags"][0].string
-                restaurant.image_id = jsonObj["image"][0].string
-                restaurant.avgRating = 4
-                
-                if jsonObj["cuisine"].count > 1 {
-                    for j in 1..<jsonObj["cuisine"].count {
-                        restaurant.cuisine = restaurant.cuisine + ", \(jsonObj["cuisine"][j].string!)"
-                    }
-                }
-                
-                if jsonObj["scenario"].count > 1 {
-                    for j in 1..<jsonObj["scenario"].count {
-                        restaurant.scenario = restaurant.scenario + ", \(jsonObj["scenario"][j].string!)"
-                    }
-                }
-                
-                if jsonObj["tags"].count > 1 {
-                    for j in 1..<jsonObj["tags"].count {
-                        restaurant.tags = restaurant.tags + ", \(jsonObj["tags"][j].string!)"
-                    }
-                }
-                
-                if jsonObj["ordering"].count > 1 {
-                    for j in 1..<jsonObj["ordering"].count {
-                        restaurant.order = restaurant.order + ", \(jsonObj["ordering"][j].string!)"
-                    }
-                }
+                let restaurant = Restaurant(json: jsonObj)
                 tempRestaurnts.append(restaurant)
             }
         }
@@ -298,7 +257,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     
     func userDidSignUp(user_id: NSNumber) {
         user.setValue(user_id, forKey: "user_id")
-        manager.getRestRecom(user.valueForKey("user_id") as! NSNumber, advance: user.valueForKey("advance") as! Bool, preferPrices: user.valueForKey("preferPrices") as? [Int], weather: user.valueForKey("weather") as? String, transport: user.valueForKey("transport") as? String, lat: user.valueForKey("lat") as? Double, lng: user.valueForKey("lng") as? Double)
+        manager.getRestRecom()
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -325,6 +284,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         likeSticker.center.x = self.view.frame.width/2
         likeSticker.center.y = self.view.frame.height/3
         self.view.addSubview(likeSticker)
+        
         likeSticker.startAppearing {
             self.restaurantView.swipeTopView(inDirection: .Right)
         }
@@ -336,6 +296,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         nopeSticker.center.x = self.view.frame.width/2
         nopeSticker.center.y = self.view.frame.height/3
         self.view.addSubview(nopeSticker)
+        
         nopeSticker.startAppearing {
             self.restaurantView.swipeTopView(inDirection: .Left)
         }
