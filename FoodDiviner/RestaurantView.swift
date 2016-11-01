@@ -11,7 +11,7 @@ import ZLSwipeableViewSwift
 import FDRatingView
 import SDWebImage
 
-class RestaurantView: ZLSwipeableView {
+class RestaurantView: UIView {
     
     let titleView: UIView = UIView(frame: CGRectZero)
     let imageView: UIImageView = UIImageView(frame: CGRectZero)
@@ -25,14 +25,9 @@ class RestaurantView: ZLSwipeableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-    }
-    
-    init() {
-        super.init(frame: CGRectZero)
-        self.frame = CGRect(origin: CGPointZero, size: CGSize(width: UIScreen.mainScreen().bounds.width - 16 , height: UIScreen.mainScreen().bounds.height * (2/3)))
-        self.center.x = UIScreen.mainScreen().bounds.width/2
-        self.frame.origin.y = 15
-        self.backgroundColor = UIColor.blueColor()
+        
+        self.layer.cornerRadius = 5
+        
         titleView.frame = CGRectMake(0, self.frame.height-60, self.frame.width, 60)
         titleView.backgroundColor = UIColor.whiteColor()
         
@@ -44,17 +39,19 @@ class RestaurantView: ZLSwipeableView {
         nameLabel.frame = CGRectMake(5, 0, titleView.frame.width*0.6, titleView.frame.height/2)
         nameLabel.font = nameLabel.font.fontWithSize(17)
         titleView.addSubview(nameLabel)
+        self.addSubview(titleView)
         
-        imageView.frame = CGRectMake(0, 10, self.frame.width, self.frame.height-60)
+        imageView.frame = CGRectMake(0, 0, self.frame.width, self.frame.height-60)
         imageView.clipsToBounds = true //裁切超過Parent view的部分
         imageView.contentMode = .ScaleAspectFill
-        titleView.backgroundColor = UIColor.redColor()
         self.addSubview(imageView)
-        self.addSubview(titleView)
+        
+        setupStatusImage()
     }
-    
-    convenience init(restaurant: Restaurant) {
-        self.init()
+
+    convenience init(frame: CGRect, restaurant: Restaurant) {
+        self.init(frame: frame)
+        self.restaurant = restaurant
         self.nameLabel.text = restaurant.name
         self.infoLabel.text = restaurant.cuisine
         if let image_id = restaurant.image_id {
@@ -110,7 +107,17 @@ class RestaurantView: ZLSwipeableView {
         self.addSubview(nopeSticker)
         self.addSubview(takeSticker)
     }
-
-
     
+    func setup() {
+        // Shadow
+        layer.shadowColor = UIColor.blackColor().CGColor
+        layer.shadowOpacity = 0.25
+        layer.shadowOffset = CGSizeMake(0, 1.5)
+        layer.shadowRadius = 4.0
+        layer.shouldRasterize = true
+        layer.rasterizationScale = UIScreen.mainScreen().scale
+        
+        // Corner Radius
+        layer.cornerRadius = 10.0;
+    }
 }

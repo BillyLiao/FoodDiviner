@@ -31,15 +31,19 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     }
     
     var manager: APIManager!
-    var restaurants: [Restaurant]? = [] {
+    var restaurants: [Restaurant]? = []{
         didSet{
+            restaurantView.loadViews()
+            print("loadView")
         }
     }
     let user = NSUserDefaults()
     var stateNow = state.beforetrial
     var user_trial = NSMutableDictionary()
     var locationManager: CLLocationManager!
-    var restaurantView: RestaurantView!
+    var restaurantView: ZLSwipeableView!
+    var restaurantIndex = 0
+    var currentIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,16 +76,92 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
             break
         }
         
-        restaurantView = RestaurantView()
+        restaurantView = ZLSwipeableView()
+        restaurantView.frame = CGRect(origin: CGPointZero, size: CGSize(width: UIScreen.mainScreen().bounds.width - 16 , height: UIScreen.mainScreen().bounds.height * (2/3)))
+        restaurantView.center.x = self.view.frame.width/2
+        restaurantView.frame.origin.y = 15
+        restaurantView.allowedDirection = [.Left, .Right, .Up]
+        restaurantView.numberOfActiveView = UInt(10)
         self.view.addSubview(restaurantView)
         
         self.loadIndicator.center = self.view.center
         self.loadIndicator.center.y -= 60
         self.view.addSubview(self.loadIndicator)
+        
+        restaurantView.didSwipe = {cardView, inDirection, directionVector in
+            let view = cardView as! RestaurantView
+            let restaurant = view.restaurant
+            
+            switch inDirection {
+            case Direction.Right:
+                self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "accept", run: self.run)
+                
+                if RealmHelper.isRestaurantExist(restaurant) {
+                    print("Right, update restaurant")
+                    RealmHelper.addRestaurantCollectionTime(restaurant)
+                }else {
+                    print("Right, add restaurant")
+                    restaurant.status = 1
+                    restaurant.collectTime = 1
+                    RealmHelper.addRestaurant(restaurant)
+                }
+            case Direction.Left:
+                self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "decline", run: self.run)
+            case Direction.Up:
+                self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "accept", run: self.run)
+                
+                if RealmHelper.isRestaurantExist(restaurant) {
+                    print("Up, update restaurant")
+                    RealmHelper.updateRestaurant(restaurant, status: 2)
+                    RealmHelper.addRestaurantBeenTime(restaurant)
+                }else{
+                    print("Up, add restaurant")
+                    restaurant.status = 2
+                    restaurant.beenTime = 1
+                    RealmHelper.addRestaurant(restaurant)
+                }
+            default:
+                break
+            }
+            
+            // Request new data when last restaurants did swipe.
+            if restaurant.restaurant_id == self.restaurants?.last?.restaurant_id {
+                self.run = self.run + 1
+                self.loadIndicator.startAnimation()
+                self.lockButtons(true)
+                self.manager.getRestRecom()
+            }
+        }
+        
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        restaurantView.nextView = {
+            return self.nextCardView()
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
         run = 1
+    }
+    
+    func nextCardView() -> UIView? {
+        if restaurants!.count == 0 {
+            return nil
+        }
+        
+        if restaurantIndex >= restaurants!.count {
+            //TODO: Show activityIndicator & request new data
+            return nil
+        }
+        
+        let cardView = RestaurantView(frame: restaurantView.bounds ,restaurant: restaurants![restaurantIndex])
+        cardView.setRatingView(restaurants![restaurantIndex].avgRating as! Float)
+        restaurantIndex += 1
+        
+        return cardView
     }
 
     override func didReceiveMemoryWarning() {
@@ -151,7 +231,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     func requestFailed(e: NSError?) {
         let alertController = UIAlertController(title: "嗯...嗯...", message: "真是個大凶兆，讓我再仔細占卜一番?我想確認確認..", preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "再算一次", style: .Default) { (result) in
-            self.manager.getRestRecom(self.user.valueForKey("user_id") as! NSNumber, advance: self.user.valueForKey("advance") as! Bool, preferPrices: self.user.valueForKey("preferPrices") as? [Int], weather: self.user.valueForKey("weather") as? String, transport: self.user.valueForKey("transport") as? String, lat: self.user.valueForKey("lat") as? Double, lng: self.user.valueForKey("lng") as? Double)
+            self.manager.getRestRecom()
         }
         let cancelAction = UIAlertAction(title: "根本神棍", style: .Cancel) { (result) in
             self.loadIndicator.stopAnimation()
@@ -226,10 +306,69 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         user.setObject(userLocation.coordinate.latitude, forKey: "lat")
         user.setObject(userLocation.coordinate.longitude, forKey: "lng")
     }
+    
+    // Take the restaurant
+    @IBAction func take(sender: AnyObject) {
+        let takeSticker = UIImageView(state: "take")
+        takeSticker.center.x = self.view.frame.width/2
+        takeSticker.center.y = self.view.frame.height/3
+        self.view.addSubview(takeSticker)
+        
+        takeSticker.startAppearing {
+            self.restaurantView.swipeTopView(inDirection: .Up)
+        }
+    }
+    
+    // Collect the restaurant
+    @IBAction func like(sender: AnyObject) {
+        let likeSticker = UIImageView(state: "like")
+        likeSticker.center.x = self.view.frame.width/2
+        likeSticker.center.y = self.view.frame.height/3
+        self.view.addSubview(likeSticker)
+        likeSticker.startAppearing {
+            self.restaurantView.swipeTopView(inDirection: .Right)
+        }
+    }
+    
+    // Dismiss the restaurant
+    @IBAction func dislike(sender: AnyObject) {
+        let nopeSticker = UIImageView(state: "nope")
+        nopeSticker.center.x = self.view.frame.width/2
+        nopeSticker.center.y = self.view.frame.height/3
+        self.view.addSubview(nopeSticker)
+        nopeSticker.startAppearing {
+            self.restaurantView.swipeTopView(inDirection: .Left)
+        }
+    }
+    
+    // Reload the data from internet
+    @IBAction func reload(sender: AnyObject) {
+        //Clear the screen first
+        restaurants = []
+        self.manager.getRestRecom()
+        self.loadIndicator.startAnimation()
+        lockButtons(true)
+    }
+    
+    // In case user the buttons when loading
+    func lockButtons(lock: Bool){
+        if lock == true {
+            dislikeButton.enabled = false
+            likeButton.enabled = false
+            takeButton.enabled = false
+            reloadButton.enabled = false
+        }else {
+            dislikeButton.enabled = true
+            likeButton.enabled = true
+            takeButton.enabled = true
+            reloadButton.enabled = true
+        }
+    }
+
 }
 
 /*
-extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
+extension ViewController{
     func numberOfItemsInTinderView(view: SPTinderView) -> Int {
         if let restaurants = restaurants {
             return restaurants.count
@@ -358,116 +497,6 @@ extension ViewController: SPTinderViewDataSource, SPTinderViewDelegate{
             }
         }
         self.presentViewController(destinationController, animated: true, completion: nil)
-    }
-    
-    // Take the restaurant
-    @IBAction func take(sender: AnyObject) {
-        let firstRestaurant = self.restaurants![0]
-        manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: firstRestaurant.restaurant_id, decision: "accept", run: run)
-        if RealmHelper.isRestaurantExist(firstRestaurant) {
-            print("Up, update restaurant")
-            RealmHelper.updateRestaurant(firstRestaurant, status: 2)
-            RealmHelper.addRestaurantBeenTime(firstRestaurant)
-        }else{
-            print("Up, add restaurant")
-            firstRestaurant.status = 2
-            firstRestaurant.beenTime = 1
-            RealmHelper.addRestaurant(firstRestaurant)
-        }
-        
-        let takeSticker = UIImageView(state: "take")
-        takeSticker.center.x = self.view.frame.width/2
-        takeSticker.center.y = self.view.frame.height/3
-        self.view.addSubview(takeSticker)
-        takeSticker.startAppearing { 
-            self.restaurants?.removeFirst()
-        }
-        
-        if self.restaurants?.count == 0 {
-            run = run + 1
-            loadIndicator.startAnimation()
-            lockButtons(true)
-            manager.getRestRecom(user.valueForKey("user_id") as! NSNumber, advance: user.valueForKey("advance") as! Bool, preferPrices: user.valueForKey("preferPrices") as? [Int], weather: user.valueForKey("weather") as? String, transport: user.valueForKey("transport") as? String, lat: user.valueForKey("lat") as? Double, lng: user.valueForKey("lng") as? Double)
-        }
-    }
-    
-    // Collect the restaurant
-    @IBAction func like(sender: AnyObject) {
-        let firstRestaurant = self.restaurants![0]
-        manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: firstRestaurant.restaurant_id, decision: "accept", run: run)
-        if RealmHelper.isRestaurantExist(firstRestaurant) {
-            print("Right, update restaurant")
-            RealmHelper.addRestaurantCollectionTime(firstRestaurant)
-        }else {
-            print("Right, add restaurant")
-            firstRestaurant.status = 1
-            firstRestaurant.collectTime = 1
-            RealmHelper.addRestaurant(firstRestaurant)
-        }
-        
-        let tempCell = self.restaurantView.getCellOnTop() as! RestaurantCell
-        tempCell.setCellMovementDirection(SPTinderViewCellMovement.Right)
-        
-        let likeSticker = UIImageView(state: "like")
-        likeSticker.center.x = self.view.frame.width/2
-        likeSticker.center.y = self.view.frame.height/3
-        self.view.addSubview(likeSticker)
-        likeSticker.startAppearing { 
-
-        }
-        
-        if self.restaurants?.count == 0 {
-            run = run + 1
-            loadIndicator.startAnimation()
-            lockButtons(true)
-            manager.getRestRecom(user.valueForKey("user_id") as! NSNumber, advance: user.valueForKey("advance") as! Bool, preferPrices: user.valueForKey("preferPrices") as? [Int], weather: user.valueForKey("weather") as? String, transport: user.valueForKey("transport") as? String, lat: user.valueForKey("lat") as? Double, lng: user.valueForKey("lng") as? Double)
-        }
-    }
-    
-    // Dismiss the restaurant
-    @IBAction func dislike(sender: AnyObject) {
-        let firstRestaurant = self.restaurants![0]
-        manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: firstRestaurant.restaurant_id, decision: "decline", run: run)
-
-        let nopeSticker = UIImageView(state: "nope")
-        nopeSticker.center.x = self.view.frame.width/2
-        nopeSticker.center.y = self.view.frame.height/3
-        self.view.addSubview(nopeSticker)
-        nopeSticker.startAppearing { 
-            self.restaurants?.removeFirst()
-        }
-        
-        if self.restaurants?.count == 0 {
-            run = run + 1
-            loadIndicator.startAnimation()
-            lockButtons(true)
-            manager.getRestRecom(user.valueForKey("user_id") as! NSNumber, advance: user.valueForKey("advance") as! Bool, preferPrices: user.valueForKey("preferPrices") as? [Int], weather: user.valueForKey("weather") as? String, transport: user.valueForKey("transport") as? String, lat: user.valueForKey("lat") as? Double, lng: user.valueForKey("lng") as? Double)
-        }
-    }
-    
-    // Reload the data from internet
-    @IBAction func reload(sender: AnyObject) {
-        //Clear the screen first
-        restaurants = []
-
-        self.manager.getRestRecom(self.user.valueForKey("user_id") as! NSNumber, advance: self.user.valueForKey("advance") as! Bool, preferPrices: self.user.valueForKey("preferPrices") as? [Int], weather: self.user.valueForKey("weather") as? String, transport: self.user.valueForKey("transport") as? String, lat: self.user.valueForKey("lat") as? Double, lng: self.user.valueForKey("lng") as? Double)
-        self.loadIndicator.startAnimation()
-        lockButtons(true)
-    }
-    
-    // In case user the buttons when loading
-    func lockButtons(lock: Bool){
-        if lock == true {
-            dislikeButton.enabled = false
-            likeButton.enabled = false
-            takeButton.enabled = false
-            reloadButton.enabled = false
-        }else {
-            dislikeButton.enabled = true
-            likeButton.enabled = true
-            takeButton.enabled = true
-            reloadButton.enabled = true
-        }
     }
 }
 */

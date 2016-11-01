@@ -20,10 +20,46 @@ class APIManager: NSObject {
     let baseURL = "http://api-server.jqemsuerdm.ap-northeast-1.elasticbeanstalk.com"
     let manager = AFHTTPSessionManager()
     let error = NSError(domain: "webService", code: 400, userInfo: [NSLocalizedDescriptionKey: "Empty responseObject"])
+    let user = NSUserDefaults()
     
     override init(){
         manager.requestSerializer = AFJSONRequestSerializer()
         manager.responseSerializer = AFJSONResponseSerializer()
+    }
+    
+    /*
+    self.manager.getRestRecom(self.user.valueForKey("user_id") as! NSNumber, advance: self.user.valueForKey("advance") as! Bool, preferPrices: self.user.valueForKey("preferPrices") as? [Int], weather: self.user.valueForKey("weather") as? String, transport: self.user.valueForKey("transport") as? String, lat: self.user.valueForKey("lat") as? Double, lng: self.user.valueForKey("lng") as? Double)
+    */
+    
+    func getRestRecom(){
+        let url = "\(baseURL)/users/\(self.user.valueForKey("user_id") as! NSNumber)/recommendation"
+        let params: NSDictionary?
+        
+        let advance = self.user.valueForKey("advance") as! Bool
+        let preferPrices = self.user.valueForKey("preferPrices") as? [Int]
+        let weather = self.user.valueForKey("weather") as? String
+        let transport = self.user.valueForKey("transport") as? String
+        let lat = self.user.valueForKey("lat") as? Double
+        let lng = self.user.valueForKey("lng") as? Double
+        
+        if advance == true {
+            params = NSDictionary(dictionary: ["advance": advance, "prefer_prices": preferPrices!, "weather": weather!, "transport": transport!, "lat": lat!, "lng": lng!])
+        }else {
+            params = nil
+        }
+        print("Get restaurants recommendation params: \(params)")
+        manager.GET(url, parameters: params, success: { (task, responseObject) in
+            guard let data = responseObject else {
+                self.delegate?.requestFailed(self.error)
+                return
+            }
+            let result = data as! [NSDictionary]
+            self.delegate?.userRecomGetRequestDidFinished(result)
+        }) { (task, err) -> Void in
+            self.delegate?.requestFailed(err)
+            print("Get Recommendations Failed: \(err)")
+        }
+
     }
     
     func getRestRecom(uid: NSNumber, advance: Bool, preferPrices: [Int]?, weather: String?, transport: String?, lat: Double?, lng: Double?){
