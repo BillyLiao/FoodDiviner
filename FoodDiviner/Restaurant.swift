@@ -9,6 +9,7 @@
 import Foundation
 import RealmSwift
 import SwiftyJSON
+import SDWebImage
 
 class Restaurant: Object{
     dynamic var address: String! = ""
@@ -43,8 +44,12 @@ class Restaurant: Object{
         scenario = json["scenario"][0].string
         tags = json["tags"][0].string
         image_id = json["image"][0].string
-        avgRating = 4
+        avgRating = 5
         
+        if let image = UIImage(named: "\(name)") {
+            photo = UIImageJPEGRepresentation(image, 0.6)
+        }
+
         if json["cuisine"].count > 1 {
             for j in 1..<json["cuisine"].count {
                 cuisine = cuisine + ", \(json["cuisine"][j].string!)"

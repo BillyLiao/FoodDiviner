@@ -26,21 +26,22 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     @IBOutlet weak var takeButton: UIButton!
     
     enum state {
-        case beforetrial
+        case beforeTrial
         case afterTrial
     }
-    
-    var manager: APIManager!
-    var restaurants: [Restaurant]? = []{
+    var restaurants: [Restaurant]? {
         didSet{
+            print("loadViews")
+            restaurantIndex = 0
             restaurantView.loadViews()
-            print("loadView")
         }
     }
+    
     let user = NSUserDefaults()
-    var stateNow = state.beforetrial
+    var stateNow = state.beforeTrial
     var user_trial = NSMutableDictionary()
     var locationManager: CLLocationManager!
+    var manager: APIManager!
     var restaurantView: ZLSwipeableView!
     var restaurantIndex = 0
     var currentIndex = 0
@@ -58,13 +59,13 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         locationManager.startUpdatingLocation()
 
         if user.valueForKey("user_id") == nil {
-            stateNow = state.beforetrial
+            stateNow = state.beforeTrial
         }else {
             stateNow = state.afterTrial
         }
         
         switch stateNow {
-        case .beforetrial:
+        case .beforeTrial:
             print("Before Trial.")
             setTrial()
         case .afterTrial:
@@ -81,7 +82,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         restaurantView.center.x = self.view.frame.width/2
         restaurantView.frame.origin.y = 15
         restaurantView.allowedDirection = [.Left, .Right, .Up]
-        restaurantView.numberOfActiveView = UInt(10)
+        restaurantView.numberOfActiveView = UInt(3)
         self.view.addSubview(restaurantView)
         
         self.loadIndicator.center = self.view.center
@@ -92,45 +93,93 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
             let view = cardView as! RestaurantView
             let restaurant = view.restaurant
         
-            switch inDirection {
-            case Direction.Right:
-                self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "accept", run: self.run)
-                
-                if RealmHelper.isRestaurantExist(restaurant) {
-                    print("Right, update restaurant")
-                    RealmHelper.addRestaurantCollectionTime(restaurant)
-                }else {
-                    print("Right, add restaurant")
-                    restaurant.status = 1
-                    restaurant.collectTime = 1
-                    RealmHelper.addRestaurant(restaurant)
+            switch self.stateNow {
+            case .afterTrial:
+                switch inDirection {
+                case Direction.Right:
+                    self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "accept", run: self.run)
+                    
+                    if RealmHelper.isRestaurantExist(restaurant) {
+                        print("Right, update restaurant")
+                        RealmHelper.addRestaurantCollectionTime(restaurant)
+                    }else {
+                        print("Right, add restaurant")
+                        restaurant.status = 1
+                        restaurant.collectTime = 1
+                        RealmHelper.addRestaurant(restaurant)
+                    }
+                    
+                case Direction.Left:
+                    self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "decline", run: self.run)
+                    
+                case Direction.Up:
+                    self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "accept", run: self.run)
+                    
+                    if RealmHelper.isRestaurantExist(restaurant) {
+                        print("Up, update restaurant")
+                        RealmHelper.updateRestaurant(restaurant, status: 2)
+                        RealmHelper.addRestaurantBeenTime(restaurant)
+                    }else{
+                        print("Up, add restaurant")
+                        restaurant.status = 2
+                        restaurant.beenTime = 1
+                        RealmHelper.addRestaurant(restaurant)
+                    }
+                default:
+                    break
                 }
-            case Direction.Left:
-                self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "decline", run: self.run)
-            case Direction.Up:
-                self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "accept", run: self.run)
                 
-                if RealmHelper.isRestaurantExist(restaurant) {
-                    print("Up, update restaurant")
-                    RealmHelper.updateRestaurant(restaurant, status: 2)
-                    RealmHelper.addRestaurantBeenTime(restaurant)
-                }else{
-                    print("Up, add restaurant")
-                    restaurant.status = 2
-                    restaurant.beenTime = 1
-                    RealmHelper.addRestaurant(restaurant)
+                // Request new data when last restaurants did swipe.
+                if restaurant.restaurant_id == self.restaurants?.last?.restaurant_id {
+                    self.run = self.run + 1
+                    self.loadIndicator.startAnimation()
+                    self.lockButtons(true)
+                    self.manager.getRestRecom()
                 }
-            default:
-                break
+            case .beforeTrial:
+                switch inDirection {
+                case Direction.Right:
+                    self.user_trial.setObject(true, forKey: "\(restaurant.restaurant_id)")
+                case Direction.Left:
+                    self.user_trial.setObject(false, forKey: "\(restaurant.restaurant_id)")
+                case Direction.Up:
+                    self.user_trial.setObject(false, forKey: "\(restaurant.restaurant_id)")
+                default:
+                    break
+                }
+                
+                // Request new data when last restaurants did swipe.
+                if restaurant.restaurant_id == self.restaurants?.last?.restaurant_id {
+                    self.loadIndicator.startAnimation()
+                    self.lockButtons(true)
+                    if self.user.valueForKey("user_id") == nil {
+                        self.manager.signUp(self.user.valueForKey("fb_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("name") as! String, gender: self.user.valueForKey("gender") as! String)
+                    }
+                    self.stateNow = state.afterTrial
+                }
+            }
+        }
+        
+        restaurantView.didTap = {view, atLocation in
+            let destinationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DetailRestaurantViewController") as! DetailRestaurantViewController
+            guard let restaurant = (view as! RestaurantView).restaurant else { return }
+            
+            destinationController.restaurant = restaurant
+            destinationController.isFromMain()
+            destinationController.onDeletion { (restaurant: Restaurant, takeOrNot: String) in
+                switch takeOrNot {
+                case "like":
+                    self.restaurantView.swipeTopView(inDirection: .Right)
+                case "nope":
+                    self.restaurantView.swipeTopView(inDirection: .Left)
+                case "take":
+                    self.restaurantView.swipeTopView(inDirection: .Up)
+                default:
+                    break
+                }
             }
             
-            // Request new data when last restaurants did swipe.
-            if restaurant.restaurant_id == self.restaurants?.last?.restaurant_id {
-                self.run = self.run + 1
-                self.loadIndicator.startAnimation()
-                self.lockButtons(true)
-                self.manager.getRestRecom()
-            }
+            self.presentViewController(destinationController, animated: true, completion: nil)
         }
     }
     
@@ -146,11 +195,11 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     }
     
     func nextCardView() -> UIView? {
-        if restaurants!.count == 0 {
+        if restaurants?.count == 0 {
             return nil
         }
         
-        if restaurantIndex >= restaurants!.count {
+        if restaurantIndex >= restaurants?.count {
             return nil
         }
         
@@ -174,42 +223,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                 var tempRestaurants: [Restaurant] = []
                 if jsonObj != JSON.null {
                     for i in 0..<jsonObj.count {
-                        var restaurant = Restaurant()
-                        restaurant.restaurant_id = jsonObj[i]["restaurant_id"].int
-                        restaurant.name = jsonObj[i]["name"].string
-                        restaurant.address = jsonObj[i]["address"].string
-                        restaurant.price = jsonObj[i]["price"].string
-                        restaurant.phone = jsonObj[i]["phone"].string
-                        restaurant.photo = UIImageJPEGRepresentation(UIImage(named: "\(restaurant.name)")!, 0.6)
-                        restaurant.time = jsonObj[i]["time"].string
-                        restaurant.avgRating = jsonObj[i]["avgRating"].float
-                        //TODO: Update data model
-                        restaurant.order = jsonObj[i]["order"][0].string
-                        restaurant.cuisine = jsonObj[i]["cuisine"][0].string
-                        restaurant.scenario = jsonObj[i]["scenario"][0].string
-                        restaurant.tags = jsonObj[i]["tags"][0].string
-                        
-                        // If more than 1 data, append it to the restaurant attributes
-                        if jsonObj[i]["order"].count > 1 {
-                            for j in 1..<jsonObj[i]["order"].count{
-                                restaurant.order = restaurant.order + ", \(jsonObj[i]["order"][j].string!)"
-                            }
-                        }
-                        if jsonObj[i]["cuisine"].count > 1 {
-                            for j in 1..<jsonObj[i]["cuisine"].count{
-                                restaurant.cuisine = restaurant.cuisine + ", \(jsonObj[i]["cuisine"][j].string!)"
-                            }
-                        }
-                        if jsonObj[i]["scenario"].count > 1 {
-                            for j in 1..<jsonObj[i]["scenario"].count{
-                                restaurant.scenario = restaurant.scenario + ", \(jsonObj[i]["scenario"][j].string!)"
-                            }
-                        }
-                        if jsonObj[i]["tags"].count > 1 {
-                            for j in 1..<jsonObj[i]["tags"].count{
-                                restaurant.tags = restaurant.tags + ", \(jsonObj[i]["tags"][j].string!)"
-                            }
-                        }
+                        var restaurant = Restaurant(json: jsonObj[i])
                         tempRestaurants.append(restaurant)
                     }
                     restaurants = tempRestaurants
@@ -219,7 +233,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
             } catch let err as NSError {
                 print(err.localizedDescription)
             }
-            
         } else {
             print("Invalid filename/path")
         }
@@ -241,10 +254,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     func userRecomGetRequestDidFinished(r: [NSDictionary]?) {
         loadIndicator.stopAnimation()
         lockButtons(false)
-        // Clean the restaurants array.
-        
         var tempRestaurnts: [Restaurant] = []
-        
         if let data = r {
             for element in data {
                 let jsonObj = JSON(element)
@@ -305,7 +315,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     // Reload the data from internet
     @IBAction func reload(sender: AnyObject) {
         //Clear the screen first
-        restaurants = []
+        restaurantView.discardViews()
         self.manager.getRestRecom()
         self.loadIndicator.startAnimation()
         lockButtons(true)
@@ -327,149 +337,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     }
 
 }
-
-/*
-extension ViewController{
-    func numberOfItemsInTinderView(view: SPTinderView) -> Int {
-        if let restaurants = restaurants {
-            return restaurants.count
-        }
-        return 0
-    }
-    
-    func tinderView(view: SPTinderView, cellAt index: Int) -> SPTinderViewCell? {
-        if let cell = restaurantView.dequeueReusableCellWithIdentifier(cellIdentifier) as? RestaurantCell {
-            if let restaurant = restaurants?[index] {
-                cell.nameLabel.text = restaurant.name
-                cell.infoLabel.text = "\(restaurant.cuisine), \(restaurant.price)"
-                cell.setRatingView(restaurant.avgRating as! Float
-                )
-                // Use pod:SDWebImage to download the image from backend
-                if let image_id = restaurant.image_id {
-                    cell.imageView.sd_setImageWithURL(NSURL(string:"http://api-server.jqemsuerdm.ap-northeast-1.elasticbeanstalk.com/images/\(image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"), completed: { (image, error, cacheType, url) in
-                        restaurant.photo = UIImageJPEGRepresentation(image, 0.6)
-                    })
-                }else {
-                    if let photo = restaurants?[index].photo {
-                        cell.imageView.image = UIImage(data: photo)
-                    }else {
-                        cell.imageView.image = UIImage(named: "imagePlaceHolder")
-                    }
-                }
-                return cell
-            }
-        }
-        return nil
-    }
-    
-    func tinderView(view: SPTinderView, didMoveCellAt index: Int, towards direction: SPTinderViewCellMovement) {
-        guard let restaurant = restaurants?[index] else {return}
-        restaurant.photo = nil
-        switch stateNow{
-        case .afterTrial:
-            switch direction{
-            case .Left:
-                manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurants![index].restaurant_id, decision: "decline", run: run)
-            case .Right:
-                manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurants![index].restaurant_id, decision: "accept", run: run)
-                if RealmHelper.isRestaurantExist(restaurant) {
-                    print("Right, update restaurant")
-                    RealmHelper.addRestaurantCollectionTime(restaurant)
-                }else {
-                    print("Right, add restaurant")
-                    restaurant.status = 1
-                    restaurant.collectTime = 1
-                    RealmHelper.addRestaurant(restaurant)
-                }
-            case .Top:
-                manager.postUserChoice(user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurants![index].restaurant_id, decision: "accept", run: run)
-                if RealmHelper.isRestaurantExist(restaurant) {
-                    print("Up, update restaurant")
-                    RealmHelper.updateRestaurant(restaurant, status: 2)
-                    RealmHelper.addRestaurantBeenTime(restaurant)
-                }else{
-                    print("Up, add restaurant")
-                    restaurant.status = 2
-                    restaurant.beenTime = 1
-                    RealmHelper.addRestaurant(restaurant)
-                }
-            default:
-                break
-            }
-            // If running out of the cells, then ask for recommendations again!
-            if index == 9 {
-                run = run + 1
-                loadIndicator.startAnimation()
-                lockButtons(true)
-                manager.getRestRecom(user.valueForKey("user_id") as! NSNumber, advance: user.valueForKey("advance") as! Bool, preferPrices: user.valueForKey("preferPrices") as? [Int], weather: user.valueForKey("weather") as? String, transport: user.valueForKey("transport") as? String, lat: user.valueForKey("lat") as? Double, lng: user.valueForKey("lng") as? Double)
-            }
-        case .beforetrial:
-            switch direction{
-            case .Left:
-                print("Swipe Left")
-                user_trial.setObject(false, forKey: "\(restaurants![index].restaurant_id)")
-            case .Right:
-                print("Swipe Right")
-                user_trial.setObject(true, forKey: "\(restaurants![index].restaurant_id)")
-            case .Top:
-                print("Swipe Top")
-                user_trial.setObject(true, forKey: "\(restaurants![index].restaurant_id)")
-            default:
-                break
-            }
-            // If finish the trial, then sign up!
-            if index == 4 {
-                loadIndicator.startAnimation()
-                lockButtons(true)
-                if user.valueForKey("user_id") == nil {
-                    manager.signUp(user.valueForKey("fb_id") as! String, user_trial: user_trial, name: user.valueForKey("name") as! String, gender: user.valueForKey("gender") as! String)
-                }
-                stateNow = state.afterTrial
-            }
-        default:
-            break
-        }
-    }
-    
-    func tinderView(view: SPTinderView, didTappedCellAt index: Int) {
-        let destinationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DetailRestaurantViewController") as! DetailRestaurantViewController
-        if let restaurant = restaurants?[index] {
-            destinationController.restaurant = restaurant
-        }
-        destinationController.isFromMain()
-        destinationController.onDeletion { (restaurant: Restaurant, takeOrNot: String) in
-            
-            switch takeOrNot {
-            case "accept":
-                self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "accept", run: self.run)
-            case "declne":
-                self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "accept", run: self.run)
-            default:
-                break
-            }
-            
-            self.restaurants!.removeFirst()
-
-            if self.restaurants?.count == 0 {
-                self.run = self.run + 1
-                self.loadIndicator.startAnimation()
-                self.lockButtons(true)
-                self.manager.getRestRecom(self.user.valueForKey("user_id") as! NSNumber, advance: self.user.valueForKey("advance") as! Bool, preferPrices: self.user.valueForKey("preferPrices") as? [Int], weather: self.user.valueForKey("weather") as? String, transport: self.user.valueForKey("transport") as? String, lat: self.user.valueForKey("lat") as? Double, lng: self.user.valueForKey("lng") as? Double)
-            }
-        }
-        self.presentViewController(destinationController, animated: true, completion: nil)
-    }
-}
-*/
- 
-/*
-extension NSLayoutConstraint {
-    override public var description: String {
-        let id = identifier ?? ""
-        return "id: \(id), constant: \(constant)"
-    }
-}
-*/
 
 extension UIImage {
     public func imageRotatedByDegrees(degrees: CGFloat, flip: Bool) -> UIImage {
@@ -536,7 +403,7 @@ extension UIImageView {
     }
     
     public func startAppearing(completion: () -> Void) {
-        UIView.animateWithDuration(0.15, animations: {
+        UIView.animateWithDuration(0.1, animations: {
             self.alpha = 1
         }) { (success) in
             completion()

@@ -87,16 +87,8 @@ class DetailRestaurantViewController: UIViewController {
     }
     
     func like() {
-        if RealmHelper.isRestaurantExist(restaurant) {
-            RealmHelper.addRestaurantCollectionTime(restaurant)
-        }else {
-            restaurant.collectTime = 1
-            restaurant.status = 1
-            RealmHelper.addRestaurant(restaurant)
-        }
-
         if let restaurantDeletedBlock = restaurantWillDeleted {
-            restaurantDeletedBlock(restaurant, "accept")
+            restaurantDeletedBlock(restaurant, "like")
         }
         
         let likeSticker = UIImageView(state: "like")
@@ -104,21 +96,13 @@ class DetailRestaurantViewController: UIViewController {
         likeSticker.center.y = self.restImage.frame.height/2
         self.view.addSubview(likeSticker)
         likeSticker.startAppearing { 
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismissViewControllerAnimated(false, completion: nil)
         }
     }
     
     func takeFromMain() {
-        if RealmHelper.isRestaurantExist(restaurant) {
-            RealmHelper.addRestaurantBeenTime(restaurant)
-            RealmHelper.updateRestaurant(restaurant, status: 2)
-        }else {
-            restaurant.beenTime = 1
-            restaurant.status = 2
-            RealmHelper.addRestaurant(restaurant)
-        }
         if let restaurantDeletedBlock = restaurantWillDeleted {
-            restaurantDeletedBlock(restaurant, "accept")
+            restaurantDeletedBlock(restaurant, "take")
         }
         
         let takeSticker = UIImageView(state: "take")
@@ -126,13 +110,13 @@ class DetailRestaurantViewController: UIViewController {
         takeSticker.center.y = self.restImage.frame.height/2
         self.view.addSubview(takeSticker)
         takeSticker.startAppearing { 
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismissViewControllerAnimated(false, completion: nil)
         }
     }
     
     func dislike() {
         if let restaurantDeletedBlock = restaurantWillDeleted {
-            restaurantDeletedBlock(restaurant, "decline")
+            restaurantDeletedBlock(restaurant, "nope")
         }
         
         let nopeSticker = UIImageView(state: "nope")
@@ -140,7 +124,7 @@ class DetailRestaurantViewController: UIViewController {
         nopeSticker.center.y = self.restImage.frame.height/2
         self.view.addSubview(nopeSticker)
         nopeSticker.startAppearing {
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismissViewControllerAnimated(false, completion: nil)
         }
     }
     

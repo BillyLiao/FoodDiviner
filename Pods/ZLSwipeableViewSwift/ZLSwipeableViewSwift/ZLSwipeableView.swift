@@ -260,7 +260,7 @@ extension ZLSwipeableView {
 
         return { (view: UIView, index: Int, views: [UIView], swipeableView: ZLSwipeableView) in
             let degree = CGFloat(1)
-            let duration = 0.4
+            let duration = 0.15
             let offset = CGPoint(x: 0, y: CGRectGetHeight(swipeableView.bounds) * 0.3)
             switch index {
             case 0:
