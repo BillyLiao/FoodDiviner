@@ -181,6 +181,15 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
             
             self.presentViewController(destinationController, animated: true, completion: nil)
         }
+        
+        restaurantView.swiping = {view, atLocation, translation in
+            let restaurantView = view as! RestaurantView
+            restaurantView.respondToTranslation(translation)
+        }
+        restaurantView.didEnd = {view, atLocation in
+            let restaurantView = view as! RestaurantView
+            restaurantView.clearStickers()
+        }
     }
     
     override func viewDidLayoutSubviews() {

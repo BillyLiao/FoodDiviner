@@ -22,6 +22,7 @@ class RestaurantView: UIView {
     var nopeSticker: UIImageView!
     var takeSticker: UIImageView!
     var restaurant: Restaurant!
+    let scaleToRemoveCell: CGFloat = 0.3
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -86,7 +87,6 @@ class RestaurantView: UIView {
             default:
                 break
             }
-
         }
     }
     
@@ -108,6 +108,37 @@ class RestaurantView: UIView {
         self.addSubview(takeSticker)
     }
     
+    func respondToTranslation(translation: CGPoint) {
+        let xDrift = translation.x
+        let yDrift = translation.y
+        
+        let likeAlpha = xDrift / (self.frame.width * scaleToRemoveCell)
+        let dislikeAlpha = -xDrift / (self.frame.width * scaleToRemoveCell)
+        let superlikeAlpha = -yDrift / (self.frame.height * scaleToRemoveCell)
+        
+        UIView.animateWithDuration(0, animations: { 
+            if likeAlpha > dislikeAlpha && likeAlpha > superlikeAlpha {
+                self.setImaegAlpha(likeAlpha: likeAlpha, dislikeAlpha: 0, superlikeAlpha: 0)
+            }else if dislikeAlpha > likeAlpha && dislikeAlpha > superlikeAlpha {
+                self.setImaegAlpha(likeAlpha: 0, dislikeAlpha: dislikeAlpha, superlikeAlpha: 0)
+            }else {
+                self.setImaegAlpha(likeAlpha: 0, dislikeAlpha: 0, superlikeAlpha: superlikeAlpha)
+            }
+
+            }) { (finished) in
+        }
+    }
+    
+    private func setImaegAlpha(likeAlpha likeAlpha: CGFloat, dislikeAlpha: CGFloat, superlikeAlpha: CGFloat){
+        likeSticker.alpha = likeAlpha
+        nopeSticker.alpha = dislikeAlpha
+        takeSticker.alpha = superlikeAlpha
+    }
+    
+    func clearStickers() {
+        self.setImaegAlpha(likeAlpha: 0, dislikeAlpha: 0, superlikeAlpha: 0)
+    }
+    
     func setup() {
         // Shadow
         layer.shadowColor = UIColor.blackColor().CGColor
@@ -120,4 +151,5 @@ class RestaurantView: UIView {
         // Corner Radius
         layer.cornerRadius = 10.0;
     }
+    
 }
