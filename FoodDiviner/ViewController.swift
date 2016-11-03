@@ -42,13 +42,13 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     var user_trial = NSMutableDictionary()
     var locationManager: CLLocationManager!
     var manager: APIManager!
+    var trialHelper: TrialHelper!
     var restaurantView: ZLSwipeableView!
     var restaurantIndex = 0
     var currentIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         manager = APIManager()
         manager.delegate = self
         
@@ -57,6 +57,8 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
+        
+        trialHelper = TrialHelper.init(viewController: self)
 
         if user.valueForKey("user_id") == nil {
             stateNow = state.beforeTrial
@@ -292,8 +294,21 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         takeSticker.center.y = self.view.frame.height/3
         self.view.addSubview(takeSticker)
         
-        takeSticker.startAppearing {
-            self.restaurantView.swipeTopView(inDirection: .Up)
+        if user.objectForKey(trialHelper.takeDidTappedBefore) as! Bool == true {
+            takeSticker.startAppearing({
+                self.restaurantView.swipeTopView(inDirection: .Up)
+            })
+            return
+        }
+        
+        trialHelper.takeBtnDidTapped { (action) in
+            if action == true {
+                takeSticker.startAppearing {
+                    self.restaurantView.swipeTopView(inDirection: .Up)
+                }
+            }else{
+                takeSticker.removeFromSuperview()
+            }
         }
     }
     
@@ -304,8 +319,21 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         likeSticker.center.y = self.view.frame.height/3
         self.view.addSubview(likeSticker)
         
-        likeSticker.startAppearing {
-            self.restaurantView.swipeTopView(inDirection: .Right)
+        if user.objectForKey(trialHelper.likeDidTappedBefore) as! Bool == true {
+            likeSticker.startAppearing({ 
+                self.restaurantView.swipeTopView(inDirection: .Right)
+            })
+            return
+        }
+        
+        trialHelper.likeBtnDidTapped { (action) in
+            if action == true {
+                likeSticker.startAppearing {
+                    self.restaurantView.swipeTopView(inDirection: .Right)
+                }
+            }else {
+                likeSticker.removeFromSuperview()
+            }
         }
     }
     
@@ -316,8 +344,21 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         nopeSticker.center.y = self.view.frame.height/3
         self.view.addSubview(nopeSticker)
         
-        nopeSticker.startAppearing {
-            self.restaurantView.swipeTopView(inDirection: .Left)
+        if user.objectForKey(trialHelper.nopeDidTappedBefore) as! Bool == true {
+            nopeSticker.startAppearing({ 
+                self.restaurantView.swipeTopView(inDirection: .Left)
+            })
+            return
+        }
+        
+        trialHelper.nopeBtnDidTapped { (action) in
+            if action == true {
+                nopeSticker.startAppearing {
+                    self.restaurantView.swipeTopView(inDirection: .Left)
+                }
+            }else {
+                nopeSticker.removeFromSuperview()
+            }
         }
     }
     

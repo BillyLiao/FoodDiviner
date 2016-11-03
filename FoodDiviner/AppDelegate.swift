@@ -58,10 +58,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
             self.window?.rootViewController = fbLoginViewController()
             self.window?.makeKeyAndVisible()
+            
+            // Initial user trial status
+            setupUser()
         }
         
         // Needed for FB Login
         return fbLogin
+    }
+    
+    func setupUser(){
+        let trialHelper = TrialHelper()
+        let user = NSUserDefaults()
+        user.setObject(false, forKey: trialHelper.likeDidTappedBefore)
+        user.setObject(false, forKey: trialHelper.takeDidTappedBefore)
+        user.setObject(false, forKey: trialHelper.nopeDidTappedBefore)
+        user.setObject(false, forKey: trialHelper.cardViewDidSwipedUpBefore)
+        user.setObject(false, forKey: trialHelper.cardViewDidSwipedLeftBefore)
+        user.setObject(false, forKey: trialHelper.cardViewDidSwipedRightBefore)
+        user.setObject(false, forKey: trialHelper.didEnterBTVBefore)
+        user.setObject(false, forKey: trialHelper.didEnterCTVBefore)
+        user.setObject(false, forKey: trialHelper.didEnterRTVBefore)
+        user.setObject(false, forKey: trialHelper.didUseAdvanceSearchBefore)
     }
     
     // Add this to automatically redirect from white web page to App & Access FBSDKAccessToken.currentAccessToken()

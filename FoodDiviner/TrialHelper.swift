@@ -25,32 +25,69 @@ class TrialHelper {
     let didEnterRTVBefore = "didEnterRatingTableViewBefore"
     let didEnterBTVBefore = "didEnterBeenTableViewBefore"
     
-    func likeBtnDidTapped() -> Bool{
-        if user.objectForKey(likeDidTappedBefore) != nil {
+    init(viewController: UIViewController) {
+        self.viewController = viewController
+    }
+    
+    init() {
+        
+    }
+    
+    func likeBtnDidTapped(completionBlock: Bool -> ()) {
+        if user.objectForKey(likeDidTappedBefore) as! Bool != false {
             // Nothing happened.
         }else {
-            let alertViewController = UIAlertController(title: "讚?", message: "將圖片拖曳至右側代表你對這家餐廳按讚。", preferredStyle: .Alert)
+            user.setObject(true, forKey: likeDidTappedBefore)
+            let alertViewController = UIAlertController(title: "讚?", message: "點一下愛心代表你對這家餐廳按讚。", preferredStyle: .Alert)
             let cancelAction = UIAlertAction.init(title: "取消", style: .Cancel, handler: { (cancelAction) in
-                return false
+                completionBlock(false)
             })
             alertViewController.addAction(cancelAction)
-
             let likeAction = UIAlertAction.init(title: "點讚", style: .Default, handler: { (likeAction) in
-                return true
+                completionBlock(true)
             })
             alertViewController.addAction(likeAction)
+            
             self.viewController?.presentViewController(alertViewController, animated: true, completion: nil)
         }
-        
-        return false
     }
     
-    func takeBtnDidTapped() {
-        
+    func takeBtnDidTapped(completionBlock: Bool -> ()) {
+        if user.objectForKey(takeDidTappedBefore) as! Bool != false {
+            // Nothing happened.
+        }else {
+            user.setObject(true, forKey: takeDidTappedBefore)
+            let alertViewController = UIAlertController(title: "馬上去?", message: "點一下刀叉代表你現在就要出發去吃這家餐廳。", preferredStyle: .Alert)
+            let cancelAction = UIAlertAction.init(title: "取消", style: .Cancel, handler: { (cancelAction) in
+                completionBlock(false)
+            })
+            alertViewController.addAction(cancelAction)
+            let likeAction = UIAlertAction.init(title: "出發", style: .Default, handler: { (likeAction) in
+                completionBlock(true)
+            })
+            alertViewController.addAction(likeAction)
+            
+            self.viewController?.presentViewController(alertViewController, animated: true, completion: nil)
+        }
     }
     
-    func nopeBtnDidTapped() {
-        
+    func nopeBtnDidTapped(completionBlock: Bool -> ()) {
+        if user.objectForKey(nopeDidTappedBefore) as! Bool != false {
+            // Nothing happened.
+        }else {
+            user.setObject(true, forKey: nopeDidTappedBefore)
+            let alertViewController = UIAlertController(title: "沒興趣嗎?", message: "點一下 X 代表你對這家餐廳沒有興趣。", preferredStyle: .Alert)
+            let cancelAction = UIAlertAction.init(title: "取消", style: .Cancel, handler: { (cancelAction) in
+                completionBlock(false)
+            })
+            alertViewController.addAction(cancelAction)
+            let likeAction = UIAlertAction.init(title: "沒興趣", style: .Default, handler: { (likeAction) in
+                completionBlock(true)
+            })
+            alertViewController.addAction(likeAction)
+            
+            self.viewController?.presentViewController(alertViewController, animated: true, completion: nil)
+        }
     }
     
     func cardViewDidSwipedLeft() {
