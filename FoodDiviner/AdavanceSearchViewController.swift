@@ -40,14 +40,17 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
     let user = NSUserDefaults()
     let saveIndicator = NVActivityIndicatorView(frame: CGRectMake(0, 0, 90, 90), type: .SquareSpin, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0))
     let deviceHelper = DeviceHelper()
+    var trialHelper: TrialHelper!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initAdvanceView()
+        trialHelper = TrialHelper(viewController: self)
     }
     
     override func viewWillAppear(animated: Bool) {
         loadUserSettings()
+        trialHelper.didEnterAdvancedSearchViewController()
     }
     
     func loadUserSettings(){

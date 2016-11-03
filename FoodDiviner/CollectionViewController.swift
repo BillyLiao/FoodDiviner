@@ -213,7 +213,6 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
         switch tableView {
         case CollectTV!:
             let destinationController = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DetailRestaurantViewController") as! DetailRestaurantViewController
