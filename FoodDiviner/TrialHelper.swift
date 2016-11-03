@@ -24,6 +24,7 @@ class TrialHelper {
     let didEnterCTVBefore = "didEnterCollectionTableViewBefore"
     let didEnterRTVBefore = "didEnterRatingTableViewBefore"
     let didEnterBTVBefore = "didEnterBeenTableViewBefore"
+    let removeDidTappedBefore = "removeDidTappedBefore"
     
     init(viewController: UIViewController) {
         self.viewController = viewController
@@ -89,6 +90,26 @@ class TrialHelper {
             self.viewController?.presentViewController(alertViewController, animated: true, completion: nil)
         }
     }
+    
+    func removeBtnDidTapped(completionBlock: Bool -> ()){
+        if user.objectForKey(removeDidTappedBefore) as! Bool != false {
+            // Nothing happened.
+        }else {
+            user.setObject(true, forKey: removeDidTappedBefore)
+            let alertViewController = UIAlertController(title: "確定刪除？", message: "點一下垃圾桶代表你想將這家餐廳從列表中刪除。", preferredStyle: .Alert)
+            let cancelAction = UIAlertAction.init(title: "取消", style: .Cancel, handler: { (cancelAction) in
+                completionBlock(false)
+            })
+            alertViewController.addAction(cancelAction)
+            let likeAction = UIAlertAction.init(title: "刪除", style: .Default, handler: { (likeAction) in
+                completionBlock(true)
+            })
+            alertViewController.addAction(likeAction)
+            
+            self.viewController?.presentViewController(alertViewController, animated: true, completion: nil)
+        }
+    }
+
     
     func cardViewDidSwipedLeft() {
         

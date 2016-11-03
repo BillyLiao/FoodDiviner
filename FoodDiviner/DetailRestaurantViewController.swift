@@ -33,6 +33,7 @@ class DetailRestaurantViewController: UIViewController {
     let user = NSUserDefaults()
     typealias restaurantDeleted = (Restaurant, String)-> ()
     var restaurantWillDeleted: restaurantDeleted?
+    var trialHelper: TrialHelper!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +45,7 @@ class DetailRestaurantViewController: UIViewController {
         backButton.layer.cornerRadius = backButton.frame.width/2
         
         distanceFromUserLocation()
+        trialHelper = TrialHelper(viewController: self)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -87,44 +89,92 @@ class DetailRestaurantViewController: UIViewController {
     }
     
     func like() {
-        if let restaurantDeletedBlock = restaurantWillDeleted {
-            restaurantDeletedBlock(restaurant, "like")
-        }
-        
         let likeSticker = UIImageView(state: "like")
         likeSticker.center.x = self.restImage.frame.width/2
         likeSticker.center.y = self.restImage.frame.height/2
         self.view.addSubview(likeSticker)
-        likeSticker.startAppearing { 
-            self.dismissViewControllerAnimated(false, completion: nil)
+        
+        if user.objectForKey(trialHelper.likeDidTappedBefore) as! Bool == true {
+            if let restaurantDeletedBlock = self.restaurantWillDeleted {
+                restaurantDeletedBlock(self.restaurant, "like")
+            }
+            likeSticker.startAppearing({
+                self.dismissViewControllerAnimated(false, completion: nil)
+            })
+            return
+        }
+        
+        trialHelper.likeBtnDidTapped { (action) in
+            if action == true {
+                if let restaurantDeletedBlock = self.restaurantWillDeleted {
+                    restaurantDeletedBlock(self.restaurant, "like")
+                }
+                likeSticker.startAppearing {
+                    self.dismissViewControllerAnimated(false, completion: nil)
+                }
+            }else {
+                likeSticker.removeFromSuperview()
+            }
         }
     }
     
     func takeFromMain() {
-        if let restaurantDeletedBlock = restaurantWillDeleted {
-            restaurantDeletedBlock(restaurant, "take")
-        }
-        
         let takeSticker = UIImageView(state: "take")
         takeSticker.center.x = self.restImage.frame.width/2
         takeSticker.center.y = self.restImage.frame.height/2
         self.view.addSubview(takeSticker)
-        takeSticker.startAppearing { 
-            self.dismissViewControllerAnimated(false, completion: nil)
+        
+        if user.objectForKey(trialHelper.takeDidTappedBefore) as! Bool == true {
+            if let restaurantDeletedBlock = self.restaurantWillDeleted {
+                restaurantDeletedBlock(self.restaurant, "take")
+            }
+            takeSticker.startAppearing({
+                self.dismissViewControllerAnimated(false, completion: nil)
+            })
+            return
+        }
+        
+        trialHelper.takeBtnDidTapped { (action) in
+            if action == true {
+                if let restaurantDeletedBlock = self.restaurantWillDeleted {
+                    restaurantDeletedBlock(self.restaurant, "take")
+                }
+                takeSticker.startAppearing {
+                    self.dismissViewControllerAnimated(false, completion: nil)
+                }
+            }else {
+                takeSticker.removeFromSuperview()
+            }
         }
     }
     
     func dislike() {
-        if let restaurantDeletedBlock = restaurantWillDeleted {
-            restaurantDeletedBlock(restaurant, "nope")
-        }
-        
         let nopeSticker = UIImageView(state: "nope")
         nopeSticker.center.x = self.restImage.frame.width/2
         nopeSticker.center.y = self.restImage.frame.height/2
         self.view.addSubview(nopeSticker)
-        nopeSticker.startAppearing {
-            self.dismissViewControllerAnimated(false, completion: nil)
+        
+        if user.objectForKey(trialHelper.nopeDidTappedBefore) as! Bool == true {
+            if let restaurantDeletedBlock = self.restaurantWillDeleted {
+                restaurantDeletedBlock(self.restaurant, "nope")
+            }
+            nopeSticker.startAppearing({
+                self.dismissViewControllerAnimated(false, completion: nil)
+            })
+            return
+        }
+        
+        trialHelper.nopeBtnDidTapped { (action) in
+            if action == true {
+                if let restaurantDeletedBlock = self.restaurantWillDeleted {
+                    restaurantDeletedBlock(self.restaurant, "nope")
+                }
+                nopeSticker.startAppearing {
+                    self.dismissViewControllerAnimated(false, completion: nil)
+                }
+            }else {
+                nopeSticker.removeFromSuperview()
+            }
         }
     }
     
