@@ -80,6 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         user.setObject(false, forKey: trialHelper.didEnterCTVBefore)
         user.setObject(false, forKey: trialHelper.didEnterRTVBefore)
         user.setObject(false, forKey: trialHelper.didUseAdvanceSearchBefore)
+        user.setObject(false, forKey: trialHelper.removeDidTappedBefore)
     }
     
     // Add this to automatically redirect from white web page to App & Access FBSDKAccessToken.currentAccessToken()

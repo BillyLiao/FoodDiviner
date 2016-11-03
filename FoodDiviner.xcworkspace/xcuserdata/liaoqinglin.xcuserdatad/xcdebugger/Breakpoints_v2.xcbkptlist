@@ -1107,11 +1107,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodDiviner/DetailRestaurantViewController.swift"
-            timestampString = "499855597.544353"
+            timestampString = "499875089.745531"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
             landmarkName = "isFromMain()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1201,11 +1201,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodDiviner/DetailRestaurantViewController.swift"
-            timestampString = "499855597.544353"
+            timestampString = "499875089.745531"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
+            startingLineNumber = "279"
+            endingLineNumber = "279"
             landmarkName = "distanceFromUserLocation()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1217,11 +1217,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodDiviner/DetailRestaurantViewController.swift"
-            timestampString = "499855597.544353"
+            timestampString = "499875089.745531"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
             landmarkName = "distanceFromUserLocation()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1263,11 +1263,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodDiviner/TrialHelper.swift"
-            timestampString = "499848331.803134"
+            timestampString = "499875089.745531"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "likeBtnDidTapped(_:)"
             landmarkType = "5">
          </BreakpointContent>

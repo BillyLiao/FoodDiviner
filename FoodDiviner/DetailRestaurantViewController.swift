@@ -179,18 +179,43 @@ class DetailRestaurantViewController: UIViewController {
     }
     
     func remove() {
-        RealmHelper.deleteRestaurant(restaurant)
-        self.dismissViewControllerAnimated(true, completion: nil)
+        if user.objectForKey(trialHelper.removeDidTappedBefore) as! Bool == true {
+            RealmHelper.deleteRestaurant(restaurant)
+            self.dismissViewControllerAnimated(true, completion: nil)
+            return
+        }
+        
+        trialHelper.removeBtnDidTapped { (action) in
+            if action == true {
+                RealmHelper.deleteRestaurant(self.restaurant)
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }else {
+                //Do nothing
+            }
+        }
     }
     
     func take() {
-        RealmHelper.addRestaurantBeenTime(restaurant)
-        RealmHelper.updateRestaurant(restaurant, status: 2)
-        self.dismissViewControllerAnimated(true, completion: nil)
+        if user.objectForKey(trialHelper.takeDidTappedBefore) as! Bool == true {
+            RealmHelper.addRestaurantBeenTime(restaurant)
+            RealmHelper.updateRestaurant(restaurant, status: 2)
+            self.dismissViewControllerAnimated(true, completion: nil)
+            return
+        }
+        
+        trialHelper.takeBtnDidTapped { (action) in
+            if action == true {
+                RealmHelper.addRestaurantBeenTime(self.restaurant)
+                RealmHelper.updateRestaurant(self.restaurant, status: 2)
+                self.dismissViewControllerAnimated(true, completion: nil)
+            } else {
+                //Do nothing
+            }
+        }
+        
     }
     
     func isFromMain() {
-        
         let dislikeBtn = UIButton(frame: CGRectMake(0, 0, 55, 55))
         dislikeBtn.setImage(UIImage(named: "Cancel"), forState: .Normal)
         dislikeBtn.frame.origin.y = self.view.frame.height-70
