@@ -147,7 +147,7 @@ class TrialHelper {
     func didEnterBeenTableView() {
         if user.objectForKey(didEnterBTVBefore) as! Bool == false {
             user.setObject(true, forKey: didEnterBTVBefore)
-            let alertViewController = UIAlertController(title: "收藏區", message: "所有你點讚過的餐廳都會出現在這裡！", preferredStyle: .Alert)
+            let alertViewController = UIAlertController(title: "評分完畢", message: "所有你評分過的餐廳都在這裡！", preferredStyle: .Alert)
             let yesAction = UIAlertAction.init(title: "瞭解", style: .Default, handler: nil)
             alertViewController.addAction(yesAction)
             self.viewController?.presentViewController(alertViewController, animated: true, completion: nil)

@@ -14,6 +14,7 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
     var CollectTV: UITableView?
     var JudgeTV: UITableView?
     var BeenTV: UITableView?
+    var trialHelper = TrialHelper.init()
     
     var collectRestaurants: Results<Restaurant>? {
         //Add observer to reload tableview
@@ -34,7 +35,21 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
     
     var scrollView: UIScrollView?
     var scroller: UIView!
-    var page: Int = 0
+    var page: Int = 0{
+        didSet {
+            changeButtonState()
+            switch page {
+            case 0:
+                trialHelper.didEnterCollectTableView()
+            case 1:
+                trialHelper.didEnterRatingTableView()
+            case 2:
+                trialHelper.didEnterBeenTableView()
+            default:
+                break
+            }
+        }
+    }
     
     var switchToCollectBtn: UIButton!
     var switchToJudgeBtn: UIButton!
@@ -93,7 +108,6 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
         scrollView!.addSubview(CollectTV!)
         scrollView!.addSubview(JudgeTV!)
         scrollView!.addSubview(BeenTV!)
-        
 
         scrollView?.contentSize = CGSize(width: CollectTV!.frame.width*3, height: CollectTV!.frame.height)
         scrollView?.pagingEnabled = true
@@ -105,12 +119,18 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
         scroller = UIView(frame: scrollerRect)
         scroller.backgroundColor = UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1)
         self.view.addSubview(scroller)
+        
+        //Init trial helper
+        trialHelper = TrialHelper.init(viewController: self)
     }
     
     override func viewWillAppear(animated: Bool) {
         collectRestaurants = RealmHelper.retriveRestaurantByStatus(1)
         judgeRestaurants = RealmHelper.retriveRestaurantByStatus(2)
         beenRestaurants = RealmHelper.retriveRestaurantByStatus(3)
+        
+        // Init pageIndex, in order to call the alertViewController successfully.
+        page = 0
     }
     
     override func viewDidLayoutSubviews() {
@@ -134,13 +154,10 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
         scroller.frame = scrollRect
         if ratio<0.25{
             page = 0
-            changeButtonState()
         }else if ratio>0.25 && ratio<0.5{
             page = 1
-            changeButtonState()
         }else{
             page = 2
-            changeButtonState()
         }
     }
  
