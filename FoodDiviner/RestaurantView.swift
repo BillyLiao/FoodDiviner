@@ -22,12 +22,13 @@ class RestaurantView: UIView {
     var nopeSticker: UIImageView!
     var takeSticker: UIImageView!
     var restaurant: Restaurant!
-    let scaleToRemoveCell: CGFloat = 0.3
+    let scaleToRemoveCell: CGFloat = 0.4
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         self.layer.cornerRadius = 5
+        self.clipsToBounds = true
         
         titleView.frame = CGRectMake(0, self.frame.height-60, self.frame.width, 60)
         titleView.backgroundColor = UIColor.whiteColor()
@@ -101,7 +102,7 @@ class RestaurantView: UIView {
         
         takeSticker = UIImageView.init(state: "take")
         takeSticker.center.x = self.frame.width/2
-        takeSticker.center.y = UIScreen.mainScreen().bounds.height/2
+        takeSticker.center.y = self.frame.height/2
         
         self.addSubview(likeSticker)
         self.addSubview(nopeSticker)
