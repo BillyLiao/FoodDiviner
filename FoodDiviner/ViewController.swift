@@ -98,7 +98,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
             switch inDirection {
             case Direction.Left:
                 if self.user.objectForKey(self.trialHelper.cardViewDidSwipedLeftBefore) as! Bool == true {
-                    self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "decline", run: self.run)
+                    self.manager.postUserChoice(restaurant.restaurant_id, decision: "decline", run: self.run)
                     
                     // Request new data when last restaurants did swipe.
                     if restaurant.restaurant_id == self.restaurants?.last?.restaurant_id {
@@ -113,7 +113,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                 }
             case Direction.Right:
                 if self.user.objectForKey(self.trialHelper.cardViewDidSwipedRightBefore) as! Bool == true {
-                    self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "accept", run: self.run)
+                    self.manager.postUserChoice(restaurant.restaurant_id, decision: "accept", run: self.run)
                     
                     if RealmHelper.isRestaurantExist(restaurant) {
                         print("Right, update restaurant")
@@ -138,7 +138,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                 }
             case Direction.Up:
                 if self.user.objectForKey(self.trialHelper.cardViewDidSwipedUpBefore) as! Bool == true {
-                    self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "accept", run: self.run)
+                    self.manager.postUserChoice(restaurant.restaurant_id, decision: "accept", run: self.run)
                     
                     if RealmHelper.isRestaurantExist(restaurant) {
                         print("Up, update restaurant")
@@ -172,7 +172,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                     case .afterTrial:
                         switch inDirection {
                         case Direction.Right:
-                            self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "accept", run: self.run)
+                            self.manager.postUserChoice(restaurant.restaurant_id, decision: "accept", run: self.run)
                             
                             if RealmHelper.isRestaurantExist(restaurant) {
                                 print("Right, update restaurant")
@@ -185,10 +185,10 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                             }
                             
                         case Direction.Left:
-                            self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "decline", run: self.run)
+                            self.manager.postUserChoice(restaurant.restaurant_id, decision: "decline", run: self.run)
                             
                         case Direction.Up:
-                            self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "accept", run: self.run)
+                            self.manager.postUserChoice(restaurant.restaurant_id, decision: "accept", run: self.run)
                             
                             if RealmHelper.isRestaurantExist(restaurant) {
                                 print("Up, update restaurant")

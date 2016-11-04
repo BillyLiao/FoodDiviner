@@ -58,34 +58,9 @@ class APIManager: NSObject {
 
     }
     
-    func getRestRecom(uid: NSNumber, advance: Bool, preferPrices: [Int]?, weather: String?, transport: String?, lat: Double?, lng: Double?){
-        let url = "\(baseURL)/users/\(uid)/recommendation"
-        let params: NSDictionary?
-        
-        if advance == true {
-            params = NSDictionary(dictionary: ["advance": advance, "prefer_prices": preferPrices!, "weather": weather!, "transport": transport!, "lat": lat!, "lng": lng!])
-        }else {
-            params = nil
-        }
-        print("Get restaurants recommendation params: \(params)")
-        manager.GET(url, parameters: params, success: { (task, responseObject) in
-                guard let data = responseObject else {
-                    self.delegate?.requestFailed(self.error)
-                    return
-                }
-                let result = data as! [NSDictionary]
-                self.delegate?.userRecomGetRequestDidFinished(result)
-            }) { (task, err) -> Void in
-                self.delegate?.requestFailed(err)
-                print("Get Recommendations Failed: \(err)")
-        }
-        
-    }
-    
-    
-    func postUserChoice(user_id: NSNumber, restaurant_id: NSNumber, decision: String, run: Int){
+    func postUserChoice(restaurant_id: NSNumber, decision: String, run: Int){
         let url = "\(baseURL)/user_choose"
-        let params = NSDictionary(dictionary: ["user_id" : user_id, "restaurant_id" : restaurant_id, "decision" : "accept", "run" : run])
+        let params = NSDictionary(dictionary: ["user_id" : user.valueForKey("user_id") as! NSNumber, "restaurant_id" : restaurant_id, "decision" : "accept", "run" : run])
         manager.POST(url, parameters: params, success: { (task, resObject) in
                 print("POST user choice succeed.")
             }) { (task, err) in

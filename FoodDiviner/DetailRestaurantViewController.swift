@@ -206,7 +206,7 @@ class DetailRestaurantViewController: UIViewController {
             RealmHelper.addRestaurantBeenTime(restaurant)
             RealmHelper.updateRestaurant(restaurant, status: 2)
             
-            self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "accept", run: 1)
+            self.manager.postUserChoice(restaurant.restaurant_id, decision: "accept", run: 1)
 
             self.dismissViewControllerAnimated(true, completion: nil)
             return
@@ -217,7 +217,7 @@ class DetailRestaurantViewController: UIViewController {
                 RealmHelper.addRestaurantBeenTime(self.restaurant)
                 RealmHelper.updateRestaurant(self.restaurant, status: 2)
                 
-                self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: self.restaurant.restaurant_id, decision: "accept", run: 1)
+                self.manager.postUserChoice(self.restaurant.restaurant_id, decision: "accept", run: 1)
 
                 
                 self.dismissViewControllerAnimated(true, completion: nil)
