@@ -31,9 +31,14 @@ class DetailRestaurantViewController: UIViewController {
     
     var restaurant: Restaurant! = nil
     let user = NSUserDefaults()
+    
+    //MARK: callback
     typealias restaurantDeleted = (Restaurant, String)-> ()
     var restaurantWillDeleted: restaurantDeleted?
+    
+    //MARK: helper
     var trialHelper: TrialHelper!
+    var manager: APIManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +51,7 @@ class DetailRestaurantViewController: UIViewController {
         
         distanceFromUserLocation()
         trialHelper = TrialHelper(viewController: self)
+        manager = APIManager.init()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -199,6 +205,9 @@ class DetailRestaurantViewController: UIViewController {
         if user.objectForKey(trialHelper.takeDidTappedBefore) as! Bool == true {
             RealmHelper.addRestaurantBeenTime(restaurant)
             RealmHelper.updateRestaurant(restaurant, status: 2)
+            
+            self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "accept", run: 1)
+
             self.dismissViewControllerAnimated(true, completion: nil)
             return
         }
@@ -207,6 +216,10 @@ class DetailRestaurantViewController: UIViewController {
             if action == true {
                 RealmHelper.addRestaurantBeenTime(self.restaurant)
                 RealmHelper.updateRestaurant(self.restaurant, status: 2)
+                
+                self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: self.restaurant.restaurant_id, decision: "accept", run: 1)
+
+                
                 self.dismissViewControllerAnimated(true, completion: nil)
             } else {
                 //Do nothing
@@ -215,6 +228,9 @@ class DetailRestaurantViewController: UIViewController {
         
     }
     
+    /*  There are three ways to enter detailRestaurantViewController: FromMain, FromCollectTableView, 
+     FromBeenTableView. Since we want the buttons are slightly different from each other, we create different functions: isFromMain, isFromLike, isFromBeen to add different button set among 3 situations.
+     */
     func isFromMain() {
         let dislikeBtn = UIButton(frame: CGRectMake(0, 0, 55, 55))
         dislikeBtn.setImage(UIImage(named: "Cancel"), forState: .Normal)
@@ -289,17 +305,6 @@ class DetailRestaurantViewController: UIViewController {
             }
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 
