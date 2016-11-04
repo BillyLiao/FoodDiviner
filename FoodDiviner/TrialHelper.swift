@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import ZLSwipeableViewSwift
 
 class TrialHelper {
     
@@ -59,10 +60,10 @@ class TrialHelper {
                 completionBlock(false)
             })
             alertViewController.addAction(cancelAction)
-            let likeAction = UIAlertAction.init(title: "出發", style: .Default, handler: { (likeAction) in
+            let takeAction = UIAlertAction.init(title: "出發", style: .Default, handler: { (takeAction) in
                 completionBlock(true)
             })
-            alertViewController.addAction(likeAction)
+            alertViewController.addAction(takeAction)
             
             self.viewController?.presentViewController(alertViewController, animated: true, completion: nil)
         }
@@ -76,10 +77,10 @@ class TrialHelper {
                 completionBlock(false)
             })
             alertViewController.addAction(cancelAction)
-            let likeAction = UIAlertAction.init(title: "沒興趣", style: .Default, handler: { (likeAction) in
+            let dislikeAction = UIAlertAction.init(title: "沒興趣", style: .Default, handler: { (action) in
                 completionBlock(true)
             })
-            alertViewController.addAction(likeAction)
+            alertViewController.addAction(dislikeAction)
             
             self.viewController?.presentViewController(alertViewController, animated: true, completion: nil)
         }
@@ -103,15 +104,57 @@ class TrialHelper {
     }
 
     
-    func cardViewDidSwipedLeft(completionBlock: Bool -> ()) {
-    }
-    
-    func cardViewDidSwipedRight(completionBlock: Bool -> ()) {
-
-    }
-    
-    func cardViewDidSwipedUp(completionBlock: Bool -> ()) {
-        
+    func cardViewDidSwiped(inDirection inDirection: Direction,completionBlock: Bool -> ()) {
+        switch inDirection {
+        case Direction.Left:
+            if user.objectForKey(cardViewDidSwipedLeftBefore) as! Bool == false {
+                user.setObject(true, forKey: cardViewDidSwipedLeftBefore)
+                let alertViewController = UIAlertController(title: "馬上去？", message: "將圖片拖曳至左側代表你對這家餐廳沒有興趣。", preferredStyle: .Alert)
+                let cancelAction = UIAlertAction.init(title: "取消", style: .Cancel, handler: { (cancelAction) in
+                    completionBlock(false)
+                })
+                alertViewController.addAction(cancelAction)
+                let dislikeAction = UIAlertAction.init(title: "沒興趣", style: .Default, handler: { (dislikeAction) in
+                    completionBlock(true)
+                })
+                alertViewController.addAction(dislikeAction)
+                
+                self.viewController?.presentViewController(alertViewController, animated: true, completion: nil)
+            }
+            
+        case Direction.Right:
+            if user.objectForKey(cardViewDidSwipedRightBefore) as! Bool == false {
+                user.setObject(true, forKey: cardViewDidSwipedRightBefore)
+                let alertViewController = UIAlertController(title: "讚?", message: "將圖片拖曳至右側代表你對這家餐廳按讚。", preferredStyle: .Alert)
+                let cancelAction = UIAlertAction.init(title: "取消", style: .Cancel, handler: { (cancelAction) in
+                    completionBlock(false)
+                })
+                alertViewController.addAction(cancelAction)
+                let likeAction = UIAlertAction.init(title: "點讚", style: .Default, handler: { (likeAction) in
+                    completionBlock(true)
+                })
+                alertViewController.addAction(likeAction)
+                
+                self.viewController?.presentViewController(alertViewController, animated: true, completion: nil)
+            }
+        case Direction.Up:
+            if user.objectForKey(likeDidTappedBefore) as! Bool == false {
+                user.setObject(true, forKey: likeDidTappedBefore)
+                let alertViewController = UIAlertController(title: "讚?", message: "將圖片拖曳至上方代表你現在就要出發去吃這家餐廳。", preferredStyle: .Alert)
+                let cancelAction = UIAlertAction.init(title: "取消", style: .Cancel, handler: { (cancelAction) in
+                    completionBlock(false)
+                })
+                alertViewController.addAction(cancelAction)
+                let takeAction = UIAlertAction.init(title: "出發", style: .Default, handler: { (takeAction) in
+                    completionBlock(true)
+                })
+                alertViewController.addAction(takeAction)
+                
+                self.viewController?.presentViewController(alertViewController, animated: true, completion: nil)
+            }
+        default:
+            break
+        }
     }
     
     func didEnterAdvancedSearchViewController() {

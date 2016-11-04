@@ -31,7 +31,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     }
     var restaurants: [Restaurant]? {
         didSet{
-            print("loadViews")
             restaurantIndex = 0
             restaurantView.loadViews()
         }
@@ -84,7 +83,8 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         restaurantView.center.x = self.view.frame.width/2
         restaurantView.frame.origin.y = 15
         restaurantView.allowedDirection = [.Left, .Right, .Up]
-        restaurantView.numberOfActiveView = UInt(3)
+        restaurantView.numberOfActiveView = UInt(5)
+        restaurantView.numberOfHistoryItem = UInt(1)
         self.view.addSubview(restaurantView)
         
         self.loadIndicator.center = self.view.center
@@ -94,11 +94,25 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         restaurantView.didSwipe = {cardView, inDirection, directionVector in
             let view = cardView as! RestaurantView
             let restaurant = view.restaurant
-        
-            switch self.stateNow {
-            case .afterTrial:
-                switch inDirection {
-                case Direction.Right:
+            
+            switch inDirection {
+            case Direction.Left:
+                if self.user.objectForKey(self.trialHelper.cardViewDidSwipedLeftBefore) as! Bool == true {
+                    self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "decline", run: self.run)
+                    
+                    // Request new data when last restaurants did swipe.
+                    if restaurant.restaurant_id == self.restaurants?.last?.restaurant_id {
+                        self.loadIndicator.startAnimation()
+                        self.lockButtons(true)
+                        if self.user.valueForKey("user_id") == nil {
+                            self.manager.signUp(self.user.valueForKey("fb_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("name") as! String, gender: self.user.valueForKey("gender") as! String)
+                        }
+                        self.stateNow = state.afterTrial
+                    }
+                    return
+                }
+            case Direction.Right:
+                if self.user.objectForKey(self.trialHelper.cardViewDidSwipedRightBefore) as! Bool == true {
                     self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "accept", run: self.run)
                     
                     if RealmHelper.isRestaurantExist(restaurant) {
@@ -111,10 +125,19 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                         RealmHelper.addRestaurant(restaurant)
                     }
                     
-                case Direction.Left:
-                    self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "decline", run: self.run)
-                    
-                case Direction.Up:
+                    // Request new data when last restaurants did swipe.
+                    if restaurant.restaurant_id == self.restaurants?.last?.restaurant_id {
+                        self.loadIndicator.startAnimation()
+                        self.lockButtons(true)
+                        if self.user.valueForKey("user_id") == nil {
+                            self.manager.signUp(self.user.valueForKey("fb_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("name") as! String, gender: self.user.valueForKey("gender") as! String)
+                        }
+                        self.stateNow = state.afterTrial
+                    }
+                    return
+                }
+            case Direction.Up:
+                if self.user.objectForKey(self.trialHelper.cardViewDidSwipedUpBefore) as! Bool == true {
                     self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "accept", run: self.run)
                     
                     if RealmHelper.isRestaurantExist(restaurant) {
@@ -127,39 +150,99 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                         restaurant.beenTime = 1
                         RealmHelper.addRestaurant(restaurant)
                     }
-                default:
-                    break
-                }
-                
-                // Request new data when last restaurants did swipe.
-                if restaurant.restaurant_id == self.restaurants?.last?.restaurant_id {
-                    self.run = self.run + 1
-                    self.loadIndicator.startAnimation()
-                    self.lockButtons(true)
-                    self.manager.getRestRecom()
-                }
-            case .beforeTrial:
-                switch inDirection {
-                case Direction.Right:
-                    self.user_trial.setObject(true, forKey: "\(restaurant.restaurant_id)")
-                case Direction.Left:
-                    self.user_trial.setObject(false, forKey: "\(restaurant.restaurant_id)")
-                case Direction.Up:
-                    self.user_trial.setObject(false, forKey: "\(restaurant.restaurant_id)")
-                default:
-                    break
-                }
-                
-                // Request new data when last restaurants did swipe.
-                if restaurant.restaurant_id == self.restaurants?.last?.restaurant_id {
-                    self.loadIndicator.startAnimation()
-                    self.lockButtons(true)
-                    if self.user.valueForKey("user_id") == nil {
-                        self.manager.signUp(self.user.valueForKey("fb_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("name") as! String, gender: self.user.valueForKey("gender") as! String)
+                    
+                    // Request new data when last restaurants did swipe.
+                    if restaurant.restaurant_id == self.restaurants?.last?.restaurant_id {
+                        self.loadIndicator.startAnimation()
+                        self.lockButtons(true)
+                        if self.user.valueForKey("user_id") == nil {
+                            self.manager.signUp(self.user.valueForKey("fb_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("name") as! String, gender: self.user.valueForKey("gender") as! String)
+                        }
+                        self.stateNow = state.afterTrial
                     }
-                    self.stateNow = state.afterTrial
+                    return
                 }
+            default:
+                break
             }
+            
+            self.trialHelper.cardViewDidSwiped(inDirection: inDirection, completionBlock: { (action) in
+                if action == true {
+                    switch self.stateNow {
+                    case .afterTrial:
+                        switch inDirection {
+                        case Direction.Right:
+                            self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "accept", run: self.run)
+                            
+                            if RealmHelper.isRestaurantExist(restaurant) {
+                                print("Right, update restaurant")
+                                RealmHelper.addRestaurantCollectionTime(restaurant)
+                            }else {
+                                print("Right, add restaurant")
+                                restaurant.status = 1
+                                restaurant.collectTime = 1
+                                RealmHelper.addRestaurant(restaurant)
+                            }
+                            
+                        case Direction.Left:
+                            self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "decline", run: self.run)
+                            
+                        case Direction.Up:
+                            self.manager.postUserChoice(self.user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, decision: "accept", run: self.run)
+                            
+                            if RealmHelper.isRestaurantExist(restaurant) {
+                                print("Up, update restaurant")
+                                RealmHelper.updateRestaurant(restaurant, status: 2)
+                                RealmHelper.addRestaurantBeenTime(restaurant)
+                            }else{
+                                print("Up, add restaurant")
+                                restaurant.status = 2
+                                restaurant.beenTime = 1
+                                RealmHelper.addRestaurant(restaurant)
+                            }
+                        default:
+                            break
+                        }
+                        
+                        // Request new data when last restaurants did swipe.
+                        if restaurant.restaurant_id == self.restaurants?.last?.restaurant_id {
+                            self.run = self.run + 1
+                            self.loadIndicator.startAnimation()
+                            self.lockButtons(true)
+                            self.manager.getRestRecom()
+                        }
+                    case .beforeTrial:
+                        switch inDirection {
+                        case Direction.Right:
+                            self.user_trial.setObject(true, forKey: "\(restaurant.restaurant_id)")
+                        case Direction.Left:
+                            self.user_trial.setObject(false, forKey: "\(restaurant.restaurant_id)")
+                        case Direction.Up:
+                            self.user_trial.setObject(false, forKey: "\(restaurant.restaurant_id)")
+                        default:
+                            break
+                        }
+                        
+                        // Request new data when last restaurants did swipe.
+                        if restaurant.restaurant_id == self.restaurants?.last?.restaurant_id {
+                            self.loadIndicator.startAnimation()
+                            self.lockButtons(true)
+                            if self.user.valueForKey("user_id") == nil {
+                                self.manager.signUp(self.user.valueForKey("fb_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("name") as! String, gender: self.user.valueForKey("gender") as! String)
+                            }
+                            self.stateNow = state.afterTrial
+                        }
+                    }
+                } else {
+                    print("------")
+                    print(self.restaurantView.numberOfActiveView)
+                    print(self.restaurantView.activeViews().count)
+                    self.restaurantView.rewind()
+                    print("------")
+                    print(self.restaurantView.numberOfActiveView)
+                    print(self.restaurantView.activeViews().count)
+                }
+            })
         }
         
         restaurantView.didTap = {view, atLocation in
