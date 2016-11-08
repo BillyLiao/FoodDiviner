@@ -216,10 +216,7 @@ class DetailRestaurantViewController: UIViewController {
             if action == true {
                 RealmHelper.addRestaurantBeenTime(self.restaurant)
                 RealmHelper.updateRestaurant(self.restaurant, status: 2)
-                
                 self.manager.postUserChoice(self.restaurant.restaurant_id, decision: "accept", run: 1)
-
-                
                 self.dismissViewControllerAnimated(true, completion: nil)
             } else {
                 //Do nothing
@@ -278,7 +275,6 @@ class DetailRestaurantViewController: UIViewController {
         takeBtn.frame.origin.y = self.view.frame.height-70
         takeBtn.center.x = self.view.frame.width/2
         takeBtn.addTarget(self, action: #selector(DetailRestaurantViewController.take), forControlEvents: .TouchUpInside)
-        
         self.scrollView.addSubview(takeBtn)
     }
     

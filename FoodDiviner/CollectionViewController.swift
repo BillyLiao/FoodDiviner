@@ -86,7 +86,7 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
         CollectTV!.delegate = self
         
         JudgeTV = UITableView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height-120), style: .Plain)
-        let judgeNib = UINib(nibName: "CollectionTableViewCell", bundle: nil)
+        let judgeNib = UINib(nibName: "RateTableViewCell", bundle: nil)
         JudgeTV!.registerNib(judgeNib, forCellReuseIdentifier: "Cell")
         JudgeTV!.tableFooterView = UIView()
         JudgeTV!.frame.origin.x += JudgeTV!.frame.width
@@ -214,7 +214,7 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
             return cell
             
         case JudgeTV!:
-            let cell = JudgeTV!.dequeueReusableCellWithIdentifier("Cell") as! CollectionTableViewCell
+            let cell = JudgeTV!.dequeueReusableCellWithIdentifier("Cell") as! RateTableViewCell
             cell.restaurant = judgeRestaurants![indexPath.row]
             return cell
 
