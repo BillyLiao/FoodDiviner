@@ -49,6 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // center icon
             pageView.centerButtonSpecifics.color = UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0)
             pageView.centerButtonSpecifics.size = CGSize(width: 40.0, height: 40.0)
+            
             pageView.selectedIndex = 1
             pageView.view.backgroundColor = UIColor.redColor()
             

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewable{
+class AdavanceSearchViewController: UIViewController{
 
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var priceLabel: UILabel!
@@ -166,7 +166,7 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
     }
     
     override func viewWillDisappear(animated: Bool) {
-        
+        saveFormResult()
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -248,63 +248,50 @@ class AdavanceSearchViewController: UIViewController, NVActivityIndicatorViewabl
         }
     }
     
-    @IBAction func savrFormResult(sender: AnyObject) {
+    func saveFormResult() {
         preferPrices = [Int](count:5, repeatedValue: 0)
-        
-        // If info not completed, then show alert
-        if !((btn0.selected == true || btn100.selected == true || btn200.selected == true || btn300.selected == true || btn500.selected == true) && (btnSunny.selected == true || btnRainy.selected == true) && (btnBus.selected == true || btnMRT.selected == true || btnSunny.selected == true || btnWalk.selected == true || btnUbike.selected == true)){
             
-            let alertController = UIAlertController(title: "似乎有些選項尚未填完呢!", message: "選項未填完的話，進階搜尋就不會生效哦！", preferredStyle: .Alert)
-            let cancelAction = UIAlertAction(title: "填完選項", style: .Cancel, handler: { (result) in
-                return
-            })
-            alertController.addAction(cancelAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
-            user.setObject(false, forKey: "advance")
-        }else {
-            
-            // perferPrices
-            if btn0.selected == true {
-                preferPrices![0] = 1
-            }
-            if btn100.selected == true {
-                preferPrices![1] = 1
-            }
-            if btn200.selected == true {
-                preferPrices![2] = 1
-            }
-            if btn300.selected == true {
-                preferPrices![3] = 1
-            }
-            if btn500.selected == true {
-                preferPrices![4] = 1
-            }
-            
-            // weather
-            if btnSunny.selected == true {
-                weather = "sunny"
-            }else if btnRainy.selected == true {
-                weather = "rainy"
-            }
-            
-            // transport
-            if btnBus.selected == true {
-                transport = "bus"
-            }else if btnMRT.selected == true {
-                transport = "MRT"
-            }else if btnWalk.selected == true {
-                transport = "walk"
-            }else if btnScooter.selected == true {
-                transport = "scooter"
-            }else if btnUbike.selected == true {
-                transport = "ubike"
-            }
-            
-            user.setObject(weather, forKey: "weather")
-            user.setObject(preferPrices, forKey: "preferPrices")
-            user.setObject(transport, forKey: "transport")
-            user.setObject(true, forKey: "advance")
+        // perferPrices
+        if btn0.selected == true {
+            preferPrices![0] = 1
         }
+        if btn100.selected == true {
+            preferPrices![1] = 1
+        }
+        if btn200.selected == true {
+            preferPrices![2] = 1
+        }
+        if btn300.selected == true {
+            preferPrices![3] = 1
+        }
+        if btn500.selected == true {
+            preferPrices![4] = 1
+        }
+        
+        // weather
+        if btnSunny.selected == true {
+            weather = "sunny"
+        }else if btnRainy.selected == true {
+            weather = "rainy"
+        }
+        
+        // transport
+        if btnBus.selected == true {
+            transport = "bus"
+        }else if btnMRT.selected == true {
+            transport = "MRT"
+        }else if btnWalk.selected == true {
+            transport = "walk"
+        }else if btnScooter.selected == true {
+            transport = "scooter"
+        }else if btnUbike.selected == true {
+            transport = "ubike"
+        }
+        
+        user.setObject(weather, forKey: "weather")
+        user.setObject(preferPrices, forKey: "preferPrices")
+        user.setObject(transport, forKey: "transport")
+        user.setObject(true, forKey: "advance")
     }
     
     @IBAction func clear(sender: AnyObject) {

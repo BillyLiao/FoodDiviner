@@ -138,8 +138,8 @@ class TrialHelper {
                 self.viewController?.presentViewController(alertViewController, animated: true, completion: nil)
             }
         case Direction.Up:
-            if user.objectForKey(likeDidTappedBefore) as! Bool == false {
-                user.setObject(true, forKey: likeDidTappedBefore)
+            if user.objectForKey(cardViewDidSwipedUpBefore) as! Bool == false {
+                user.setObject(true, forKey: cardViewDidSwipedUpBefore)
                 let alertViewController = UIAlertController(title: "讚?", message: "將圖片拖曳至上方代表你現在就要出發去吃這家餐廳。", preferredStyle: .Alert)
                 let cancelAction = UIAlertAction.init(title: "取消", style: .Cancel, handler: { (cancelAction) in
                     completionBlock(false)

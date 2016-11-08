@@ -37,9 +37,9 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     }
     
     let user = NSUserDefaults()
-    var stateNow: state!{
+    var stateNow: state?{
         didSet {
-            switch stateNow as state{
+            switch stateNow! as state{
             case .beforeTrial:
                 print("Before trial")
                 setTrial()
@@ -189,6 +189,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                     
                     // Request new data when last restaurants did swipe.
                     if restaurant.restaurant_id == self.restaurants?.last?.restaurant_id {
+                        
                         self.loadIndicator.startAnimation()
                         self.lockButtons(true)
                         if self.user.valueForKey("user_id") == nil {
@@ -204,7 +205,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
             
             self.trialHelper.cardViewDidSwiped(inDirection: inDirection, completionBlock: { (action) in
                 if action == true {
-                    switch self.stateNow as state{
+                    switch self.stateNow! as state{
                     case .afterTrial:
                         switch inDirection {
                         case Direction.Right:
@@ -270,6 +271,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                         }
                     }
                 } else {
+                    self.restaurantView.rewind()
                 }
             })
         }
