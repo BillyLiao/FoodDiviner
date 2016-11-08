@@ -122,15 +122,15 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
         
         //Init trial helper
         trialHelper = TrialHelper.init(viewController: self)
+        
+        // Init pageIndex, in order to call the alertViewController successfully.
+        page = 0
     }
     
     override func viewWillAppear(animated: Bool) {
         collectRestaurants = RealmHelper.retriveRestaurantByStatus(1)
         judgeRestaurants = RealmHelper.retriveRestaurantByStatus(2)
         beenRestaurants = RealmHelper.retriveRestaurantByStatus(3)
-        
-        // Init pageIndex, in order to call the alertViewController successfully.
-        page = 0
     }
     
     override func viewDidLayoutSubviews() {

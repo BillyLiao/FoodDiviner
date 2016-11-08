@@ -39,7 +39,6 @@ class BeenTableViewCell: UITableViewCell {
         dateFormatter.dateFormat = "yyyy/MM/dd"
         beenDate.text = dateFormatter.stringFromDate(restaurant.lastBeenDate)
         if let image_id = restaurant.image_id {
-            print("\(image_id) exists")
             self.rtImageView.sd_setImageWithURL(NSURL(string:"http://api-server.jqemsuerdm.ap-northeast-1.elasticbeanstalk.com/images/\(image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"))
         }else {
             self.rtImageView.sd_setImageWithURL(NSURL(string:"http://api-server.jqemsuerdm.ap-northeast-1.elasticbeanstalk.com/images/"), placeholderImage: UIImage(named:"imagePlaceHolder"))

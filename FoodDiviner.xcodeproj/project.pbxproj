@@ -31,6 +31,7 @@
 		51F387CF1DD1774200825C4B /* CustomizedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F387CE1DD1774200825C4B /* CustomizedButton.swift */; };
 		51F387D21DD1AD1100825C4B /* RateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F387D01DD1AD1100825C4B /* RateTableViewCell.swift */; };
 		51F387D31DD1AD1100825C4B /* RateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F387D11DD1AD1100825C4B /* RateTableViewCell.xib */; };
+		51F387D51DD1CC8000825C4B /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F387D41DD1CC8000825C4B /* MainButton.swift */; };
 		51FA52331CEB20A70037562E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FA52321CEB20A70037562E /* AppDelegate.swift */; };
 		51FA52351CEB20A70037562E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FA52341CEB20A70037562E /* ViewController.swift */; };
 		51FA52381CEB20A70037562E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51FA52361CEB20A70037562E /* Main.storyboard */; };
@@ -77,6 +78,7 @@
 		51F387CE1DD1774200825C4B /* CustomizedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomizedButton.swift; sourceTree = "<group>"; };
 		51F387D01DD1AD1100825C4B /* RateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateTableViewCell.swift; sourceTree = "<group>"; };
 		51F387D11DD1AD1100825C4B /* RateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RateTableViewCell.xib; sourceTree = "<group>"; };
+		51F387D41DD1CC8000825C4B /* MainButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
 		51FA522F1CEB20A70037562E /* FoodDiviner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodDiviner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51FA52321CEB20A70037562E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		51FA52341CEB20A70037562E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				51104A871CF9E78400241DBE /* BeenTableViewCell.swift */,
 				51104AC21CFB03DB00241DBE /* BeenTableViewCell.xib */,
 				51F387CE1DD1774200825C4B /* CustomizedButton.swift */,
+				51F387D41DD1CC8000825C4B /* MainButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 			files = (
 				511842E11DC5F2AE00783D6B /* RestaurantView.swift in Sources */,
 				5157708E1D1A57FD00549A4E /* fbLoginViewController.swift in Sources */,
+				51F387D51DD1CC8000825C4B /* MainButton.swift in Sources */,
 				51EE7CFC1D83BFC800B77AE8 /* MultilineLabel.swift in Sources */,
 				51104A881CF9E78400241DBE /* BeenTableViewCell.swift in Sources */,
 				51FA52351CEB20A70037562E /* ViewController.swift in Sources */,

@@ -21,60 +21,70 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="Zhx-Ab-Gsp">
-                                <rect key="frame" x="46" y="502" width="228" height="46"/>
+                                <rect key="frame" x="46" y="503" width="228" height="57"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iZ8-oD-x4U">
-                                        <rect key="frame" x="0.0" y="11" width="35" height="35"/>
+                                    <button opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iZ8-oD-x4U" customClass="MainButton" customModule="FoodDiviner" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="10.5" width="46.5" height="46.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="iZ8-oD-x4U" secondAttribute="height" multiplier="1:1" id="ERJ-E1-8WJ"/>
-                                            <constraint firstAttribute="height" constant="35" id="V6M-y4-EPi"/>
+                                            <constraint firstAttribute="width" secondItem="iZ8-oD-x4U" secondAttribute="height" multiplier="1:1" id="ik4-Rs-OY6"/>
                                         </constraints>
+                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                         <state key="normal" image="Reload"/>
                                         <connections>
                                             <action selector="reload:" destination="BYZ-38-t0r" eventType="touchUpInside" id="O6I-bx-Bi9"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mTP-U5-0fb">
-                                        <rect key="frame" x="57" y="0.0" width="46" height="46"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mTP-U5-0fb" customClass="MainButton" customModule="FoodDiviner" customModuleProvider="target">
+                                        <rect key="frame" x="54" y="0.0" width="57" height="57"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="mTP-U5-0fb" secondAttribute="height" multiplier="1:1" id="353-UY-zIH"/>
                                         </constraints>
+                                        <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                         <state key="normal" image="Cancel"/>
                                         <connections>
                                             <action selector="dislike:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nwZ-7V-gUG"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKJ-Hw-evS">
-                                        <rect key="frame" x="125" y="0.0" width="46" height="46"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKJ-Hw-evS" customClass="MainButton" customModule="FoodDiviner" customModuleProvider="target">
+                                        <rect key="frame" x="118" y="0.0" width="57" height="57"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="IKJ-Hw-evS" secondAttribute="height" multiplier="1:1" id="wdb-GT-Mw3"/>
                                         </constraints>
+                                        <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                         <state key="normal" image="Collect"/>
                                         <connections>
                                             <action selector="like:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jaR-5Z-yfT"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qz-ND-KZz">
-                                        <rect key="frame" x="193" y="11" width="35" height="35"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qz-ND-KZz" customClass="MainButton" customModule="FoodDiviner" customModuleProvider="target">
+                                        <rect key="frame" x="182.5" y="11.5" width="45.5" height="45.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="35" id="VOu-OY-KTa"/>
                                             <constraint firstAttribute="width" secondItem="9qz-ND-KZz" secondAttribute="height" multiplier="1:1" id="neH-Z9-kem"/>
                                         </constraints>
+                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                         <state key="normal" image="Take"/>
                                         <connections>
                                             <action selector="take:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PhW-T6-Ikq"/>
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="iZ8-oD-x4U" firstAttribute="height" secondItem="Zhx-Ab-Gsp" secondAttribute="height" multiplier="0.8" id="JhD-BT-Cd2"/>
+                                    <constraint firstItem="9qz-ND-KZz" firstAttribute="height" secondItem="Zhx-Ab-Gsp" secondAttribute="height" multiplier="0.8" id="oI5-JR-g17"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="Zhx-Ab-Gsp" secondAttribute="trailing" constant="30" id="1ub-iV-yyS"/>
                             <constraint firstItem="Zhx-Ab-Gsp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3UJ-bA-g5B"/>
-                            <constraint firstItem="Zhx-Ab-Gsp" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.08" id="78J-bZ-i8U"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Zhx-Ab-Gsp" secondAttribute="bottom" constant="20" id="QcU-wO-mFy"/>
-                            <constraint firstItem="Zhx-Ab-Gsp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="30" id="m54-Wf-wTd"/>
+                            <constraint firstItem="Zhx-Ab-Gsp" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.1" id="78J-bZ-i8U"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Zhx-Ab-Gsp" secondAttribute="trailing" constant="30" id="9An-bw-tpA"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Zhx-Ab-Gsp" secondAttribute="bottom" constant="8" id="QcU-wO-mFy"/>
+                            <constraint firstItem="Zhx-Ab-Gsp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="30" id="wcR-xo-40Z"/>
                         </constraints>
                     </view>
                     <connections>

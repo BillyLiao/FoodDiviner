@@ -20,10 +20,10 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     let loadIndicator: NVActivityIndicatorView = NVActivityIndicatorView(frame: CGRectMake(0, 0, 90, 90), type: .BallScaleMultiple, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0))
     var run: Int = 1
     
-    @IBOutlet weak var dislikeButton: UIButton!
-    @IBOutlet weak var reloadButton: UIButton!
-    @IBOutlet weak var likeButton: UIButton!
-    @IBOutlet weak var takeButton: UIButton!
+    @IBOutlet weak var dislikeButton: MainButton!
+    @IBOutlet weak var reloadButton: MainButton!
+    @IBOutlet weak var likeButton: MainButton!
+    @IBOutlet weak var takeButton: MainButton!
     
     enum state {
         case beforeTrial
@@ -76,6 +76,22 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         restaurantView.nextView = {
             return self.nextCardView()
         }
+
+        // Propotional height in autolayout affect the button size in viewDidLayoutSubviews, so set the rounded buttons here
+        self.likeButton.layer.cornerRadius = likeButton.frame.height/2
+        self.likeButton.clipsToBounds = true
+        
+        self.dislikeButton.layer.cornerRadius = dislikeButton.frame.width/2
+        self.dislikeButton.clipsToBounds = true
+        
+        self.takeButton.layer.cornerRadius = takeButton.frame.width/2
+        self.takeButton.clipsToBounds = true
+        
+        self.reloadButton.layer.cornerRadius = reloadButton.frame.width/2
+        self.reloadButton.clipsToBounds = true
+    }
+    
+    override func viewWillAppear(animated: Bool) {
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -119,7 +135,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     
     func cardViewSetup() {
         restaurantView = ZLSwipeableView()
-        restaurantView.frame = CGRect(origin: CGPointZero, size: CGSize(width: UIScreen.mainScreen().bounds.width - 16 , height: UIScreen.mainScreen().bounds.height * (2/3)))
+        restaurantView.frame = CGRect(origin: CGPointZero, size: CGSize(width: UIScreen.mainScreen().bounds.width - 16 , height: UIScreen.mainScreen().bounds.height * 0.7))
         restaurantView.center.x = self.view.frame.width/2
         restaurantView.frame.origin.y = 15
         restaurantView.allowedDirection = [.Left, .Right, .Up]
@@ -127,6 +143,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         restaurantView.numberOfHistoryItem = UInt(1)
         self.view.addSubview(restaurantView)
         
+        // MARK: RestaurantView callbacks
         restaurantView.didSwipe = {cardView, inDirection, directionVector in
             let view = cardView as! RestaurantView
             let restaurant = view.restaurant
@@ -136,15 +153,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                 if self.user.objectForKey(self.trialHelper.cardViewDidSwipedLeftBefore) as! Bool == true {
                     self.manager.postUserChoice(restaurant.restaurant_id, decision: "decline", run: self.run)
                     
-                    // Request new data when last restaurants did swipe.
-                    if restaurant.restaurant_id == self.restaurants?.last?.restaurant_id {
-                        self.loadIndicator.startAnimation()
-                        self.lockButtons(true)
-                        if self.user.valueForKey("user_id") == nil {
-                            self.manager.signUp(self.user.valueForKey("fb_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("name") as! String, gender: self.user.valueForKey("gender") as! String)
-                        }
-                        self.stateNow = state.afterTrial
-                    }
                     return
                 }
             case Direction.Right:
@@ -161,15 +169,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                         RealmHelper.addRestaurant(restaurant)
                     }
                     
-                    // Request new data when last restaurants did swipe.
-                    if restaurant.restaurant_id == self.restaurants?.last?.restaurant_id {
-                        self.loadIndicator.startAnimation()
-                        self.lockButtons(true)
-                        if self.user.valueForKey("user_id") == nil {
-                            self.manager.signUp(self.user.valueForKey("fb_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("name") as! String, gender: self.user.valueForKey("gender") as! String)
-                        }
-                        self.stateNow = state.afterTrial
-                    }
                     return
                 }
             case Direction.Up:
@@ -187,16 +186,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                         RealmHelper.addRestaurant(restaurant)
                     }
                     
-                    // Request new data when last restaurants did swipe.
-                    if restaurant.restaurant_id == self.restaurants?.last?.restaurant_id {
-                        
-                        self.loadIndicator.startAnimation()
-                        self.lockButtons(true)
-                        if self.user.valueForKey("user_id") == nil {
-                            self.manager.signUp(self.user.valueForKey("fb_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("name") as! String, gender: self.user.valueForKey("gender") as! String)
-                        }
-                        self.stateNow = state.afterTrial
-                    }
                     return
                 }
             default:
@@ -220,7 +209,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                                 restaurant.collectTime = 1
                                 RealmHelper.addRestaurant(restaurant)
                             }
-                            
                         case Direction.Left:
                             self.manager.postUserChoice(restaurant.restaurant_id, decision: "decline", run: self.run)
                             
@@ -241,13 +229,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                             break
                         }
                         
-                        // Request new data when last restaurants did swipe.
-                        if restaurant.restaurant_id == self.restaurants?.last?.restaurant_id {
-                            self.run = self.run + 1
-                            self.loadIndicator.startAnimation()
-                            self.lockButtons(true)
-                            self.manager.getRestRecom()
-                        }
                     case .beforeTrial:
                         switch inDirection {
                         case Direction.Right:
@@ -258,16 +239,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                             self.user_trial.setObject(false, forKey: "\(restaurant.restaurant_id)")
                         default:
                             break
-                        }
-                        
-                        // Request new data when last restaurants did swipe.
-                        if restaurant.restaurant_id == self.restaurants?.last?.restaurant_id {
-                            self.loadIndicator.startAnimation()
-                            self.lockButtons(true)
-                            if self.user.valueForKey("user_id") == nil {
-                                self.manager.signUp(self.user.valueForKey("fb_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("name") as! String, gender: self.user.valueForKey("gender") as! String)
-                            }
-                            self.stateNow = state.afterTrial
                         }
                     }
                 } else {
@@ -305,6 +276,21 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         restaurantView.didEnd = {view, atLocation in
             let restaurantView = view as! RestaurantView
             restaurantView.clearStickers()
+        }
+        
+        restaurantView.didDisappear = {view in
+            // Request new data when last restaurants did swipe.
+            let restaurantView = view as! RestaurantView
+            if restaurantView.restaurant.restaurant_id == self.restaurants?.last?.restaurant_id{
+                if self.stateNow! as state == .afterTrial {
+                    self.loadIndicator.startAnimation()
+                    self.lockButtons(true)
+                    self.manager.getRestRecom()
+                }else {
+                    self.manager.signUp(self.user.valueForKey("fb_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("name") as! String, gender: self.user.valueForKey("gender") as! String)
+                    self.stateNow = state.afterTrial
+                }
+            }
         }
     }
     
