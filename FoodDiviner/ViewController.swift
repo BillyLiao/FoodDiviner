@@ -37,7 +37,21 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     }
     
     let user = NSUserDefaults()
-    var stateNow = state.beforeTrial
+    var stateNow: state!{
+        didSet {
+            switch stateNow as state{
+            case .beforeTrial:
+                print("Before trial")
+                setTrial()
+            case .afterTrial:
+                print("After trial")
+                loadIndicator.startAnimation()
+                lockButtons(true)
+                manager.getRestRecom()
+            }
+        }
+    }
+    
     var user_trial = NSMutableDictionary()
     var locationManager: CLLocationManager!
     var manager: APIManager!
@@ -48,36 +62,62 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        manager = APIManager()
-        manager.delegate = self
-        
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
-        locationManager.startUpdatingLocation()
-        
-        trialHelper = TrialHelper.init(viewController: self)
+        setup()
 
         if user.valueForKey("user_id") == nil {
             stateNow = state.beforeTrial
         }else {
             stateNow = state.afterTrial
         }
-        
-        switch stateNow {
-        case .beforeTrial:
-            print("Before Trial.")
-            setTrial()
-        case .afterTrial:
-            print("After Trial.")
-            loadIndicator.startAnimation()
-            lockButtons(true)
-            manager.getRestRecom()
-        default:
-            break
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        restaurantView.nextView = {
+            return self.nextCardView()
         }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        run = 1
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: Setup
+    func setup(){
+        apiManagerSetup()
+        trialHelperSetup()
+        locationManagerSetup()
+        cardViewSetup()
         
+        self.loadIndicator.center = self.view.center
+        self.loadIndicator.center.y -= 60
+        self.view.addSubview(self.loadIndicator)
+        self.view.backgroundColor = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 1)
+    }
+    
+    func apiManagerSetup() {
+        manager = APIManager()
+        manager.delegate = self
+    }
+    
+    func trialHelperSetup() {
+        trialHelper = TrialHelper.init(viewController: self)
+    }
+    
+    func locationManagerSetup(){
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
+    }
+    
+    func cardViewSetup() {
         restaurantView = ZLSwipeableView()
         restaurantView.frame = CGRect(origin: CGPointZero, size: CGSize(width: UIScreen.mainScreen().bounds.width - 16 , height: UIScreen.mainScreen().bounds.height * (2/3)))
         restaurantView.center.x = self.view.frame.width/2
@@ -86,10 +126,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         restaurantView.numberOfActiveView = UInt(5)
         restaurantView.numberOfHistoryItem = UInt(1)
         self.view.addSubview(restaurantView)
-        
-        self.loadIndicator.center = self.view.center
-        self.loadIndicator.center.y -= 60
-        self.view.addSubview(self.loadIndicator)
         
         restaurantView.didSwipe = {cardView, inDirection, directionVector in
             let view = cardView as! RestaurantView
@@ -168,7 +204,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
             
             self.trialHelper.cardViewDidSwiped(inDirection: inDirection, completionBlock: { (action) in
                 if action == true {
-                    switch self.stateNow {
+                    switch self.stateNow as state{
                     case .afterTrial:
                         switch inDirection {
                         case Direction.Right:
@@ -234,13 +270,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                         }
                     }
                 } else {
-                    print("------")
-                    print(self.restaurantView.numberOfActiveView)
-                    print(self.restaurantView.activeViews().count)
-                    self.restaurantView.rewind()
-                    print("------")
-                    print(self.restaurantView.numberOfActiveView)
-                    print(self.restaurantView.activeViews().count)
                 }
             })
         }
@@ -277,17 +306,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         }
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        restaurantView.nextView = {
-            return self.nextCardView()
-        }
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        run = 1
-    }
-    
     func nextCardView() -> UIView? {
         if restaurants?.count == 0 {
             return nil
@@ -304,34 +322,10 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         return cardView
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+
     
-    func setTrial(){
-        if let path = NSBundle.mainBundle().pathForResource("trialRestaurant", ofType: "json") {
-            do {
-                let data = try NSData(contentsOfURL: NSURL(fileURLWithPath: path), options: .DataReadingMapped)
-                let jsonObj = JSON(data: data)
-                var tempRestaurants: [Restaurant] = []
-                if jsonObj != JSON.null {
-                    for i in 0..<jsonObj.count {
-                        var restaurant = Restaurant(json: jsonObj[i])
-                        tempRestaurants.append(restaurant)
-                    }
-                    restaurants = tempRestaurants
-                }else {
-                    print("Couldn't get json from file, make sure that file contains valid json.")
-                }
-            } catch let err as NSError {
-                print(err.localizedDescription)
-            }
-        } else {
-            print("Invalid filename/path")
-        }
-    }
     
+    // MARK: Request callbacks
     func requestFailed(e: NSError?) {
         let alertController = UIAlertController(title: "嗯...嗯...", message: "真是個大凶兆，讓我再仔細占卜一番?我想確認確認..", preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "再算一次", style: .Default) { (result) in
@@ -364,12 +358,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         manager.getRestRecom()
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        var userLocation:CLLocation = locations[0]
-        user.setObject(userLocation.coordinate.latitude, forKey: "lat")
-        user.setObject(userLocation.coordinate.longitude, forKey: "lng")
-    }
-    
+    // MARK: IBActions
     // Take the restaurant
     @IBAction func take(sender: AnyObject) {
         let takeSticker = UIImageView(state: "take")
@@ -445,13 +434,42 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         }
     }
     
-    // Reload the data from internet
+    // Reload the data from backend
     @IBAction func reload(sender: AnyObject) {
         //Clear the screen first
         restaurantView.discardViews()
         self.manager.getRestRecom()
         self.loadIndicator.startAnimation()
         lockButtons(true)
+    }
+    
+    func setTrial(){
+        if let path = NSBundle.mainBundle().pathForResource("trialRestaurant", ofType: "json") {
+            do {
+                let data = try NSData(contentsOfURL: NSURL(fileURLWithPath: path), options: .DataReadingMapped)
+                let jsonObj = JSON(data: data)
+                var tempRestaurants: [Restaurant] = []
+                if jsonObj != JSON.null {
+                    for i in 0..<jsonObj.count {
+                        var restaurant = Restaurant(json: jsonObj[i])
+                        tempRestaurants.append(restaurant)
+                    }
+                    restaurants = tempRestaurants
+                }else {
+                    print("Couldn't get json from file, make sure that file contains valid json.")
+                }
+            } catch let err as NSError {
+                print(err.localizedDescription)
+            }
+        } else {
+            print("Invalid filename/path")
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        var userLocation:CLLocation = locations[0]
+        user.setObject(userLocation.coordinate.latitude, forKey: "lat")
+        user.setObject(userLocation.coordinate.longitude, forKey: "lng")
     }
     
     // In case user the buttons when loading

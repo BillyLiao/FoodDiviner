@@ -103,10 +103,4 @@ class APIManager: NSObject {
                 print("Clean caches failed.")
         }
     }
-    
-    /*
-    func getTrial(){
-    }
-    */
-    
 }

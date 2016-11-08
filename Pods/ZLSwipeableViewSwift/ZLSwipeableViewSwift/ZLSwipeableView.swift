@@ -271,9 +271,9 @@ extension ZLSwipeableView {
             case 0:
                 rotateView(view, forDegree: 0, duration: duration, offsetFromCenter: offset, swipeableView: swipeableView)
             case 1:
-                rotateView(view, forDegree: degree, duration: duration, offsetFromCenter: offset, swipeableView: swipeableView)
+                rotateView(view, forDegree: 0, duration: duration, offsetFromCenter: offset, swipeableView: swipeableView)
             case 2:
-                rotateView(view, forDegree: -degree, duration: duration, offsetFromCenter: offset, swipeableView: swipeableView)
+                rotateView(view, forDegree: 0, duration: duration, offsetFromCenter: offset, swipeableView: swipeableView)
             default:
                 rotateView(view, forDegree: 0, duration: duration, offsetFromCenter: offset, swipeableView: swipeableView)
             }
@@ -312,15 +312,18 @@ extension ZLSwipeableView {
             let minVelocityInPointPerSecond = swipeableView.minVelocityInPointPerSecond
             let allowedDirection = swipeableView.allowedDirection
 
+            /*
             func areTranslationAndVelocityInTheSameDirection() -> Bool {
                 return CGPoint.areInSameTheDirection(translation, p2: velocity)
             }
-
+            */
+            
             func isDirectionAllowed() -> Bool {
                 return Direction.fromPoint(translation).intersect(allowedDirection) != .None
             }
 
             func isTranslationLargeEnough() -> Bool {
+                print("Translation: \(abs(translation.x)), threshold: \(minTranslationInPercent * bounds.width)")
                 return abs(translation.x) > minTranslationInPercent * bounds.width || abs(translation.y) > minTranslationInPercent * bounds.height
             }
 
@@ -328,7 +331,7 @@ extension ZLSwipeableView {
                 return velocity.magnitude > minVelocityInPointPerSecond
             }
 
-            return isDirectionAllowed() && areTranslationAndVelocityInTheSameDirection() && (isTranslationLargeEnough() || isVelocityLargeEnough())
+            return isDirectionAllowed() && (isTranslationLargeEnough() || isVelocityLargeEnough())
         }
     }
 

@@ -28,6 +28,7 @@
 		51BDCA8A1DA50B6A00903C22 /* TrialHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BDCA891DA50B6A00903C22 /* TrialHelper.swift */; };
 		51E714A11D708C75006AB57E /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E714A01D708C75006AB57E /* RealmHelper.swift */; };
 		51EE7CFC1D83BFC800B77AE8 /* MultilineLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EE7CFB1D83BFC800B77AE8 /* MultilineLabel.swift */; };
+		51F387CF1DD1774200825C4B /* CustomizedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F387CE1DD1774200825C4B /* CustomizedButton.swift */; };
 		51FA52331CEB20A70037562E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FA52321CEB20A70037562E /* AppDelegate.swift */; };
 		51FA52351CEB20A70037562E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FA52341CEB20A70037562E /* ViewController.swift */; };
 		51FA52381CEB20A70037562E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51FA52361CEB20A70037562E /* Main.storyboard */; };
@@ -71,6 +72,7 @@
 		51BDCA891DA50B6A00903C22 /* TrialHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrialHelper.swift; sourceTree = "<group>"; };
 		51E714A01D708C75006AB57E /* RealmHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		51EE7CFB1D83BFC800B77AE8 /* MultilineLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultilineLabel.swift; sourceTree = "<group>"; };
+		51F387CE1DD1774200825C4B /* CustomizedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomizedButton.swift; sourceTree = "<group>"; };
 		51FA522F1CEB20A70037562E /* FoodDiviner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodDiviner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51FA52321CEB20A70037562E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		51FA52341CEB20A70037562E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				51104AC01CFABB2000241DBE /* CollectionTableViewCell.xib */,
 				51104A871CF9E78400241DBE /* BeenTableViewCell.swift */,
 				51104AC21CFB03DB00241DBE /* BeenTableViewCell.xib */,
+				51F387CE1DD1774200825C4B /* CustomizedButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				51FA52331CEB20A70037562E /* AppDelegate.swift in Sources */,
 				51FA523B1CEB20A70037562E /* FoodDiviner.xcdatamodeld in Sources */,
 				51104AC51CFC1DB800241DBE /* AdavanceSearchViewController.swift in Sources */,
+				51F387CF1DD1774200825C4B /* CustomizedButton.swift in Sources */,
 				51E714A11D708C75006AB57E /* RealmHelper.swift in Sources */,
 				519383081D729CB700F7E2CB /* DeviceHelper.swift in Sources */,
 				5109E7081DC1AC93007E1917 /* StickerImageView.swift in Sources */,

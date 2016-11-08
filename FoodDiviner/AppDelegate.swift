@@ -31,10 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
             
             let mainView = UIStoryboard(name: "Main", bundle: nil)
-            let choosingPage = mainView.instantiateViewControllerWithIdentifier("ViewController")
-            let collectionPage = mainView.instantiateViewControllerWithIdentifier("CollectionViewController")
-            let advanceSearchPage = mainView.instantiateViewControllerWithIdentifier("advanceSearchViewController")
-            let viewControllers = NSArray(array: [advanceSearchPage, choosingPage, collectionPage])
+            let choosingPage = mainView.instantiateViewControllerWithIdentifier("ViewController") as! ViewController
+            let collectionPage = mainView.instantiateViewControllerWithIdentifier("CollectionViewController") as! CollectionViewController
+            let advanceSearchPage = mainView.instantiateViewControllerWithIdentifier("advanceSearchViewController") as! AdavanceSearchViewController
+            let viewControllers: [UIViewController] = NSArray(array: [advanceSearchPage, choosingPage, collectionPage]) as! [UIViewController]
             
             let pageView = TETinderPageView(viewControllers: viewControllers as [AnyObject], buttonImages: [UIImage(named: "Setting")!, UIImage(named: "Restaurant")!, UIImage(named: "Collection")!])
             
@@ -51,6 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             pageView.centerButtonSpecifics.size = CGSize(width: 40.0, height: 40.0)
             pageView.selectedIndex = 1
             pageView.view.backgroundColor = UIColor.redColor()
+            
             self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
             self.window?.rootViewController = pageView
             self.window?.makeKeyAndVisible()
@@ -66,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Needed for FB Login
         return fbLogin
     }
-    
+
     func setupUser(){
         let trialHelper = TrialHelper()
         let user = NSUserDefaults()

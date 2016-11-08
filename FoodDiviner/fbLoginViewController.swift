@@ -73,6 +73,7 @@ class fbLoginViewController: UIViewController, FBSDKLoginButtonDelegate{
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         if error == nil {
             print("Login Complete.")
+            self.authIndicator.startAnimating()
             //First time login or relogin on the device.
             setUserData()
         }else{
@@ -130,7 +131,6 @@ class fbLoginViewController: UIViewController, FBSDKLoginButtonDelegate{
                     let data = NSData.init(contentsOfURL: NSURL(string: imageURL)!)
                     self.user.setObject(data, forKey: "picture")
                 }
-                self.authIndicator.startAnimating()
                 self.userAuth()
             }
         })
