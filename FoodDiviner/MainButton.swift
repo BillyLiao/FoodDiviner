@@ -21,9 +21,10 @@ class MainButton: UIButton {
     }
     
     func setup(){
-        print("haha")
+        self.backgroundColor = UIColor.whiteColor()
         self.layer.cornerRadius = self.bounds.size.width/2
         self.clipsToBounds = true
+        self.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
 
 }

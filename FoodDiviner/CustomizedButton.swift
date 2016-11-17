@@ -21,7 +21,7 @@ class CustomizedButton: UIButton {
         super.init(coder: aDecoder)
         setup()
     }
-    
+
     func setup(){
         let borderColor = UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0).CGColor
 

@@ -79,16 +79,14 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
 
         // Propotional height in autolayout affect the button size in viewDidLayoutSubviews, so set the rounded buttons here
         self.likeButton.layer.cornerRadius = likeButton.frame.height/2
-        self.likeButton.clipsToBounds = true
         
         self.dislikeButton.layer.cornerRadius = dislikeButton.frame.width/2
-        self.dislikeButton.clipsToBounds = true
         
         self.takeButton.layer.cornerRadius = takeButton.frame.width/2
-        self.takeButton.clipsToBounds = true
+        self.takeButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
         self.reloadButton.layer.cornerRadius = reloadButton.frame.width/2
-        self.reloadButton.clipsToBounds = true
+        self.reloadButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     }
     
     override func viewWillAppear(animated: Bool) {

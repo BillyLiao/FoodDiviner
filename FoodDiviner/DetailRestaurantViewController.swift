@@ -29,6 +29,11 @@ class DetailRestaurantViewController: UIViewController {
     @IBOutlet weak var restTime: UILabel!
     @IBOutlet weak var restAddre: UILabel!
     
+    var dislikeBtn: MainButton!
+    var likeBtn: MainButton!
+    var takeBtn: MainButton!
+    var deleteBtn: MainButton!
+    
     var restaurant: Restaurant! = nil
     let user = NSUserDefaults()
     
@@ -48,6 +53,7 @@ class DetailRestaurantViewController: UIViewController {
         let rateView = FDRatingView(frame: CGRectMake(0, 0, stackView2.frame.width/2, stackView2.frame.height), style: .Star, numberOfElements: 5, fillValue: self.restaurant.avgRating as! Float, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0), lineWidth: 0.7, spacing: 3)
         stackView2.addSubview(rateView)
         backButton.layer.cornerRadius = backButton.frame.width/2
+        self.view.backgroundColor = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 1)
         
         distanceFromUserLocation()
         trialHelper = TrialHelper(viewController: self)
@@ -80,8 +86,24 @@ class DetailRestaurantViewController: UIViewController {
             
         }
     }
-    
-    func viewDidAppear() {
+    override func viewDidAppear(animated: Bool) {
+        UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 5, options: [], animations: {
+                if let dislikeBtn = self.dislikeBtn{
+                    dislikeBtn.transform = CGAffineTransformMakeTranslation(0, 0)
+                }
+            
+                if let likeBtn = self.likeBtn{
+                    likeBtn.transform = CGAffineTransformMakeTranslation(0, 0)
+                }
+            
+                if let takeBtn = self.takeBtn{
+                    takeBtn.transform = CGAffineTransformMakeTranslation(0, 0)
+                }
+            
+                if let deleteBtn = self.deleteBtn{
+                    deleteBtn.transform = CGAffineTransformMakeTranslation(0, 0)
+                }
+            }, completion: nil)
         
     }
     
@@ -229,23 +251,26 @@ class DetailRestaurantViewController: UIViewController {
      FromBeenTableView. Since we want the buttons are slightly different from each other, we create different functions: isFromMain, isFromLike, isFromBeen to add different button set among 3 situations.
      */
     func isFromMain() {
-        let dislikeBtn = UIButton(frame: CGRectMake(0, 0, 55, 55))
+        dislikeBtn = MainButton(frame: CGRectMake(0, 0, 55, 55))
         dislikeBtn.setImage(UIImage(named: "Cancel"), forState: .Normal)
         dislikeBtn.frame.origin.y = self.view.frame.height-70
         dislikeBtn.center.x = self.view.frame.width/4
         dislikeBtn.addTarget(self, action: #selector(DetailRestaurantViewController.dislike), forControlEvents: .TouchUpInside)
+        dislikeBtn.transform = CGAffineTransformMakeTranslation(-150, 0)
         
-        let likeBtn = UIButton(frame: CGRectMake(0, 0, 55, 55))
+        likeBtn = MainButton(frame: CGRectMake(0, 0, 55, 55))
         likeBtn.setImage(UIImage(named: "Collect"), forState: .Normal)
         likeBtn.frame.origin.y = self.view.frame.height-70
         likeBtn.center.x = self.view.frame.width/4*3
         likeBtn.addTarget(self, action: #selector(DetailRestaurantViewController.like), forControlEvents: .TouchUpInside)
+        likeBtn.transform = CGAffineTransformMakeTranslation(150, 0)
         
-        let takeBtn = UIButton(frame: CGRectMake(0, 0, 55, 55))
+        takeBtn = MainButton(frame: CGRectMake(0, 0, 55, 55))
         takeBtn.setImage(UIImage(named: "Take"), forState: .Normal)
         takeBtn.frame.origin.y = self.view.frame.height-70
         takeBtn.center.x = self.view.frame.width/2
         takeBtn.addTarget(self, action: #selector(DetailRestaurantViewController.takeFromMain), forControlEvents: .TouchUpInside)
+        takeBtn.transform = CGAffineTransformMakeTranslation(0, 100)
         
         self.scrollView.addSubview(likeBtn)
         self.scrollView.addSubview(dislikeBtn)
@@ -253,28 +278,32 @@ class DetailRestaurantViewController: UIViewController {
     }
     
     func isFromLike() {
-        let deleteBtn = UIButton(frame: CGRectMake(0, 0, 55, 55))
+        deleteBtn = MainButton(frame: CGRectMake(0, 0, 55, 55))
         deleteBtn.setImage(UIImage(named: "Delete"), forState: .Normal)
         deleteBtn.frame.origin.y = self.view.frame.height-70
         deleteBtn.center.x = self.view.frame.width/3
         deleteBtn.addTarget(self, action: #selector(DetailRestaurantViewController.remove), forControlEvents: .TouchUpInside)
+        deleteBtn.transform = CGAffineTransformMakeTranslation(-150, 0)
         
-        let takeBtn = UIButton(frame: CGRectMake(0, 0, 55, 55))
+        takeBtn = MainButton(frame: CGRectMake(0, 0, 55, 55))
         takeBtn.setImage(UIImage(named: "Take"), forState: .Normal)
         takeBtn.frame.origin.y = self.view.frame.height-70
         takeBtn.center.x = self.view.frame.width/3*2
         takeBtn.addTarget(self, action: #selector(DetailRestaurantViewController.take), forControlEvents: .TouchUpInside)
+        takeBtn.transform = CGAffineTransformMakeTranslation(150, 0)
         
         self.scrollView.addSubview(deleteBtn)
         self.scrollView.addSubview(takeBtn)
     }
 
     func isFromBeen() {
-        let takeBtn = UIButton(frame: CGRectMake(0, 0, 55, 55))
+        takeBtn = MainButton(frame: CGRectMake(0, 0, 55, 55))
         takeBtn.setImage(UIImage(named: "Take"), forState: .Normal)
         takeBtn.frame.origin.y = self.view.frame.height-70
         takeBtn.center.x = self.view.frame.width/2
         takeBtn.addTarget(self, action: #selector(DetailRestaurantViewController.take), forControlEvents: .TouchUpInside)
+        takeBtn.transform = CGAffineTransformMakeTranslation(0, 100)
+        
         self.scrollView.addSubview(takeBtn)
     }
     
