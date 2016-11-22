@@ -322,11 +322,17 @@ class DetailRestaurantViewController: UIViewController {
                 if let placemark = placemarks?.first {
                     location = placemark.location
                 }
-                var distanceInMeters: CLLocationDistance!
-                distanceInMeters = location.distanceFromLocation(CLLocation(latitude: self.user.valueForKey("lat") as! Double, longitude: self.user.valueForKey("lng") as! Double))
-                let distanceInKilometers: CLLocationDistance!
-                distanceInKilometers = distanceInMeters/1000
-                self.restDistance.text = String(format: "約%.2fkm", distanceInKilometers)
+                var distanceInMeters: CLLocationDistance?
+                if self.user.valueForKey("lat") != nil{
+                    distanceInMeters = location.distanceFromLocation(CLLocation(latitude: self.user.valueForKey("lat") as! Double, longitude: self.user.valueForKey("lng") as! Double))
+                }
+                let distanceInKilometers: CLLocationDistance?
+                if distanceInMeters != nil {
+                    distanceInKilometers = distanceInMeters!/1000
+                    self.restDistance.text = String(format: "約 %.2f km", distanceInKilometers!)
+                }else {
+                    self.restDistance.text = "約 - km"
+                }
             }
         }
     }
