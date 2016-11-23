@@ -39,6 +39,7 @@
 		51FA523D1CEB20A80037562E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51FA523C1CEB20A80037562E /* Assets.xcassets */; };
 		51FA52401CEB20A80037562E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51FA523E1CEB20A80037562E /* LaunchScreen.storyboard */; };
 		51FA524B1CEB20A80037562E /* FoodDivinerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FA524A1CEB20A80037562E /* FoodDivinerTests.swift */; };
+		9C298E80D230C7B1CB4FBB22 /* Pods_FoodDivinerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBF65C6B85B0910A1C0B3E6 /* Pods_FoodDivinerTests.framework */; };
 		D3C7F2CE6C74C1756AAD6095 /* Pods_FoodDiviner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6EDB8DCE2FF173AF3D8A093 /* Pods_FoodDiviner.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		16747AE2C1F264633B8B4E4A /* Pods-FoodDivinerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDivinerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDivinerTests/Pods-FoodDivinerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		309BEBB2E838CCDAEB063485 /* Pods-FoodDivinerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDivinerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDivinerTests/Pods-FoodDivinerTests.release.xcconfig"; sourceTree = "<group>"; };
 		4C6A9CAADE7A4597541E0135 /* Pods-FoodDiviner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDiviner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDiviner/Pods-FoodDiviner.debug.xcconfig"; sourceTree = "<group>"; };
 		5109E7071DC1AC93007E1917 /* StickerImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickerImageView.swift; sourceTree = "<group>"; };
 		51104A831CF9B0F800241DBE /* Restaurant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
@@ -91,6 +94,7 @@
 		51FA524A1CEB20A80037562E /* FoodDivinerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDivinerTests.swift; sourceTree = "<group>"; };
 		51FA524C1CEB20A80037562E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A505132E5E5C48739C57609E /* Pods-FoodDiviner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDiviner.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDiviner/Pods-FoodDiviner.release.xcconfig"; sourceTree = "<group>"; };
+		ADBF65C6B85B0910A1C0B3E6 /* Pods_FoodDivinerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoodDivinerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6EDB8DCE2FF173AF3D8A093 /* Pods_FoodDiviner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoodDiviner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -110,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C298E80D230C7B1CB4FBB22 /* Pods_FoodDivinerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +128,7 @@
 				515770901D1A59CA00549A4E /* FBSDKLoginKit.framework */,
 				515770911D1A59CA00549A4E /* FBSDKShareKit.framework */,
 				B6EDB8DCE2FF173AF3D8A093 /* Pods_FoodDiviner.framework */,
+				ADBF65C6B85B0910A1C0B3E6 /* Pods_FoodDivinerTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -132,6 +138,8 @@
 			children = (
 				4C6A9CAADE7A4597541E0135 /* Pods-FoodDiviner.debug.xcconfig */,
 				A505132E5E5C48739C57609E /* Pods-FoodDiviner.release.xcconfig */,
+				16747AE2C1F264633B8B4E4A /* Pods-FoodDivinerTests.debug.xcconfig */,
+				309BEBB2E838CCDAEB063485 /* Pods-FoodDivinerTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -240,12 +248,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 51FA524F1CEB20A80037562E /* Build configuration list for PBXNativeTarget "FoodDiviner" */;
 			buildPhases = (
-				20A931374BAE6BB2E2329433 /* Check Pods Manifest.lock */,
+				20A931374BAE6BB2E2329433 /* [CP] Check Pods Manifest.lock */,
 				51FA522B1CEB20A70037562E /* Sources */,
 				51FA522C1CEB20A70037562E /* Frameworks */,
 				51FA522D1CEB20A70037562E /* Resources */,
-				09A310CDAAE729B725DF7302 /* Embed Pods Frameworks */,
-				CAEC7E507965A0079A99223E /* Copy Pods Resources */,
+				09A310CDAAE729B725DF7302 /* [CP] Embed Pods Frameworks */,
+				CAEC7E507965A0079A99223E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -260,9 +268,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 51FA52521CEB20A80037562E /* Build configuration list for PBXNativeTarget "FoodDivinerTests" */;
 			buildPhases = (
+				23714BD77AF139B6EB6D6EFC /* [CP] Check Pods Manifest.lock */,
 				51FA52421CEB20A80037562E /* Sources */,
 				51FA52431CEB20A80037562E /* Frameworks */,
 				51FA52441CEB20A80037562E /* Resources */,
+				E1E9263AE2F9E4D3F7447C68 /* [CP] Embed Pods Frameworks */,
+				02B76E217926595906C2E4A3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -338,14 +349,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		09A310CDAAE729B725DF7302 /* Embed Pods Frameworks */ = {
+		02B76E217926595906C2E4A3 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FoodDivinerTests/Pods-FoodDivinerTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		09A310CDAAE729B725DF7302 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -353,34 +379,64 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FoodDiviner/Pods-FoodDiviner-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		20A931374BAE6BB2E2329433 /* Check Pods Manifest.lock */ = {
+		20A931374BAE6BB2E2329433 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		CAEC7E507965A0079A99223E /* Copy Pods Resources */ = {
+		23714BD77AF139B6EB6D6EFC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		CAEC7E507965A0079A99223E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FoodDiviner/Pods-FoodDiviner-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E1E9263AE2F9E4D3F7447C68 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FoodDivinerTests/Pods-FoodDivinerTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -571,6 +627,7 @@
 		};
 		51FA52531CEB20A80037562E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 16747AE2C1F264633B8B4E4A /* Pods-FoodDivinerTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = FoodDivinerTests/Info.plist;
@@ -583,6 +640,7 @@
 		};
 		51FA52541CEB20A80037562E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 309BEBB2E838CCDAEB063485 /* Pods-FoodDivinerTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = FoodDivinerTests/Info.plist;
