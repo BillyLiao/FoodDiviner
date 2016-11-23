@@ -10,27 +10,27 @@ import UIKit
 
 class NVActivityIndicatorAnimationBallClipRotateMultiple: NVActivityIndicatorAnimationDelegate {
     
-    func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor) {
+    func setUpAnimationInLayer(layer: CALayer, size: CGSize, color: UIColor) {
         let bigCircleSize: CGFloat = size.width
         let smallCircleSize: CGFloat = size.width / 2
         let longDuration: CFTimeInterval = 1
         let timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         
-        circleOf(shape: .ringTwoHalfHorizontal,
-                 duration: longDuration,
-                 timingFunction: timingFunction,
-                 layer: layer,
-                 size: bigCircleSize,
-                 color: color, reverse: false)
-        circleOf(shape: .ringTwoHalfVertical,
-                 duration: longDuration,
-                 timingFunction: timingFunction,
-                 layer: layer,
-                 size: smallCircleSize,
-                 color: color, reverse: true)
+        circleOf(shape: .RingTwoHalfHorizontal,
+            duration: longDuration,
+            timingFunction: timingFunction,
+            layer: layer,
+            size: bigCircleSize,
+            color: color, reverse: false)
+        circleOf(shape: .RingTwoHalfVertical,
+            duration: longDuration,
+            timingFunction: timingFunction,
+            layer: layer,
+            size: smallCircleSize,
+            color: color, reverse: true)
     }
     
-    func createAnimationIn(duration: CFTimeInterval, timingFunction: CAMediaTimingFunction, reverse: Bool) -> CAAnimation {
+    func createAnimationIn(duration duration: CFTimeInterval, timingFunction: CAMediaTimingFunction, reverse: Bool) -> CAAnimation {
         // Scale animation
         let scaleAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
         
@@ -57,21 +57,21 @@ class NVActivityIndicatorAnimationBallClipRotateMultiple: NVActivityIndicatorAni
         animation.animations = [scaleAnimation, rotateAnimation]
         animation.duration = duration
         animation.repeatCount = HUGE
-        animation.isRemovedOnCompletion = false
+        animation.removedOnCompletion = false
         
         return animation
     }
     
-    func circleOf(shape: NVActivityIndicatorShape, duration: CFTimeInterval, timingFunction: CAMediaTimingFunction, layer: CALayer, size: CGFloat, color: UIColor, reverse: Bool) {
-        let circle = shape.layerWith(size: CGSize(width: size, height: size), color: color)
+    func circleOf(shape shape: NVActivityIndicatorShape, duration: CFTimeInterval, timingFunction: CAMediaTimingFunction, layer: CALayer, size: CGFloat, color: UIColor, reverse: Bool) {
+        let circle = shape.createLayerWith(size: CGSize(width: size, height: size), color: color)
         let frame = CGRect(x: (layer.bounds.size.width - size) / 2,
-                           y: (layer.bounds.size.height - size) / 2,
-                           width: size,
-                           height: size)
+            y: (layer.bounds.size.height - size) / 2,
+            width: size,
+            height: size)
         let animation = createAnimationIn(duration: duration, timingFunction: timingFunction, reverse: reverse)
         
         circle.frame = frame
-        circle.add(animation, forKey: "animation")
+        circle.addAnimation(animation, forKey: "animation")
         layer.addSublayer(circle)
     }
 }

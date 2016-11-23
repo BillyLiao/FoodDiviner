@@ -10,7 +10,7 @@ import UIKit
 
 class NVActivityIndicatorAnimationBallGridPulse: NVActivityIndicatorAnimationDelegate {
     
-    func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor) {
+    func setUpAnimationInLayer(layer: CALayer, size: CGSize, color: UIColor) {
         let circleSpacing: CGFloat = 2
         let circleSize = (size.width - circleSpacing * 2) / 3
         let x = (layer.bounds.size.width - size.width) / 2
@@ -39,21 +39,21 @@ class NVActivityIndicatorAnimationBallGridPulse: NVActivityIndicatorAnimationDel
         
         animation.animations = [scaleAnimation, opacityAnimation]
         animation.repeatCount = HUGE
-        animation.isRemovedOnCompletion = false
+        animation.removedOnCompletion = false
         
         // Draw circles
         for i in 0 ..< 3 {
             for j in 0 ..< 3 {
-                let circle = NVActivityIndicatorShape.circle.layerWith(size: CGSize(width: circleSize, height: circleSize), color: color)
+                let circle = NVActivityIndicatorShape.Circle.createLayerWith(size: CGSize(width: circleSize, height: circleSize), color: color)
                 let frame = CGRect(x: x + circleSize * CGFloat(j) + circleSpacing * CGFloat(j),
-                                   y: y + circleSize * CGFloat(i) + circleSpacing * CGFloat(i),
-                                   width: circleSize,
-                                   height: circleSize)
+                    y: y + circleSize * CGFloat(i) + circleSpacing * CGFloat(i),
+                    width: circleSize,
+                    height: circleSize)
                 
                 animation.duration = durations[3 * i + j]
                 animation.beginTime = beginTime + beginTimes[3 * i + j]
                 circle.frame = frame
-                circle.add(animation, forKey: "animation")
+                circle.addAnimation(animation, forKey: "animation")
                 layer.addSublayer(circle)
             }
         }

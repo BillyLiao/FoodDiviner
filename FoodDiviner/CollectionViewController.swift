@@ -62,19 +62,19 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
         switchToCollectBtn.setTitle("收藏", forState: .Normal)
         switchToCollectBtn.setTitleColor(UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1), forState: .Normal)
         self.view.addSubview(switchToCollectBtn)
-        switchToCollectBtn.addTarget(self, action: "showCollectTable", forControlEvents: .TouchUpInside)
+        switchToCollectBtn.addTarget(self, action: #selector(CollectionViewController.showCollectTable), forControlEvents: .TouchUpInside)
         
         switchToJudgeBtn = UIButton(frame: CGRect(x: self.view.frame.width/3, y: 0, width: self.view.frame.width/3, height: 50))
         switchToJudgeBtn.setTitle("未評分", forState: .Normal)
         switchToJudgeBtn.setTitleColor(UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1), forState: .Normal)
         self.view.addSubview(switchToJudgeBtn)
-        switchToJudgeBtn.addTarget(self, action: "showJudgeTable", forControlEvents: .TouchUpInside)
+        switchToJudgeBtn.addTarget(self, action: #selector(CollectionViewController.showJudgeTable), forControlEvents: .TouchUpInside)
         
         switchToBeenBtn = UIButton(frame: CGRect(x: self.view.frame.width*2/3, y: 0, width: self.view.frame.width/3, height: 50))
         switchToBeenBtn.setTitle("曾經去過", forState: .Normal)
         switchToBeenBtn.setTitleColor(UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1), forState: .Normal)
         self.view.addSubview(switchToBeenBtn)
-        switchToBeenBtn.addTarget(self, action: "showBeenTable", forControlEvents: .TouchUpInside)
+        switchToBeenBtn.addTarget(self, action: #selector(CollectionViewController.showBeenTable), forControlEvents: .TouchUpInside)
         
         
         CollectTV = UITableView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height-120), style: .Plain)

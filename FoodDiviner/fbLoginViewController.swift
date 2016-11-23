@@ -47,7 +47,7 @@ class fbLoginViewController: UIViewController, FBSDKLoginButtonDelegate{
         welcomeLabel.textAlignment = NSTextAlignment.Center
         self.view.addSubview(welcomeLabel)
         
-        var loginBtn = FBSDKLoginButton(frame: CGRectMake(0, 0, 240, 40))
+        let loginBtn = FBSDKLoginButton(frame: CGRectMake(0, 0, 240, 40))
         loginBtn.readPermissions = ["public_profile", "email", "user_friends"]
         loginBtn.delegate = self
         loginBtn.center.x = self.view.center.x

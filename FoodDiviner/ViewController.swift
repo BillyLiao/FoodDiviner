@@ -302,7 +302,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         }
         
         let cardView = RestaurantView(frame: restaurantView.bounds ,restaurant: restaurants![restaurantIndex])
-        cardView.setRatingView(restaurants![restaurantIndex].avgRating as! Float)
+        cardView.setRatingView(restaurants![restaurantIndex].avgRating as Float)
         restaurantIndex += 1
         
         return cardView
@@ -437,7 +437,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                 var tempRestaurants: [Restaurant] = []
                 if jsonObj != JSON.null {
                     for i in 0..<jsonObj.count {
-                        var restaurant = Restaurant(json: jsonObj[i])
+                        let restaurant = Restaurant(json: jsonObj[i])
                         tempRestaurants.append(restaurant)
                     }
                     restaurants = tempRestaurants
@@ -453,7 +453,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        var userLocation:CLLocation = locations[0]
+        let userLocation:CLLocation = locations[0]
         user.setObject(userLocation.coordinate.latitude, forKey: "lat")
         user.setObject(userLocation.coordinate.longitude, forKey: "lng")
     }
