@@ -47,7 +47,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                 print("After trial")
                 loadIndicator.startAnimation()
                 lockButtons(true)
-                manager.getRestRecom()
             }
         }
     }
@@ -148,12 +147,20 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
             
             switch inDirection {
             case Direction.Left:
+                if self.stateNow == .beforeTrial {
+                    return
+                }
+                
                 if self.user.objectForKey(self.trialHelper.cardViewDidSwipedLeftBefore) as! Bool == true {
                     self.manager.postUserChoice(restaurant.restaurant_id, decision: "decline", run: self.run)
                     
                     return
                 }
             case Direction.Right:
+                if self.stateNow == .beforeTrial {
+                    return
+                }
+                
                 if self.user.objectForKey(self.trialHelper.cardViewDidSwipedRightBefore) as! Bool == true {
                     self.manager.postUserChoice(restaurant.restaurant_id, decision: "accept", run: self.run)
                     
@@ -170,6 +177,9 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                     return
                 }
             case Direction.Up:
+                if self.stateNow == .beforeTrial {
+                    return
+                }
                 if self.user.objectForKey(self.trialHelper.cardViewDidSwipedUpBefore) as! Bool == true {
                     self.manager.postUserChoice(restaurant.restaurant_id, decision: "accept", run: self.run)
                     
@@ -234,7 +244,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                         case Direction.Left:
                             self.user_trial.setObject(false, forKey: "\(restaurant.restaurant_id)")
                         case Direction.Up:
-                            self.user_trial.setObject(false, forKey: "\(restaurant.restaurant_id)")
+                            self.user_trial.setObject(true, forKey: "\(restaurant.restaurant_id)")
                         default:
                             break
                         }
