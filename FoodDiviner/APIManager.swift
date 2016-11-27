@@ -12,7 +12,7 @@ import AFNetworking
 protocol WebServiceDelegate: class {
     func userRecomGetRequestDidFinished(r: [NSDictionary]?) -> Void
     func requestFailed(e: NSError?) -> Void
-    func userDidSignUp(user_id: NSNumber) -> Void
+    func userDidSignUp(user_id: NSNumber?, success: Bool) -> Void
 }
 class APIManager: NSObject {
     
@@ -87,9 +87,10 @@ class APIManager: NSObject {
         let url = "\(baseURL)/signup"
         let params = NSDictionary(dictionary: ["fb_id" : fb_id, "user_trial" : user_trial, "name" : name, "gender" : gender])
         manager.POST(url, parameters: params, success: { (task, resObject) in
-                self.delegate?.userDidSignUp(resObject!["user_id"] as! NSNumber)
+                self.delegate?.userDidSignUp(resObject!["user_id"] as! NSNumber, success: true)
                 print("Sign up succeed")
             }) { (task, err) in
+                self.delegate?.userDidSignUp(nil, success: false)
                 print("Sign up : \(err.localizedDescription)")
         }
     }

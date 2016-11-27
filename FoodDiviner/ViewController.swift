@@ -349,9 +349,25 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         self.restaurants = tempRestaurnts
     }
     
-    func userDidSignUp(user_id: NSNumber) {
-        user.setValue(user_id, forKey: "user_id")
-        manager.getRestRecom()
+    func userDidSignUp(user_id: NSNumber?, success: Bool) {
+        if success == true {
+            user.setValue(user_id, forKey: "user_id")
+            manager.getRestRecom()
+        }else {
+            let alertController = UIAlertController(title: "註冊失敗", message: "是否再試一次?", preferredStyle: .Alert)
+            let cancelAction = UIAlertAction.init(title: "取消", style: .Cancel, handler: { (action) in
+                self.loadIndicator.stopAnimation()
+                self.stateNow = .beforeTrial
+            })
+            let tryAgainAction = UIAlertAction.init(title: "再試一次", style: .Default, handler: { (action) in
+                self.manager.signUp(self.user.valueForKey("fb_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("name") as! String, gender: self.user.valueForKey("gender") as! String)
+            })
+            
+            alertController.addAction(tryAgainAction)
+            alertController.addAction(cancelAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }
+        
     }
     
     // MARK: IBActions
