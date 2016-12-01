@@ -51,7 +51,7 @@ public class ZLSwipeableView: UIView {
     public var animateView = ZLSwipeableView.defaultAnimateViewHandler()
     public var interpretDirection = ZLSwipeableView.defaultInterpretDirectionHandler()
     public var shouldSwipeView = ZLSwipeableView.defaultShouldSwipeViewHandler()
-    public var minTranslationInPercent = CGFloat(0.4)
+    public var minTranslationInPercent = CGFloat(0.25)
     public var minVelocityInPointPerSecond = CGFloat(750)
     public var allowedDirection = Direction.Horizontal
     public var onlySwipeTopCard = false
@@ -147,11 +147,6 @@ public class ZLSwipeableView: UIView {
 
         guard let view = viewToBeRewinded else { return }
 
-        // Need to add this manually, or rewind isn't gonna work.
-        if UInt(activeViews().count) == numberOfActiveView && activeViews().first != nil {
-            remove(activeViews().last!)
-        }
-        
         insert(view, atIndex: allViews().count)
         updateViews()
     }
@@ -265,15 +260,15 @@ extension ZLSwipeableView {
 
         return { (view: UIView, index: Int, views: [UIView], swipeableView: ZLSwipeableView) in
             let degree = CGFloat(1)
-            let duration = 0.15
+            let duration = 0.4
             let offset = CGPoint(x: 0, y: CGRectGetHeight(swipeableView.bounds) * 0.3)
             switch index {
             case 0:
                 rotateView(view, forDegree: 0, duration: duration, offsetFromCenter: offset, swipeableView: swipeableView)
             case 1:
-                rotateView(view, forDegree: 0, duration: duration, offsetFromCenter: offset, swipeableView: swipeableView)
+                rotateView(view, forDegree: degree, duration: duration, offsetFromCenter: offset, swipeableView: swipeableView)
             case 2:
-                rotateView(view, forDegree: 0, duration: duration, offsetFromCenter: offset, swipeableView: swipeableView)
+                rotateView(view, forDegree: -degree, duration: duration, offsetFromCenter: offset, swipeableView: swipeableView)
             default:
                 rotateView(view, forDegree: 0, duration: duration, offsetFromCenter: offset, swipeableView: swipeableView)
             }
@@ -312,18 +307,15 @@ extension ZLSwipeableView {
             let minVelocityInPointPerSecond = swipeableView.minVelocityInPointPerSecond
             let allowedDirection = swipeableView.allowedDirection
 
-            /*
             func areTranslationAndVelocityInTheSameDirection() -> Bool {
                 return CGPoint.areInSameTheDirection(translation, p2: velocity)
             }
-            */
-            
+
             func isDirectionAllowed() -> Bool {
                 return Direction.fromPoint(translation).intersect(allowedDirection) != .None
             }
 
             func isTranslationLargeEnough() -> Bool {
-                print("Translation: \(abs(translation.x)), threshold: \(minTranslationInPercent * bounds.width)")
                 return abs(translation.x) > minTranslationInPercent * bounds.width || abs(translation.y) > minTranslationInPercent * bounds.height
             }
 
@@ -331,7 +323,7 @@ extension ZLSwipeableView {
                 return velocity.magnitude > minVelocityInPointPerSecond
             }
 
-            return isDirectionAllowed() && (isTranslationLargeEnough() || isVelocityLargeEnough())
+            return isDirectionAllowed() && areTranslationAndVelocityInTheSameDirection() && (isTranslationLargeEnough() || isVelocityLargeEnough())
         }
     }
 

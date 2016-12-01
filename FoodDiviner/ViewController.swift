@@ -47,6 +47,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                 print("After trial")
                 loadIndicator.startAnimation()
                 lockButtons(true)
+                manager.getRestRecom()
             }
         }
     }
@@ -336,6 +337,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     }
     
     func userRecomGetRequestDidFinished(r: [NSDictionary]?) {
+        print("haha")
         loadIndicator.stopAnimation()
         lockButtons(false)
         var tempRestaurnts: [Restaurant] = []

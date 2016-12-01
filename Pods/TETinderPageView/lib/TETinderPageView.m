@@ -16,7 +16,6 @@
 
 - (instancetype)initWithViewControllers:(NSArray *)viewControllers buttonImages:(NSArray *)buttonImages {
     self = [super init];
-    //The setup code (in viewDidLoad in your view controller)
     if (self) {
         // view controllers for the page view are setup
         [self setViewControllers:viewControllers];
@@ -26,14 +25,6 @@
         [self initViews];
     }
     return self;
-}
-
--(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    UITouch *touch = [[event allTouches] anyObject];
-    CGPoint location = [touch locationInView:touch.view];
-
-    printf("%f, %f\n", location.x, location.y);
 }
 
 -(void)setViewControllers:(NSArray*)viewControllers{
@@ -71,7 +62,7 @@
                                            navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
                                                          options:nil];
     
-    _PVC.dataSource = nil;
+    _PVC.dataSource = self;
     _PVC.delegate = self;
     [_PVC setViewControllers:@[_viewControllers[0]]
                    direction:UIPageViewControllerNavigationDirectionForward
@@ -102,13 +93,12 @@
         @throw [NSException exceptionWithName:@"Property not set"
                                        reason:@"Showed view without setting buttons" userInfo:nil];
     }
-
+    
     // after main view is loaded, set values, add subviews
     [self processViews];
     // iterate over page view subviews to find scroll view and set delegate
     [self findScrollViewDelegate];
 }
-
 
 -(void)processViews{
     // button specifics
@@ -124,8 +114,6 @@
     // PVC
     [[self view] addSubview:_PVC.view];
     [_PVC.view setFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64)];
-    [_PVC.view setBackgroundColor:[UIColor whiteColor]];
-
     
     // nav bar
     [self.view addSubview:_navigationBar];

@@ -40,7 +40,6 @@ class RealmHelper {
                 }
             }
         }
-
     }
 
     static func updateRestaurant(restaurant: Restaurant, status: Int, rate: Int, date: NSDate){

@@ -39,8 +39,8 @@
 		51FA523D1CEB20A80037562E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51FA523C1CEB20A80037562E /* Assets.xcassets */; };
 		51FA52401CEB20A80037562E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51FA523E1CEB20A80037562E /* LaunchScreen.storyboard */; };
 		51FA524B1CEB20A80037562E /* FoodDivinerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FA524A1CEB20A80037562E /* FoodDivinerTests.swift */; };
-		9C298E80D230C7B1CB4FBB22 /* Pods_FoodDivinerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBF65C6B85B0910A1C0B3E6 /* Pods_FoodDivinerTests.framework */; };
-		D3C7F2CE6C74C1756AAD6095 /* Pods_FoodDiviner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6EDB8DCE2FF173AF3D8A093 /* Pods_FoodDiviner.framework */; };
+		67605397C06422F45D721198 /* Pods_FoodDivinerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 583F5862A28493E9AC56BCE3 /* Pods_FoodDivinerTests.framework */; };
+		DC4004A39CC61A9680261D25 /* Pods_FoodDiviner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD8FF226CD174725675269F /* Pods_FoodDiviner.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,9 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		16747AE2C1F264633B8B4E4A /* Pods-FoodDivinerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDivinerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDivinerTests/Pods-FoodDivinerTests.debug.xcconfig"; sourceTree = "<group>"; };
-		309BEBB2E838CCDAEB063485 /* Pods-FoodDivinerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDivinerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDivinerTests/Pods-FoodDivinerTests.release.xcconfig"; sourceTree = "<group>"; };
-		4C6A9CAADE7A4597541E0135 /* Pods-FoodDiviner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDiviner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDiviner/Pods-FoodDiviner.debug.xcconfig"; sourceTree = "<group>"; };
+		19ED6EB52387216C7AB628A8 /* Pods-FoodDiviner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDiviner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDiviner/Pods-FoodDiviner.debug.xcconfig"; sourceTree = "<group>"; };
 		5109E7071DC1AC93007E1917 /* StickerImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickerImageView.swift; sourceTree = "<group>"; };
 		51104A831CF9B0F800241DBE /* Restaurant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		51104A851CF9E77900241DBE /* CollectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionTableViewCell.swift; sourceTree = "<group>"; };
@@ -93,9 +91,11 @@
 		51FA52461CEB20A80037562E /* FoodDivinerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodDivinerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		51FA524A1CEB20A80037562E /* FoodDivinerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDivinerTests.swift; sourceTree = "<group>"; };
 		51FA524C1CEB20A80037562E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A505132E5E5C48739C57609E /* Pods-FoodDiviner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDiviner.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDiviner/Pods-FoodDiviner.release.xcconfig"; sourceTree = "<group>"; };
-		ADBF65C6B85B0910A1C0B3E6 /* Pods_FoodDivinerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoodDivinerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B6EDB8DCE2FF173AF3D8A093 /* Pods_FoodDiviner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoodDiviner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		583F5862A28493E9AC56BCE3 /* Pods_FoodDivinerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoodDivinerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		81A3AE8C56462CB04DC48371 /* Pods-FoodDivinerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDivinerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDivinerTests/Pods-FoodDivinerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		87C43A06C64F2F299C02E015 /* Pods-FoodDiviner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDiviner.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDiviner/Pods-FoodDiviner.release.xcconfig"; sourceTree = "<group>"; };
+		ACD8FF226CD174725675269F /* Pods_FoodDiviner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoodDiviner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8C8677A39EDECAB249F7744 /* Pods-FoodDivinerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodDivinerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodDivinerTests/Pods-FoodDivinerTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,9 +104,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				515770941D1A59CA00549A4E /* FBSDKShareKit.framework in Frameworks */,
-				D3C7F2CE6C74C1756AAD6095 /* Pods_FoodDiviner.framework in Frameworks */,
 				515770921D1A59CA00549A4E /* FBSDKCoreKit.framework in Frameworks */,
 				515770931D1A59CA00549A4E /* FBSDKLoginKit.framework in Frameworks */,
+				DC4004A39CC61A9680261D25 /* Pods_FoodDiviner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,7 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C298E80D230C7B1CB4FBB22 /* Pods_FoodDivinerTests.framework in Frameworks */,
+				67605397C06422F45D721198 /* Pods_FoodDivinerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,21 +127,10 @@
 				5157708F1D1A59CA00549A4E /* FBSDKCoreKit.framework */,
 				515770901D1A59CA00549A4E /* FBSDKLoginKit.framework */,
 				515770911D1A59CA00549A4E /* FBSDKShareKit.framework */,
-				B6EDB8DCE2FF173AF3D8A093 /* Pods_FoodDiviner.framework */,
-				ADBF65C6B85B0910A1C0B3E6 /* Pods_FoodDivinerTests.framework */,
+				ACD8FF226CD174725675269F /* Pods_FoodDiviner.framework */,
+				583F5862A28493E9AC56BCE3 /* Pods_FoodDivinerTests.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		3549888820D751788D97A052 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4C6A9CAADE7A4597541E0135 /* Pods-FoodDiviner.debug.xcconfig */,
-				A505132E5E5C48739C57609E /* Pods-FoodDiviner.release.xcconfig */,
-				16747AE2C1F264633B8B4E4A /* Pods-FoodDivinerTests.debug.xcconfig */,
-				309BEBB2E838CCDAEB063485 /* Pods-FoodDivinerTests.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		514627BC1D1932D100B0D901 /* Helper */ = {
@@ -201,8 +190,8 @@
 				51FA52311CEB20A70037562E /* FoodDiviner */,
 				51FA52491CEB20A80037562E /* FoodDivinerTests */,
 				51FA52301CEB20A70037562E /* Products */,
-				3549888820D751788D97A052 /* Pods */,
 				2CAB55F01A3AE84654343ED4 /* Frameworks */,
+				53CE2E6E384BCD1F5A5FD9F5 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -241,6 +230,17 @@
 			path = FoodDivinerTests;
 			sourceTree = "<group>";
 		};
+		53CE2E6E384BCD1F5A5FD9F5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				19ED6EB52387216C7AB628A8 /* Pods-FoodDiviner.debug.xcconfig */,
+				87C43A06C64F2F299C02E015 /* Pods-FoodDiviner.release.xcconfig */,
+				81A3AE8C56462CB04DC48371 /* Pods-FoodDivinerTests.debug.xcconfig */,
+				B8C8677A39EDECAB249F7744 /* Pods-FoodDivinerTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -248,12 +248,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 51FA524F1CEB20A80037562E /* Build configuration list for PBXNativeTarget "FoodDiviner" */;
 			buildPhases = (
-				20A931374BAE6BB2E2329433 /* [CP] Check Pods Manifest.lock */,
+				E883732AA60DA27F6E0392B2 /* [CP] Check Pods Manifest.lock */,
 				51FA522B1CEB20A70037562E /* Sources */,
 				51FA522C1CEB20A70037562E /* Frameworks */,
 				51FA522D1CEB20A70037562E /* Resources */,
-				09A310CDAAE729B725DF7302 /* [CP] Embed Pods Frameworks */,
-				CAEC7E507965A0079A99223E /* [CP] Copy Pods Resources */,
+				6B8D872BCB7BBAF499223320 /* [CP] Embed Pods Frameworks */,
+				809F1F6D68E4CA8BEAB35261 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -268,12 +268,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 51FA52521CEB20A80037562E /* Build configuration list for PBXNativeTarget "FoodDivinerTests" */;
 			buildPhases = (
-				23714BD77AF139B6EB6D6EFC /* [CP] Check Pods Manifest.lock */,
+				80632ADF37CD7D809D134FE6 /* [CP] Check Pods Manifest.lock */,
 				51FA52421CEB20A80037562E /* Sources */,
 				51FA52431CEB20A80037562E /* Frameworks */,
 				51FA52441CEB20A80037562E /* Resources */,
-				E1E9263AE2F9E4D3F7447C68 /* [CP] Embed Pods Frameworks */,
-				02B76E217926595906C2E4A3 /* [CP] Copy Pods Resources */,
+				E82A1F18D3FB46AAB8D40602 /* [CP] Embed Pods Frameworks */,
+				24B23946371F1C57BDFD4469 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -297,7 +297,7 @@
 				TargetAttributes = {
 					51FA522E1CEB20A70037562E = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = AHN8S2U42A;
+						DevelopmentTeam = SEQ6DUHY7Z;
 					};
 					51FA52451CEB20A80037562E = {
 						CreatedOnToolsVersion = 7.2;
@@ -349,7 +349,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		02B76E217926595906C2E4A3 /* [CP] Copy Pods Resources */ = {
+		24B23946371F1C57BDFD4469 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -364,7 +364,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FoodDivinerTests/Pods-FoodDivinerTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		09A310CDAAE729B725DF7302 /* [CP] Embed Pods Frameworks */ = {
+		6B8D872BCB7BBAF499223320 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -379,7 +379,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FoodDiviner/Pods-FoodDiviner-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		20A931374BAE6BB2E2329433 /* [CP] Check Pods Manifest.lock */ = {
+		80632ADF37CD7D809D134FE6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -394,22 +394,7 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		23714BD77AF139B6EB6D6EFC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		CAEC7E507965A0079A99223E /* [CP] Copy Pods Resources */ = {
+		809F1F6D68E4CA8BEAB35261 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -424,7 +409,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FoodDiviner/Pods-FoodDiviner-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E1E9263AE2F9E4D3F7447C68 /* [CP] Embed Pods Frameworks */ = {
+		E82A1F18D3FB46AAB8D40602 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -437,6 +422,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FoodDivinerTests/Pods-FoodDivinerTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E883732AA60DA27F6E0392B2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -591,10 +591,11 @@
 		};
 		51FA52501CEB20A80037562E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4C6A9CAADE7A4597541E0135 /* Pods-FoodDiviner.debug.xcconfig */;
+			baseConfigurationReference = 19ED6EB52387216C7AB628A8 /* Pods-FoodDiviner.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -604,15 +605,17 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = website.billyliao.fooddiviner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
 		51FA52511CEB20A80037562E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A505132E5E5C48739C57609E /* Pods-FoodDiviner.release.xcconfig */;
+			baseConfigurationReference = 87C43A06C64F2F299C02E015 /* Pods-FoodDiviner.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -622,12 +625,13 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = website.billyliao.fooddiviner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
 		51FA52531CEB20A80037562E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 16747AE2C1F264633B8B4E4A /* Pods-FoodDivinerTests.debug.xcconfig */;
+			baseConfigurationReference = 81A3AE8C56462CB04DC48371 /* Pods-FoodDivinerTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = FoodDivinerTests/Info.plist;
@@ -640,7 +644,7 @@
 		};
 		51FA52541CEB20A80037562E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 309BEBB2E838CCDAEB063485 /* Pods-FoodDivinerTests.release.xcconfig */;
+			baseConfigurationReference = B8C8677A39EDECAB249F7744 /* Pods-FoodDivinerTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = FoodDivinerTests/Info.plist;
