@@ -60,6 +60,8 @@ class RestaurantView: UIView {
             self.imageView.sd_setImageWithURL(NSURL(string:"http://api-server.jqemsuerdm.ap-northeast-1.elasticbeanstalk.com/images/\(image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"), completed: { (image, error, cacheType, url) in
                 restaurant.photo = UIImageJPEGRepresentation(image, 0.6)
             })
+        }else if restaurant.photo != nil {
+            self.imageView.image = UIImage(data: restaurant.photo!)
         }else {
             self.imageView.image = UIImage(named: "imagePlaceHolder")
         }
