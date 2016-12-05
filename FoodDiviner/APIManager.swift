@@ -28,6 +28,9 @@ class APIManager: NSObject {
     }
     
     func getRestRecom(){
+        if (self.user.valueForKey("user_id") == nil){
+            return 
+        }
         let url = "\(baseURL)/users/\(self.user.valueForKey("user_id") as! NSNumber)/recommendation"
         let params: NSDictionary?
         

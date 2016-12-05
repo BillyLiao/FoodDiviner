@@ -16,11 +16,13 @@
 		51104AC51CFC1DB800241DBE /* AdavanceSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51104AC41CFC1DB800241DBE /* AdavanceSearchViewController.swift */; };
 		51162E841D3495ED004F807F /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51162E831D3495ED004F807F /* RatingViewController.swift */; };
 		511842E11DC5F2AE00783D6B /* RestaurantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511842E01DC5F2AE00783D6B /* RestaurantView.swift */; };
+		511FF6231DF5C18E004E3F40 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 511FF6221DF5C18E004E3F40 /* GoogleService-Info.plist */; };
+		511FF6261DF5D1B3004E3F40 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511FF6251DF5D1B3004E3F40 /* TextField.swift */; };
 		514627BE1D19330300B0D901 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514627BD1D19330300B0D901 /* APIManager.swift */; };
 		514627C01D1981C400B0D901 /* DetailRestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514627BF1D1981C400B0D901 /* DetailRestaurantViewController.swift */; };
 		514627C21D1A0BC500B0D901 /* trialRestaurant.json in Resources */ = {isa = PBXBuildFile; fileRef = 514627C11D1A0BC500B0D901 /* trialRestaurant.json */; };
 		514973A31CF7E63900D3B58B /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514973A21CF7E63900D3B58B /* CollectionViewController.swift */; };
-		5157708E1D1A57FD00549A4E /* fbLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5157708D1D1A57FD00549A4E /* fbLoginViewController.swift */; };
+		5157708E1D1A57FD00549A4E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5157708D1D1A57FD00549A4E /* LoginViewController.swift */; };
 		515770921D1A59CA00549A4E /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5157708F1D1A59CA00549A4E /* FBSDKCoreKit.framework */; };
 		515770931D1A59CA00549A4E /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 515770901D1A59CA00549A4E /* FBSDKLoginKit.framework */; };
 		515770941D1A59CA00549A4E /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 515770911D1A59CA00549A4E /* FBSDKShareKit.framework */; };
@@ -64,11 +66,14 @@
 		51104AC41CFC1DB800241DBE /* AdavanceSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdavanceSearchViewController.swift; sourceTree = "<group>"; };
 		51162E831D3495ED004F807F /* RatingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingViewController.swift; sourceTree = "<group>"; };
 		511842E01DC5F2AE00783D6B /* RestaurantView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantView.swift; sourceTree = "<group>"; };
+		511FF6221DF5C18E004E3F40 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		511FF6241DF5C53C004E3F40 /* FoodDiviner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = FoodDiviner.entitlements; sourceTree = "<group>"; };
+		511FF6251DF5D1B3004E3F40 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		514627BD1D19330300B0D901 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		514627BF1D1981C400B0D901 /* DetailRestaurantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailRestaurantViewController.swift; sourceTree = "<group>"; };
 		514627C11D1A0BC500B0D901 /* trialRestaurant.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = trialRestaurant.json; sourceTree = "<group>"; };
 		514973A21CF7E63900D3B58B /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
-		5157708D1D1A57FD00549A4E /* fbLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fbLoginViewController.swift; sourceTree = "<group>"; };
+		5157708D1D1A57FD00549A4E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5157708F1D1A59CA00549A4E /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		515770901D1A59CA00549A4E /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		515770911D1A59CA00549A4E /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
@@ -166,6 +171,7 @@
 				51104AC21CFB03DB00241DBE /* BeenTableViewCell.xib */,
 				51F387CE1DD1774200825C4B /* CustomizedButton.swift */,
 				51F387D41DD1CC8000825C4B /* MainButton.swift */,
+				511FF6251DF5D1B3004E3F40 /* TextField.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -173,7 +179,7 @@
 		514973A11CF7409700D3B58B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				5157708D1D1A57FD00549A4E /* fbLoginViewController.swift */,
+				5157708D1D1A57FD00549A4E /* LoginViewController.swift */,
 				51FA52341CEB20A70037562E /* ViewController.swift */,
 				514627BF1D1981C400B0D901 /* DetailRestaurantViewController.swift */,
 				51104AC41CFC1DB800241DBE /* AdavanceSearchViewController.swift */,
@@ -207,6 +213,7 @@
 		51FA52311CEB20A70037562E /* FoodDiviner */ = {
 			isa = PBXGroup;
 			children = (
+				511FF6241DF5C53C004E3F40 /* FoodDiviner.entitlements */,
 				514627BC1D1932D100B0D901 /* Helper */,
 				514973A11CF7409700D3B58B /* Controller */,
 				514973A01CF7408800D3B58B /* View */,
@@ -217,6 +224,7 @@
 				51FA523E1CEB20A80037562E /* LaunchScreen.storyboard */,
 				51FA52411CEB20A80037562E /* Info.plist */,
 				51FA52391CEB20A70037562E /* FoodDiviner.xcdatamodeld */,
+				511FF6221DF5C18E004E3F40 /* GoogleService-Info.plist */,
 			);
 			path = FoodDiviner;
 			sourceTree = "<group>";
@@ -298,6 +306,11 @@
 					51FA522E1CEB20A70037562E = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = SEQ6DUHY7Z;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					51FA52451CEB20A80037562E = {
 						CreatedOnToolsVersion = 7.2;
@@ -329,6 +342,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				511FF6231DF5C18E004E3F40 /* GoogleService-Info.plist in Resources */,
 				51FA52401CEB20A80037562E /* LaunchScreen.storyboard in Resources */,
 				51F387D31DD1AD1100825C4B /* RateTableViewCell.xib in Resources */,
 				51104AC31CFB03DB00241DBE /* BeenTableViewCell.xib in Resources */,
@@ -447,7 +461,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				511842E11DC5F2AE00783D6B /* RestaurantView.swift in Sources */,
-				5157708E1D1A57FD00549A4E /* fbLoginViewController.swift in Sources */,
+				511FF6261DF5D1B3004E3F40 /* TextField.swift in Sources */,
+				5157708E1D1A57FD00549A4E /* LoginViewController.swift in Sources */,
 				51F387D51DD1CC8000825C4B /* MainButton.swift in Sources */,
 				51EE7CFC1D83BFC800B77AE8 /* MultilineLabel.swift in Sources */,
 				51104A881CF9E78400241DBE /* BeenTableViewCell.swift in Sources */,
@@ -594,6 +609,7 @@
 			baseConfigurationReference = 19ED6EB52387216C7AB628A8 /* Pods-FoodDiviner.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FoodDiviner/FoodDiviner.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -614,6 +630,7 @@
 			baseConfigurationReference = 87C43A06C64F2F299C02E015 /* Pods-FoodDiviner.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FoodDiviner/FoodDiviner.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (

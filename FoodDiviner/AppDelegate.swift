@@ -10,6 +10,7 @@ import UIKit
 import FBSDKCoreKit
 import RealmSwift
 import TETinderPageView
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -58,13 +59,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.makeKeyAndVisible()
         }else {
             self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-            self.window?.rootViewController = fbLoginViewController()
+            self.window?.rootViewController = LoginViewController()
             self.window?.makeKeyAndVisible()
             
             // Initial user trial status
             setupUser()
         }
         
+        // Configure Firebase App
+        FIRApp.configure()
         // Needed for FB Login
         return fbLogin
     }
