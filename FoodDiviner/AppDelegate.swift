@@ -22,24 +22,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
         let fbLogin:Bool = FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        // If FBSDKAccessToken.currentAccessToken != nil, then skip the login view(set root view to ViewController)
-        // TODO: How to redirect to mainViewController if logged in before?
-        if (FBSDKAccessToken.currentAccessToken() != nil){
-            setupPageView()
-            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-            self.window?.rootViewController = pageView
-            self.window?.makeKeyAndVisible()
-        }else {
-            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-            self.window?.rootViewController = LoginViewController()
-            self.window?.makeKeyAndVisible()
-            
-            // Initial user trial status
-            setupUser()
-        }
-        
         // Configure Firebase App
         FIRApp.configure()
+        
+        // If we have the access token, then skip the login view(set root view to ViewController)
+        FIRAuth.auth()?.addAuthStateDidChangeListener({ (auth, user) in
+            if user != nil {
+                print("Log in with uid:", user!.uid)
+                self.setupPageView()
+                self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+                self.window?.rootViewController = self.pageView
+                self.window?.makeKeyAndVisible()
+            }else{
+                self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+                self.window?.rootViewController = LoginViewController()
+                self.window?.makeKeyAndVisible()
+                // Initial user trial status
+                self.setupUser()
+            }
+        })
+        
         // Needed for FB Login
         return fbLogin
     }

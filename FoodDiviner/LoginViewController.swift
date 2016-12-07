@@ -67,6 +67,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
         passwordTextField.layer.borderColor = UIColor.whiteColor().CGColor
         passwordTextField.center.x = self.view.center.x
         passwordTextField.center.y = self.view.center.y + 8
+        passwordTextField.secureTextEntry = true
         self.view.addSubview(passwordTextField)
         
         let fbLoginBtn = FBSDKLoginButton(frame: CGRectMake(0, 0, 240, 40))
@@ -106,6 +107,12 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        if let email = user.objectForKey("email") as? String {
+            emailTextField.text = email
+        }
+    }
+    
     override func viewDidAppear(animated: Bool) {
         FIRAuth.auth()?.addAuthStateDidChangeListener({ (auth, user) in
             if user != nil {
@@ -116,6 +123,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
     }
 
     func logInDidTouch() {
+        
         if emailTextField.text!.isEmpty == true || passwordTextField.text!.isEmpty == true {
             let alert = UIAlertController(title: "Oooops", message: "Empty email or password", preferredStyle: .Alert)
             let OKAction = UIAlertAction(title: "Got you", style: .Cancel, handler: nil)
@@ -123,7 +131,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
             self.presentViewController(alert, animated: true, completion: nil)
             return
         }
+        
         FIRAuth.auth()?.signInWithEmail(emailTextField.text!, password: passwordTextField.text!, completion: { (user, error) in
+            self.user.setObject(self.emailTextField.text!, forKey: "email")
             if let error = error {
                 let alert = UIAlertController(title: "Oooops", message: "Invalid email or password", preferredStyle: .Alert)
                 let OKAction = UIAlertAction(title: "Got you", style: .Cancel, handler: nil)
@@ -135,6 +145,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
     }
     
     func signUpDidTouch() {
+        
         let alert = UIAlertController(title: "Register", message: "Join our journey now!", preferredStyle: .Alert)
         alert.addTextFieldWithConfigurationHandler { (textfield) in
             textfield.placeholder = "Enter your email here"
@@ -149,7 +160,10 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
             let passwordField = alert.textFields![1]
             
             if emailField.text == nil || passwordField.text == nil {
-                print("Sign up failed: EmailField or PasswordField is empty")
+                let alert = UIAlertController(title: "Oooops", message: "Empty email or password", preferredStyle: .Alert)
+                let OKAction = UIAlertAction(title: "Got you", style: .Cancel, handler: nil)
+                alert.addAction(OKAction)
+                self.presentViewController(alert, animated: true, completion: nil)
                 return
             }
             
@@ -163,6 +177,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
                 }else {
                     FIRAuth.auth()?.signInWithEmail(self.emailTextField.text!, password: self.passwordTextField.text!, completion: { (user, error) in
                         if let error = error {
+                            self.user.setObject(self.emailTextField.text!, forKey: "email")
                             //TODO: show alert.
                             print("Log in failed:", error.localizedDescription)
                         }
@@ -187,6 +202,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
     
     // MARK: Facebook login
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+        
         if error == nil {
             let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
             FIRAuth.auth()?.signInWithCredential(credential, completion: { (user, error) in
@@ -247,7 +263,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
                 }else {
                     self.user.setObject("", forKey: "gender")
                 }
-                self.user.setObject(results.objectForKey("email"), forKey: "email")
+                self.user.setObject(results.objectForKey("email"), forKey: "fb_email")
                 self.user.setObject(nil, forKey: "user_id")
                 self.user.setObject(false, forKey: "advance")
                 if let imageURL = results.objectForKey("picture")?.valueForKey("data")?.valueForKey("url") as? String {
