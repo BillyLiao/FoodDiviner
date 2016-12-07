@@ -66,21 +66,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let collectionPage = mainView.instantiateViewControllerWithIdentifier("CollectionViewController") as! CollectionViewController
         let advanceSearchPage = mainView.instantiateViewControllerWithIdentifier("advanceSearchViewController") as! AdavanceSearchViewController
         let viewControllers: [UIViewController] = NSArray(array: [advanceSearchPage, choosingPage, collectionPage]) as! [UIViewController]
-        let pageView = TETinderPageView(viewControllers: viewControllers as [AnyObject], buttonImages: [UIImage(named: "Setting")!, UIImage(named: "Restaurant")!, UIImage(named: "Collection")!])
+        pageView = TETinderPageView(viewControllers: viewControllers as [AnyObject], buttonImages: [UIImage(named: "Setting")!, UIImage(named: "Restaurant")!, UIImage(named: "Collection")!])
         
         // side icons
-        pageView.offscreenLeftButtonSpecifics.color = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
-        pageView.offscreenRightButtonSpecifics.color = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
-        pageView.rightButtonSpecifics.color = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
-        pageView.rightButtonSpecifics.size = CGSize(width: 35, height: 35)
-        pageView.leftButtonSpecifics.color = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
-        pageView.leftButtonSpecifics.size = CGSize(width: 35, height: 35)
+        pageView!.offscreenLeftButtonSpecifics.color = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
+        pageView!.offscreenRightButtonSpecifics.color = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
+        pageView!.rightButtonSpecifics.color = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
+        pageView!.rightButtonSpecifics.size = CGSize(width: 35, height: 35)
+        pageView!.leftButtonSpecifics.color = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
+        pageView!.leftButtonSpecifics.size = CGSize(width: 35, height: 35)
         
         // center icon
-        pageView.centerButtonSpecifics.color = UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0)
-        pageView.centerButtonSpecifics.size = CGSize(width: 40.0, height: 40.0)
+        pageView!.centerButtonSpecifics.color = UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0)
+        pageView!.centerButtonSpecifics.size = CGSize(width: 40.0, height: 40.0)
         
-        pageView.selectedIndex = 1
+        pageView!.selectedIndex = 1
     }
     
     // Add this to automatically redirect from white web page to App & Access FBSDKAccessToken.currentAccessToken()

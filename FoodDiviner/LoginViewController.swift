@@ -130,8 +130,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
                 alert.addAction(OKAction)
                 self.presentViewController(alert, animated: true, completion: nil)
                 print("Log in failed:", error.localizedDescription)
-            }else {
-                print("Log in with uid:", user!.uid)
             }
         })
     }
@@ -167,8 +165,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
                         if let error = error {
                             //TODO: show alert.
                             print("Log in failed:", error.localizedDescription)
-                        }else {
-                            print("Log in with uid:", user!.uid)
                         }
                     })
                 }
@@ -199,7 +195,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
                     return
                 }else {
                     //First time login or relogin on the device.
-                    print("Lon in with:", user?.uid)
                     self.setUserData()
                 }
             })
