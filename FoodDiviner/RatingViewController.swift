@@ -67,7 +67,7 @@ class RatingViewController: UIViewController {
             print((ratingView.value as NSNumber) as Int)
             //TODO: Haven't sent tags.
             //TOFIX: Backend internal error.
-            manager.postUserRating(user.valueForKey("user_id") as! NSNumber, restaurant_id: restaurant.restaurant_id, rate: (ratingView.value as NSNumber) as Int, tags: [])
+            manager.postUserRating(user.valueForKey("user_key") as! NSNumber, restaurant_id: restaurant.restaurant_id, rate: (ratingView.value as NSNumber) as Int, tags: [])
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }

@@ -45,7 +45,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                 setTrial()
             case .afterTrial:
                 print("After trial")
-                loadIndicator.startAnimation()
+                loadIndicator.startAnimating()
                 lockButtons(true)
                 manager.getRestRecom()
             }
@@ -64,7 +64,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         super.viewDidLoad()
         setup()
 
-        if user.valueForKey("user_id") == nil {
+        if user.valueForKey("user_key") == nil {
             stateNow = state.beforeTrial
         }else {
             stateNow = state.afterTrial
@@ -296,7 +296,13 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                     self.lockButtons(true)
                     self.manager.getRestRecom()
                 }else {
-                    self.manager.signUp(self.user.valueForKey("fb_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("name") as! String, gender: self.user.valueForKey("gender") as! String)
+                    //TOFIX: name & gender is fake!
+                    if self.user.valueForKey("name") == nil && self.user.valueForKey("gender") == nil {
+                        //Log in via email/password -> means no gender/name...
+                        self.manager.signUp(self.user.valueForKey("user_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("email") as! String, gender: "M")
+                    }else {
+                        self.manager.signUp(self.user.valueForKey("user_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("name") as! String, gender: self.user.valueForKey("gender") as! String)
+                    }
                     self.stateNow = state.afterTrial
                 }
             }
@@ -337,7 +343,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     }
     
     func userRecomGetRequestDidFinished(r: [NSDictionary]?) {
-        print("haha")
         loadIndicator.stopAnimation()
         lockButtons(false)
         var tempRestaurnts: [Restaurant] = []
@@ -351,9 +356,9 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         self.restaurants = tempRestaurnts
     }
     
-    func userDidSignUp(user_id: NSNumber?, success: Bool) {
+    func userDidSignUp(user_key: NSNumber?, success: Bool) {
         if success == true {
-            user.setValue(user_id, forKey: "user_id")
+            user.setValue(user_key, forKey: "user_key")
             manager.getRestRecom()
         }else {
             let alertController = UIAlertController(title: "註冊失敗", message: "是否再試一次?", preferredStyle: .Alert)
@@ -362,7 +367,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                 self.stateNow = .beforeTrial
             })
             let tryAgainAction = UIAlertAction.init(title: "再試一次", style: .Default, handler: { (action) in
-                self.manager.signUp(self.user.valueForKey("fb_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("name") as! String, gender: self.user.valueForKey("gender") as! String)
+                self.manager.signUp(self.user.valueForKey("user_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("name") as! String, gender: self.user.valueForKey("gender") as! String)
             })
             
             alertController.addAction(tryAgainAction)

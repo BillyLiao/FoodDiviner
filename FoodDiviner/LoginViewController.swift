@@ -117,13 +117,14 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
         FIRAuth.auth()?.addAuthStateDidChangeListener({ (auth, user) in
             if user != nil {
                 print("Log in with uid:", user!.uid)
+                self.user.setObject(user!.uid, forKey: "user_id")
+                //TODO: send a request to check if uid exists in backend.
                 self.showPageView()
             }
         })
     }
 
     func logInDidTouch() {
-        
         if emailTextField.text!.isEmpty == true || passwordTextField.text!.isEmpty == true {
             let alert = UIAlertController(title: "Oooops", message: "Empty email or password", preferredStyle: .Alert)
             let OKAction = UIAlertAction(title: "Got you", style: .Cancel, handler: nil)
@@ -145,7 +146,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
     }
     
     func signUpDidTouch() {
-        
         let alert = UIAlertController(title: "Register", message: "Join our journey now!", preferredStyle: .Alert)
         alert.addTextFieldWithConfigurationHandler { (textfield) in
             textfield.placeholder = "Enter your email here"
@@ -176,9 +176,12 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
                     self.presentViewController(alert, animated: true, completion: nil)
                 }else {
                     FIRAuth.auth()?.signInWithEmail(self.emailTextField.text!, password: self.passwordTextField.text!, completion: { (user, error) in
+                        self.user.setObject(self.emailTextField.text!, forKey: "email")
                         if let error = error {
-                            self.user.setObject(self.emailTextField.text!, forKey: "email")
-                            //TODO: show alert.
+                            let alert = UIAlertController(title: "Oooops", message: error.localizedDescription, preferredStyle: .Alert)
+                            let OKAction = UIAlertAction(title: "Got you", style: .Cancel, handler: nil)
+                            alert.addAction(OKAction)
+                            self.presentViewController(alert, animated: true, completion: nil)
                             print("Log in failed:", error.localizedDescription)
                         }
                     })
@@ -254,7 +257,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
         FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, gender, email, picture.type(large)"]).startWithCompletionHandler({ (connection, results, error) -> Void in
             if error == nil {
                 //Save the user data
-                self.user.setObject(results.objectForKey("id"), forKey: "fb_id")
                 self.user.setObject(results.objectForKey("name"), forKey: "name")
                 if results.objectForKey("gender") as! String == "male" {
                     self.user.setObject("M", forKey: "gender")
@@ -263,38 +265,10 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
                 }else {
                     self.user.setObject("", forKey: "gender")
                 }
-                self.user.setObject(results.objectForKey("email"), forKey: "fb_email")
-                self.user.setObject(nil, forKey: "user_id")
                 self.user.setObject(false, forKey: "advance")
-                if let imageURL = results.objectForKey("picture")?.valueForKey("data")?.valueForKey("url") as? String {
-                    let data = NSData.init(contentsOfURL: NSURL(string: imageURL)!)
-                    self.user.setObject(data, forKey: "picture")
-                }
-                //self.userAuth()
             }
         })
 
-    }
-    
-    // Check if user register before or not.
-    func userAuth(){
-        let url = "\(baseURL)/test"
-        manager.responseSerializer = AFJSONResponseSerializer()
-        manager.requestSerializer = AFJSONRequestSerializer()
-        let params = NSDictionary(dictionary: ["fb_id" : user.objectForKey("fb_id") as! String])
-        manager.POST(url, parameters: params, success: { (task, resObject) in
-                self.user.setObject(resObject?.objectForKey("user_id"), forKey: "user_id")
-                print("Auth Succeed: User_id : \(resObject?.objectForKey("user_id"))")
-                //Only show page view after knowing user register before or not.
-                self.showPageView()
-                self.authIndicator.stopAnimating()
-            }) { (task, err) in
-                print("Auth Failed: \(err.localizedDescription)")
-                self.user.setObject(nil, forKey: "user_id")
-                //Only show page view after knowing user register before or not.
-                self.showPageView()
-                self.authIndicator.stopAnimating()
-        }
     }
 
     /*

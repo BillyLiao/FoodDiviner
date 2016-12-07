@@ -12,7 +12,7 @@ import AFNetworking
 protocol WebServiceDelegate: class {
     func userRecomGetRequestDidFinished(r: [NSDictionary]?) -> Void
     func requestFailed(e: NSError?) -> Void
-    func userDidSignUp(user_id: NSNumber?, success: Bool) -> Void
+    func userDidSignUp(user_key: NSNumber?, success: Bool) -> Void
 }
 class APIManager: NSObject {
     
@@ -28,10 +28,10 @@ class APIManager: NSObject {
     }
     
     func getRestRecom(){
-        if (self.user.valueForKey("user_id") == nil){
+        if (self.user.valueForKey("user_key") == nil){
             return 
         }
-        let url = "\(baseURL)/users/\(self.user.valueForKey("user_id") as! NSNumber)/recommendation"
+        let url = "\(baseURL)/users/\(self.user.valueForKey("user_key") as! NSNumber)/recommendation"
         let params: NSDictionary?
         
         let advance = self.user.valueForKey("advance") as! Bool
@@ -63,7 +63,7 @@ class APIManager: NSObject {
     
     func postUserChoice(restaurant_id: NSNumber, decision: String, run: Int){
         let url = "\(baseURL)/user_choose"
-        let params = NSDictionary(dictionary: ["user_id" : user.valueForKey("user_id") as! NSNumber, "restaurant_id" : restaurant_id, "decision" : "accept", "run" : run])
+        let params = NSDictionary(dictionary: ["user_key" : user.valueForKey("user_key") as! NSNumber, "restaurant_id" : restaurant_id, "decision" : "accept", "run" : run])
         manager.POST(url, parameters: params, success: { (task, resObject) in
                 print("POST user choice succeed.")
             }) { (task, err) in
@@ -71,8 +71,8 @@ class APIManager: NSObject {
         }
     }
     
-    func postUserRating(user_id: NSNumber, restaurant_id: NSNumber, rate: Int, tags: [String]?){
-        let url = "\(baseURL)/users/\(user_id)/ratings"
+    func postUserRating(user_key: NSNumber, restaurant_id: NSNumber, rate: Int, tags: [String]?){
+        let url = "\(baseURL)/users/\(user_key)/ratings"
         var params = NSDictionary()
         if let tags = tags {
             params = NSDictionary(dictionary: ["restaurant_id": restaurant_id, "rate": rate, "tags": tags])
@@ -86,11 +86,11 @@ class APIManager: NSObject {
         }
     }
     
-    func signUp(fb_id: String!, user_trial: NSDictionary, name: String!, gender: String!) {
+    func signUp(user_id: String!, user_trial: NSDictionary, name: String!, gender: String!) {
         let url = "\(baseURL)/signup"
-        let params = NSDictionary(dictionary: ["fb_id" : fb_id, "user_trial" : user_trial, "name" : name, "gender" : gender])
+        let params = NSDictionary(dictionary: ["user_id" : user_id, "user_trial" : user_trial, "name" : name, "gender" : gender])
         manager.POST(url, parameters: params, success: { (task, resObject) in
-                self.delegate?.userDidSignUp(resObject!["user_id"] as! NSNumber, success: true)
+                self.delegate?.userDidSignUp(resObject!["user_key"] as! NSNumber, success: true)
                 print("Sign up succeed")
             }) { (task, err) in
                 self.delegate?.userDidSignUp(nil, success: false)
@@ -99,8 +99,8 @@ class APIManager: NSObject {
     }
     
     
-    func cleanCaches(user_id: NSNumber){
-        let url = "\(baseURL)/users/\(user_id)/caches"
+    func cleanCaches(user_key: NSNumber){
+        let url = "\(baseURL)/users/\(user_key)/caches"
         manager.DELETE(url, parameters: nil, success: { (task, resObject) in
                 print("Clean caches succeed.")
             }) { (task, error) in
