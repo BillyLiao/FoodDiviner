@@ -16,6 +16,8 @@ target 'FoodDiviner' do
     pod 'SDWebImage', '~>3.8'
     pod 'ZLSwipeableViewSwift'
     pod 'Firebase/Core'
+    pod 'Firebase/Database'
+    pod 'Firebase/Auth'
 end
 
 target 'FoodDivinerTests' do

@@ -23,37 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let fbLogin:Bool = FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         // If FBSDKAccessToken.currentAccessToken != nil, then skip the login view(set root view to ViewController)
-        
-        if (FBSDKAccessToken.currentAccessToken() != nil) {
-            
-            FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, gender, email, age_range"]).startWithCompletionHandler({ (connection, result, error) -> Void in
-                if error == nil {
-                }
-            })
-            
-            let mainView = UIStoryboard(name: "Main", bundle: nil)
-            let choosingPage = mainView.instantiateViewControllerWithIdentifier("ViewController") as! ViewController
-            let collectionPage = mainView.instantiateViewControllerWithIdentifier("CollectionViewController") as! CollectionViewController
-            let advanceSearchPage = mainView.instantiateViewControllerWithIdentifier("advanceSearchViewController") as! AdavanceSearchViewController
-            let viewControllers: [UIViewController] = NSArray(array: [advanceSearchPage, choosingPage, collectionPage]) as! [UIViewController]
-            
-            let pageView = TETinderPageView(viewControllers: viewControllers as [AnyObject], buttonImages: [UIImage(named: "Setting")!, UIImage(named: "Restaurant")!, UIImage(named: "Collection")!])
-            
-            // side icons
-            pageView.offscreenLeftButtonSpecifics.color = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
-            pageView.offscreenRightButtonSpecifics.color = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
-            pageView.rightButtonSpecifics.color = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
-            pageView.rightButtonSpecifics.size = CGSize(width: 35, height: 35)
-            pageView.leftButtonSpecifics.color = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
-            pageView.leftButtonSpecifics.size = CGSize(width: 35, height: 35)
-            
-            // center icon
-            pageView.centerButtonSpecifics.color = UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0)
-            pageView.centerButtonSpecifics.size = CGSize(width: 40.0, height: 40.0)
-            
-            pageView.selectedIndex = 1
-            pageView.view.backgroundColor = UIColor.redColor()
-            
+        // TODO: How to redirect to mainViewController if logged in before?
+        if (FBSDKAccessToken.currentAccessToken() != nil){
+            setupPageView()
             self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
             self.window?.rootViewController = pageView
             self.window?.makeKeyAndVisible()
@@ -86,6 +58,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         user.setObject(false, forKey: trialHelper.didEnterRTVBefore)
         user.setObject(false, forKey: trialHelper.didUseAdvanceSearchBefore)
         user.setObject(false, forKey: trialHelper.removeDidTappedBefore)
+    }
+    
+    func setupPageView(){
+        let mainView = UIStoryboard(name: "Main", bundle: nil)
+        let choosingPage = mainView.instantiateViewControllerWithIdentifier("ViewController") as! ViewController
+        let collectionPage = mainView.instantiateViewControllerWithIdentifier("CollectionViewController") as! CollectionViewController
+        let advanceSearchPage = mainView.instantiateViewControllerWithIdentifier("advanceSearchViewController") as! AdavanceSearchViewController
+        let viewControllers: [UIViewController] = NSArray(array: [advanceSearchPage, choosingPage, collectionPage]) as! [UIViewController]
+        let pageView = TETinderPageView(viewControllers: viewControllers as [AnyObject], buttonImages: [UIImage(named: "Setting")!, UIImage(named: "Restaurant")!, UIImage(named: "Collection")!])
+        
+        // side icons
+        pageView.offscreenLeftButtonSpecifics.color = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
+        pageView.offscreenRightButtonSpecifics.color = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
+        pageView.rightButtonSpecifics.color = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
+        pageView.rightButtonSpecifics.size = CGSize(width: 35, height: 35)
+        pageView.leftButtonSpecifics.color = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
+        pageView.leftButtonSpecifics.size = CGSize(width: 35, height: 35)
+        
+        // center icon
+        pageView.centerButtonSpecifics.color = UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0)
+        pageView.centerButtonSpecifics.size = CGSize(width: 40.0, height: 40.0)
+        
+        pageView.selectedIndex = 1
     }
     
     // Add this to automatically redirect from white web page to App & Access FBSDKAccessToken.currentAccessToken()

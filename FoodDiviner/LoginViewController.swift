@@ -14,15 +14,18 @@ import AVFoundation
 import TETinderPageView
 import RealmSwift
 import AFNetworking
-import Firebase
+import FirebaseAuth
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
-
-    var loginImageView: UIImageView!
+    
     let baseURL = "http://api-server.jqemsuerdm.ap-northeast-1.elasticbeanstalk.com/"
+    var loginImageView: UIImageView!
     let manager = AFHTTPSessionManager()
     let user = NSUserDefaults.standardUserDefaults()
     let authIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    
+    var emailTextField: TextField!
+    var passwordTextField: TextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,16 +51,18 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
         welcomeLabel.textAlignment = NSTextAlignment.Center
         self.view.addSubview(welcomeLabel)
         
-        let emailTextField = TextField(frame: CGRectMake(0, 0, 240, 40))
+        emailTextField = TextField(frame: CGRectMake(0, 0, 240, 40))
         emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
+        emailTextField.autocapitalizationType = .None
         emailTextField.layer.borderWidth = 1
         emailTextField.layer.borderColor = UIColor.whiteColor().CGColor
         emailTextField.center.x = self.view.center.x
         emailTextField.center.y = self.view.center.y - 40
         self.view.addSubview(emailTextField)
         
-        let passwordTextField = TextField(frame: CGRectMake(0, 0, 240, 40))
+        passwordTextField = TextField(frame: CGRectMake(0, 0, 240, 40))
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
+        passwordTextField.autocapitalizationType = .None
         passwordTextField.layer.borderWidth = 1
         passwordTextField.layer.borderColor = UIColor.whiteColor().CGColor
         passwordTextField.center.x = self.view.center.x
@@ -84,6 +89,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
         loginBtn.titleLabel!.font = UIFont.systemFontOfSize(24)
         loginBtn.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
         loginBtn.setTitle("Login", forState: .Normal)
+        loginBtn.addTarget(self, action: #selector(self.logInDidTouch), forControlEvents: .TouchUpInside)
         self.view.addSubview(loginBtn)
         
         let signupBtn = UIButton(frame: CGRectMake(0, 0, 240, 40))
@@ -94,12 +100,89 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
         signupBtn.titleLabel!.font = UIFont.systemFontOfSize(24)
         signupBtn.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
         signupBtn.setTitle("Signup", forState: .Normal)
+        signupBtn.addTarget(self, action: #selector(self.signUpDidTouch), forControlEvents: .TouchUpInside)
         self.view.addSubview(signupBtn)
 
         // Do any additional setup after loading the view.
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        FIRAuth.auth()?.addAuthStateDidChangeListener({ (auth, user) in
+            if user != nil {
+                print("Log in with uid:", user!.uid)
+                self.showPageView()
+            }
+        })
+    }
 
-
+    func logInDidTouch() {
+        if emailTextField.text!.isEmpty == true || passwordTextField.text!.isEmpty == true {
+            let alert = UIAlertController(title: "Oooops", message: "Empty email or password", preferredStyle: .Alert)
+            let OKAction = UIAlertAction(title: "Got you", style: .Cancel, handler: nil)
+            alert.addAction(OKAction)
+            self.presentViewController(alert, animated: true, completion: nil)
+            return
+        }
+        FIRAuth.auth()?.signInWithEmail(emailTextField.text!, password: passwordTextField.text!, completion: { (user, error) in
+            if let error = error {
+                let alert = UIAlertController(title: "Oooops", message: "Invalid email or password", preferredStyle: .Alert)
+                let OKAction = UIAlertAction(title: "Got you", style: .Cancel, handler: nil)
+                alert.addAction(OKAction)
+                self.presentViewController(alert, animated: true, completion: nil)
+                print("Log in failed:", error.localizedDescription)
+            }else {
+                print("Log in with uid:", user!.uid)
+            }
+        })
+    }
+    
+    func signUpDidTouch() {
+        let alert = UIAlertController(title: "Register", message: "Join our journey now!", preferredStyle: .Alert)
+        alert.addTextFieldWithConfigurationHandler { (textfield) in
+            textfield.placeholder = "Enter your email here"
+        }
+        
+        alert.addTextFieldWithConfigurationHandler { (textfield) in
+            textfield.placeholder = "Enter your password here"
+        }
+        
+        let saveAction = UIAlertAction(title: "Save", style: .Default) { (action: UIAlertAction) in
+            let emailField = alert.textFields![0]
+            let passwordField = alert.textFields![1]
+            
+            if emailField.text == nil || passwordField.text == nil {
+                print("Sign up failed: EmailField or PasswordField is empty")
+                return
+            }
+            
+            FIRAuth.auth()?.createUserWithEmail(emailField.text!, password: passwordField.text!, completion: { (user, error) in
+                if let error = error {
+                    print("Sign up failed:", error.localizedDescription)
+                    let alert = UIAlertController(title: "Oooops", message: error.localizedDescription, preferredStyle: .Alert)
+                    let OKAction = UIAlertAction(title: "Got you", style: .Cancel, handler: nil)
+                    alert.addAction(OKAction)
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }else {
+                    FIRAuth.auth()?.signInWithEmail(self.emailTextField.text!, password: self.passwordTextField.text!, completion: { (user, error) in
+                        if let error = error {
+                            //TODO: show alert.
+                            print("Log in failed:", error.localizedDescription)
+                        }else {
+                            print("Log in with uid:", user!.uid)
+                        }
+                    })
+                }
+            })
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) { (action: UIAlertAction) in
+        }
+        
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        
+        presentViewController(alert, animated: true, completion: nil)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -109,12 +192,20 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
     // MARK: Facebook login
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         if error == nil {
-            print("Login Complete.")
-            self.authIndicator.startAnimating()
-            //First time login or relogin on the device.
-            setUserData()
+            let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
+            FIRAuth.auth()?.signInWithCredential(credential, completion: { (user, error) in
+                if let error = error {
+                    print("Log in failed:", error.localizedDescription)
+                    return
+                }else {
+                    //First time login or relogin on the device.
+                    print("Lon in with:", user?.uid)
+                    self.setUserData()
+                }
+            })
+
         }else{
-            print(error.localizedDescription)
+            print("Log in failed:", error.localizedDescription)
         }
     }
     
@@ -168,7 +259,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
                     let data = NSData.init(contentsOfURL: NSURL(string: imageURL)!)
                     self.user.setObject(data, forKey: "picture")
                 }
-                self.userAuth()
+                //self.userAuth()
             }
         })
 
