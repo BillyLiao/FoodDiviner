@@ -88,9 +88,14 @@ class APIManager: NSObject {
     
     func signUp(user_id: String!, user_trial: NSDictionary, name: String!, gender: String!) {
         let url = "\(baseURL)/signup"
-        let params = NSDictionary(dictionary: ["user_id" : user_id, "user_trial" : user_trial, "name" : name, "gender" : gender])
+        //TOFIX: Wait for backend exchange user_key & user_id
+        let params = NSDictionary(dictionary: ["user_key" : user_id, "user_trial" : user_trial, "name" : name, "gender" : gender])
+        print(user_id)
+        print(user_trial)
+        print(name)
+        print(gender)
         manager.POST(url, parameters: params, success: { (task, resObject) in
-                self.delegate?.userDidSignUp(resObject!["user_key"] as! NSNumber, success: true)
+                self.delegate?.userDidSignUp(resObject!["user_id"] as! NSNumber, success: true)
                 print("Sign up succeed")
             }) { (task, err) in
                 self.delegate?.userDidSignUp(nil, success: false)

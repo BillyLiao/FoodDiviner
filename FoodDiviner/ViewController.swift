@@ -146,61 +146,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
             let view = cardView as! RestaurantView
             let restaurant = view.restaurant
             
-            switch inDirection {
-            case Direction.Left:
-                if self.stateNow == .beforeTrial {
-                    return
-                }
-                
-                if self.user.objectForKey(self.trialHelper.cardViewDidSwipedLeftBefore) as! Bool == true {
-                    self.manager.postUserChoice(restaurant.restaurant_id, decision: "decline", run: self.run)
-                    
-                    return
-                }
-            case Direction.Right:
-                if self.stateNow == .beforeTrial {
-                    return
-                }
-                
-                if self.user.objectForKey(self.trialHelper.cardViewDidSwipedRightBefore) as! Bool == true {
-                    self.manager.postUserChoice(restaurant.restaurant_id, decision: "accept", run: self.run)
-                    
-                    if RealmHelper.isRestaurantExist(restaurant) {
-                        print("Right, update restaurant")
-                        RealmHelper.addRestaurantCollectionTime(restaurant)
-                    }else {
-                        print("Right, add restaurant")
-                        restaurant.status = 1
-                        restaurant.collectTime = 1
-                        RealmHelper.addRestaurant(restaurant)
-                    }
-                    
-                    return
-                }
-            case Direction.Up:
-                if self.stateNow == .beforeTrial {
-                    return
-                }
-                if self.user.objectForKey(self.trialHelper.cardViewDidSwipedUpBefore) as! Bool == true {
-                    self.manager.postUserChoice(restaurant.restaurant_id, decision: "accept", run: self.run)
-                    
-                    if RealmHelper.isRestaurantExist(restaurant) {
-                        print("Up, update restaurant")
-                        RealmHelper.updateRestaurant(restaurant, status: 2)
-                        RealmHelper.addRestaurantBeenTime(restaurant)
-                    }else{
-                        print("Up, add restaurant")
-                        restaurant.status = 2
-                        restaurant.beenTime = 1
-                        RealmHelper.addRestaurant(restaurant)
-                    }
-                    
-                    return
-                }
-            default:
-                break
-            }
-            
             self.trialHelper.cardViewDidSwiped(inDirection: inDirection, completionBlock: { (action) in
                 if action == true {
                     switch self.stateNow! as state{
@@ -250,10 +195,58 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                             break
                         }
                     }
+                    return
                 } else {
                     self.restaurantView.rewind()
                 }
             })
+
+            switch inDirection {
+            case Direction.Left:
+                if self.stateNow == .beforeTrial {
+                    self.user_trial.setObject(true, forKey: "\(restaurant.restaurant_id)")
+                    return
+                }
+                self.manager.postUserChoice(restaurant.restaurant_id, decision: "decline", run: self.run)
+                
+            case Direction.Right:
+                if self.stateNow == .beforeTrial {
+                    self.user_trial.setObject(false, forKey: "\(restaurant.restaurant_id)")
+                    return
+                }
+                self.manager.postUserChoice(restaurant.restaurant_id, decision: "accept", run: self.run)
+                if RealmHelper.isRestaurantExist(restaurant) {
+                    print("Right, update restaurant")
+                    RealmHelper.addRestaurantCollectionTime(restaurant)
+                }else {
+                    print("Right, add restaurant")
+                    restaurant.status = 1
+                    restaurant.collectTime = 1
+                    RealmHelper.addRestaurant(restaurant)
+                }
+                
+            case Direction.Up:
+                if self.stateNow == .beforeTrial {
+                    self.user_trial.setObject(true, forKey: "\(restaurant.restaurant_id)")
+                    return
+                }
+                self.manager.postUserChoice(restaurant.restaurant_id, decision: "accept", run: self.run)
+                if RealmHelper.isRestaurantExist(restaurant) {
+                    print("Up, update restaurant")
+                    RealmHelper.updateRestaurant(restaurant, status: 2)
+                    RealmHelper.addRestaurantBeenTime(restaurant)
+                }else{
+                    print("Up, add restaurant")
+                    restaurant.status = 2
+                    restaurant.beenTime = 1
+                    RealmHelper.addRestaurant(restaurant)
+                }
+                
+            default:
+                break
+            }
+            
+            
         }
         
         restaurantView.didTap = {view, atLocation in
@@ -299,7 +292,9 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                     //TOFIX: name & gender is fake!
                     if self.user.valueForKey("name") == nil && self.user.valueForKey("gender") == nil {
                         //Log in via email/password -> means no gender/name...
-                        self.manager.signUp(self.user.valueForKey("user_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("email") as! String, gender: "M")
+                        self.user.setObject(self.user.valueForKey("email"), forKey: "name")
+                        self.user.setObject("M", forKey: "gender")
+                        self.manager.signUp(self.user.valueForKey("user_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("name") as! String, gender: self.user.valueForKey("gender") as! String)
                     }else {
                         self.manager.signUp(self.user.valueForKey("user_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("name") as! String, gender: self.user.valueForKey("gender") as! String)
                     }

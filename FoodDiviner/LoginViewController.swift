@@ -120,6 +120,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
                 self.user.setObject(user!.uid, forKey: "user_id")
                 //TODO: send a request to check if uid exists in backend.
                 self.showPageView()
+                self.user.setObject(false, forKey: "advance")
             }
         })
     }
@@ -136,7 +137,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
         FIRAuth.auth()?.signInWithEmail(emailTextField.text!, password: passwordTextField.text!, completion: { (user, error) in
             self.user.setObject(self.emailTextField.text!, forKey: "email")
             if let error = error {
-                let alert = UIAlertController(title: "Oooops", message: "Invalid email or password", preferredStyle: .Alert)
+                let alert = UIAlertController(title: "Oooops", message: error.localizedDescription, preferredStyle: .Alert)
                 let OKAction = UIAlertAction(title: "Got you", style: .Cancel, handler: nil)
                 alert.addAction(OKAction)
                 self.presentViewController(alert, animated: true, completion: nil)
@@ -153,6 +154,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
         
         alert.addTextFieldWithConfigurationHandler { (textfield) in
             textfield.placeholder = "Enter your password here"
+            textfield.secureTextEntry = true
         }
         
         let saveAction = UIAlertAction(title: "Save", style: .Default) { (action: UIAlertAction) in
@@ -214,7 +216,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
                     return
                 }else {
                     //First time login or relogin on the device.
-                    self.setUserData()
+                    self.setUserDataFromFacebook()
                 }
             })
 
@@ -253,7 +255,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
         print("User logged out...")
     }
     
-    func setUserData(){
+    func setUserDataFromFacebook(){
         FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, gender, email, picture.type(large)"]).startWithCompletionHandler({ (connection, results, error) -> Void in
             if error == nil {
                 //Save the user data
