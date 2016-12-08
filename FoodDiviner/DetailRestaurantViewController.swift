@@ -283,14 +283,14 @@ class DetailRestaurantViewController: UIViewController {
         deleteBtn.frame.origin.y = self.view.frame.height-70
         deleteBtn.center.x = self.view.frame.width/3
         deleteBtn.addTarget(self, action: #selector(DetailRestaurantViewController.remove), forControlEvents: .TouchUpInside)
-        deleteBtn.transform = CGAffineTransformMakeTranslation(-150, 0)
+        deleteBtn.transform = CGAffineTransformMakeTranslation(-200, 0)
         
         takeBtn = MainButton(frame: CGRectMake(0, 0, 55, 55))
         takeBtn.setImage(UIImage(named: "Take"), forState: .Normal)
         takeBtn.frame.origin.y = self.view.frame.height-70
         takeBtn.center.x = self.view.frame.width/3*2
         takeBtn.addTarget(self, action: #selector(DetailRestaurantViewController.take), forControlEvents: .TouchUpInside)
-        takeBtn.transform = CGAffineTransformMakeTranslation(150, 0)
+        takeBtn.transform = CGAffineTransformMakeTranslation(200, 0)
         
         self.scrollView.addSubview(deleteBtn)
         self.scrollView.addSubview(takeBtn)
