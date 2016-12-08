@@ -47,7 +47,7 @@ class APIManager: NSObject {
             params = nil
         }
         print("Get restaurants recommendation params: \(params)")
-        manager.GET(url, parameters: params, success: { (task, responseObject) in
+        manager.POST(url, parameters: params, success: { (task, responseObject) in
             guard let data = responseObject else {
                 self.delegate?.requestFailed(self.error)
                 return
@@ -63,7 +63,7 @@ class APIManager: NSObject {
     
     func postUserChoice(restaurant_id: NSNumber, decision: String, run: Int){
         let url = "\(baseURL)/user_choose"
-        let params = NSDictionary(dictionary: ["user_key" : user.valueForKey("user_key") as! NSNumber, "restaurant_id" : restaurant_id, "decision" : "accept", "run" : run])
+        let params = NSDictionary(dictionary: ["user_id" : user.valueForKey("user_key") as! NSNumber, "restaurant_id" : restaurant_id, "decision" : "accept", "run" : run])
         manager.POST(url, parameters: params, success: { (task, resObject) in
                 print("POST user choice succeed.")
             }) { (task, err) in
@@ -90,10 +90,6 @@ class APIManager: NSObject {
         let url = "\(baseURL)/signup"
         //TOFIX: Wait for backend exchange user_key & user_id
         let params = NSDictionary(dictionary: ["user_key" : user_id, "user_trial" : user_trial, "name" : name, "gender" : gender])
-        print(user_id)
-        print(user_trial)
-        print(name)
-        print(gender)
         manager.POST(url, parameters: params, success: { (task, resObject) in
                 self.delegate?.userDidSignUp(resObject!["user_id"] as! NSNumber, success: true)
                 print("Sign up succeed")

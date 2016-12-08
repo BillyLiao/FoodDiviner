@@ -118,9 +118,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
             if user != nil {
                 print("Log in with uid:", user!.uid)
                 self.user.setObject(user!.uid, forKey: "user_id")
-                //TODO: send a request to check if uid exists in backend.
+                self.user.setValue(false, forKey: "advance")
+                print(self.user.valueForKey("advance"))
                 self.showPageView()
-                self.user.setObject(false, forKey: "advance")
             }
         })
     }
@@ -267,7 +267,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
                 }else {
                     self.user.setObject("", forKey: "gender")
                 }
-                self.user.setObject(false, forKey: "advance")
+                self.user.setValue(false, forKey: "advance")
             }
         })
 

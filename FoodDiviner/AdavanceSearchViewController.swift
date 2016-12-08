@@ -291,7 +291,10 @@ class AdavanceSearchViewController: UIViewController{
         user.setObject(weather, forKey: "weather")
         user.setObject(preferPrices, forKey: "preferPrices")
         user.setObject(transport, forKey: "transport")
-        user.setObject(true, forKey: "advance")
+        
+        if anyBtnSelected() == true {
+            user.setValue(true, forKey: "advance")
+        }
     }
     
     @IBAction func clear(sender: AnyObject) {
@@ -312,6 +315,13 @@ class AdavanceSearchViewController: UIViewController{
         user.setObject(nil, forKey: "preferPrices")
         user.setObject(nil, forKey: "transport")
         user.setObject(false, forKey: "advance")
+    }
+    
+    func anyBtnSelected() -> Bool {
+        if btn100.selected == true || btn200.selected == true || btn300.selected == true || btn500.selected == true || btnRainy.selected == true || btnSunny.selected == true || btnWalk.selected == true || btnMRT.selected == true || btnBus.selected == true || btnUbike.selected == true || btnScooter.selected == true {
+            return true
+        }
+        return false
     }
     
     /*

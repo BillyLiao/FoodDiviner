@@ -356,7 +356,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
             user.setValue(user_key, forKey: "user_key")
             manager.getRestRecom()
         }else {
-            let alertController = UIAlertController(title: "註冊失敗", message: "是否再試一次?", preferredStyle: .Alert)
+            let alertController = UIAlertController(title: "學習失敗", message: "是否再試一次?", preferredStyle: .Alert)
             let cancelAction = UIAlertAction.init(title: "取消", style: .Cancel, handler: { (action) in
                 self.loadIndicator.stopAnimation()
                 self.stateNow = .beforeTrial
@@ -369,7 +369,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
             alertController.addAction(cancelAction)
             self.presentViewController(alertController, animated: true, completion: nil)
         }
-        
     }
     
     // MARK: IBActions
