@@ -175,7 +175,7 @@
 
 - (void)_updateAppearanceForState:(BOOL)enabled
 {
-    self.alpha = enabled ? 1.f : .5f;
+    self.alpha = enabled ? 1.f : 1.f;
 }
 
 #pragma mark - Image Drawing

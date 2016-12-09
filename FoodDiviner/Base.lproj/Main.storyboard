@@ -455,11 +455,16 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="E3e-Nu-vkZ">
                                                 <rect key="frame" x="0.0" y="29" width="298" height="21"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gaN-kf-dgQ">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gaN-kf-dgQ" customClass="HCSStarRatingView">
                                                         <rect key="frame" x="0.0" y="0.0" width="147" height="21"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="21" id="jRz-Qu-EGs"/>
                                                         </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="spacing">
+                                                                <real key="value" value="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="離使用者距離" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y8P-De-c7X">
                                                         <rect key="frame" x="152" y="0.0" width="147" height="21"/>
@@ -639,6 +644,7 @@
                         <outlet property="restTime" destination="KCX-h9-zxU" id="t5y-su-uan"/>
                         <outlet property="scrollView" destination="YVe-g4-DGe" id="7h3-Fp-g05"/>
                         <outlet property="stackView2" destination="E3e-Nu-vkZ" id="gzk-tM-w3D"/>
+                        <outlet property="starView" destination="gaN-kf-dgQ" id="7dA-c8-Ksq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZW9-Hb-bdj" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import FDRatingView
 import SDWebImage
 import MapKit
+import HCSStarRatingView
 
 class DetailRestaurantViewController: UIViewController {
     
@@ -19,7 +19,7 @@ class DetailRestaurantViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var restImage: UIImageView!
     @IBOutlet weak var restName: UILabel! 
-    //@IBOutlet weak var starView: FDRatingView!
+    @IBOutlet weak var starView: HCSStarRatingView!
     @IBOutlet weak var restDistance: UILabel!
     @IBOutlet weak var restCuisine: UILabel!
     @IBOutlet weak var restScen: UILabel!
@@ -50,8 +50,14 @@ class DetailRestaurantViewController: UIViewController {
         self.view.backgroundColor = UIColor.whiteColor()
         scrollView.frame = self.view.frame
         scrollView.contentSize = CGSizeMake(self.view.frame.width, self.view.frame.height*1.5)
-        let rateView = FDRatingView(frame: CGRectMake(0, 0, stackView2.frame.width/2, stackView2.frame.height), style: .Star, numberOfElements: 5, fillValue: self.restaurant.avgRating as Float, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0), lineWidth: 0.7, spacing: 3)
-        stackView2.addSubview(rateView)
+
+        starView.enabled = false
+        starView.backgroundColor = UIColor.clearColor()
+        starView.tintColor = UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0)
+        starView.maximumValue = 5
+        starView.minimumValue = 0
+        starView.value = CGFloat(self.restaurant.avgRating)
+
         backButton.layer.cornerRadius = backButton.frame.width/2
         self.view.backgroundColor = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 1)
         

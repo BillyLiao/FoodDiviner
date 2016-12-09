@@ -7,16 +7,15 @@
 //
 
 import UIKit
-import FDRatingView
+import HCSStarRatingView
 
 class CollectionTableViewCell: UITableViewCell {
 
     @IBOutlet weak var rtImageView: UIImageView!
     @IBOutlet weak var cltTime: UILabel!
     @IBOutlet weak var rtName: UILabel!
-    @IBOutlet weak var starView: UIView!
+    @IBOutlet weak var starView: HCSStarRatingView!
     
-    var rateView: FDRatingView!
     var rating: Float!
     let deviceHelper = DeviceHelper()
     var restaurant: Restaurant! {
@@ -31,9 +30,6 @@ class CollectionTableViewCell: UITableViewCell {
         rtImageView.layer.cornerRadius = rtImageView.frame.size.width/2
         rtImageView.clipsToBounds = true
         rtImageView.layer.shouldRasterize = true
-        
-        rateView = FDRatingView(frame: self.starView.frame, style: .Star, numberOfElements: 5, fillValue: 5, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0), lineWidth: 0.7, spacing: 1)
-        self.addSubview(rateView)
         
         self.selectionStyle = .None
         self.selectionStyle = UITableViewCellSelectionStyle.None
@@ -60,8 +56,11 @@ class CollectionTableViewCell: UITableViewCell {
     }
     
     private func setRating(rating: Float!) {
-        rateView.removeFromSuperview()
-        rateView = FDRatingView(frame: self.starView.frame, style: .Star, numberOfElements: 5, fillValue: rating, color: UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0), lineWidth: 0.7, spacing: 1)
-        self.addSubview(rateView)
+        starView = HCSStarRatingView(frame: starView.frame)
+        starView.enabled = false
+        starView.tintColor = UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0)
+        starView.maximumValue = 5
+        starView.minimumValue = 0
+        starView.value = CGFloat(rating)
     }
 }

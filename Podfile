@@ -8,7 +8,6 @@ target 'FoodDiviner' do
     pod 'Alamofire', '~> 3.4'
     pod 'AFNetworking', '~> 3.0'
     pod 'SwiftyJSON', '2.4.0'
-    pod 'FDRatingView'
     pod 'HCSStarRatingView', '~> 1.4.5'
     pod 'NVActivityIndicatorView', :git => 'https://github.com/ninjaprox/NVActivityIndicatorView.git', :branch => 'swift2.3'
     pod 'RealmSwift'

@@ -19,11 +19,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>FDRatingView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>GTMSessionFetcher.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -87,7 +82,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0478D5FA6CF0CF25C225157A071A2C1D</key>
+		<key>07AA9FFCDED8608A17CE14BAC420E758</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>07E89C169C2E51A51CFC4315923F37D9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,17 +97,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>208498C4C8643E53BC6DA572881C772A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>3EDFE4052B5DE7D509935AC0774CB135</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4445EE56252CFC232181B1BAA8AF64AE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -117,12 +107,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>47E0685A0507B31B9AC54DA9BD5C2F53</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>7E50E1F49D61349A18CD3DB8489852F8</key>
+		<key>87574E1B0EA0B2E6365B6B42B60FB21E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -132,12 +117,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A144A4D1077842D2E7A7FBE1E70A1B2A</key>
+		<key>9028852A5E1248873A01946DEEC1EC5D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A521CF72479E9E40763C458C78D02178</key>
+		<key>A144A4D1077842D2E7A7FBE1E70A1B2A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -147,22 +132,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>B954C65FBC50B4E0A967246BF19C382F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C052BEBFBD0AB5218CC64BA3450F6547</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C51473C92FD0A5876CBA12A08814B956</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C7333FF94A3161C5A6EB93E07DBBCE50</key>
+		<key>C14FF393BE5415FF77FDAF95206FADFC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>CF671F7E57B92905F1CC91D036D6B4A7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EE578CE3BF0E5405081DB252FA76EEB6</key>
 		<dict>
 			<key>primary</key>
 			<true/>

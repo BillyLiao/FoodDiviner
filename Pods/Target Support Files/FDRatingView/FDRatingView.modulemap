@@ -1,6 +1,0 @@
-framework module FDRatingView {
-  umbrella header "FDRatingView-umbrella.h"
-
-  export *
-  module * { export * }
-}

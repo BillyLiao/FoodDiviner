@@ -16,7 +16,6 @@ PODS:
     - AFNetworking/NSURLSession
   - Alamofire (3.5.1)
   - DeviceKit (0.3.4)
-  - FDRatingView (0.0.3)
   - Firebase/Auth (3.10.0):
     - Firebase/Core
     - FirebaseAuth (= 3.0.6)
@@ -74,7 +73,6 @@ DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - Alamofire (~> 3.4)
   - DeviceKit (~> 0.3.4)
-  - FDRatingView
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -100,7 +98,6 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Alamofire: 0dfba1184a543e2aa160f4e39cac4e8aba48d223
   DeviceKit: b414b210c225ae19b77a47e64cb04f187c1c4f9a
-  FDRatingView: eae07e18c1257a7493e4e67f5e175e738714afd9
   Firebase: 387f37c7dca894a02708da9ff35ba147040eae9e
   FirebaseAnalytics: 9c67af0ebeb8d2146c9b4ea2616439affa947b58
   FirebaseAuth: 96e9674ff31d6e1f826d53e26aa003a57cab0295
@@ -120,6 +117,6 @@ SPEC CHECKSUMS:
   TETinderPageView: 2759ada073a99a3627c93657d9b2e67a31f22cf2
   ZLSwipeableViewSwift: f5ee94c2e4220f900f5a129118af2aef23062900
 
-PODFILE CHECKSUM: 499d0df96738d6b0689046239c6c9ea810038529
+PODFILE CHECKSUM: a6a89887e03899b29efbda8fb279e4b97d46c46a
 
 COCOAPODS: 1.1.1
