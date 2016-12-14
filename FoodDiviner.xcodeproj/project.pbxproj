@@ -612,6 +612,7 @@
 				CODE_SIGN_ENTITLEMENTS = FoodDiviner/FoodDiviner.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -619,7 +620,7 @@
 				INFOPLIST_FILE = FoodDiviner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = website.billyliao.fooddiviner;
+				PRODUCT_BUNDLE_IDENTIFIER = XC.website.billyliao.fooddiviner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -633,6 +634,7 @@
 				CODE_SIGN_ENTITLEMENTS = FoodDiviner/FoodDiviner.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -640,7 +642,7 @@
 				INFOPLIST_FILE = FoodDiviner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = website.billyliao.fooddiviner;
+				PRODUCT_BUNDLE_IDENTIFIER = XC.website.billyliao.fooddiviner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

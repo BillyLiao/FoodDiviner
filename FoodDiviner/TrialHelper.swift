@@ -109,7 +109,7 @@ class TrialHelper {
         case Direction.Left:
             if user.objectForKey(cardViewDidSwipedLeftBefore) as! Bool == false {
                 user.setObject(true, forKey: cardViewDidSwipedLeftBefore)
-                let alertViewController = UIAlertController(title: "馬上去？", message: "將圖片拖曳至左側代表你對這家餐廳沒有興趣。", preferredStyle: .Alert)
+                let alertViewController = UIAlertController(title: "沒興趣嗎    ？", message: "將圖片拖曳至左側代表你對這家餐廳沒有興趣。", preferredStyle: .Alert)
                 let cancelAction = UIAlertAction.init(title: "取消", style: .Cancel, handler: { (cancelAction) in
                     completionBlock(false)
                 })
@@ -140,7 +140,7 @@ class TrialHelper {
         case Direction.Up:
             if user.objectForKey(cardViewDidSwipedUpBefore) as! Bool == false {
                 user.setObject(true, forKey: cardViewDidSwipedUpBefore)
-                let alertViewController = UIAlertController(title: "讚?", message: "將圖片拖曳至上方代表你現在就要出發去吃這家餐廳。", preferredStyle: .Alert)
+                let alertViewController = UIAlertController(title: "馬上去?", message: "將圖片拖曳至上方代表你現在就要出發去吃這家餐廳。", preferredStyle: .Alert)
                 let cancelAction = UIAlertAction.init(title: "取消", style: .Cancel, handler: { (cancelAction) in
                     completionBlock(false)
                 })
