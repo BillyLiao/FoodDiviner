@@ -21,7 +21,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     var run: Int = 1
     
     @IBOutlet weak var dislikeButton: MainButton!
-    @IBOutlet weak var reloadButton: MainButton!
     @IBOutlet weak var likeButton: MainButton!
     @IBOutlet weak var takeButton: MainButton!
     
@@ -85,8 +84,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         self.takeButton.layer.cornerRadius = takeButton.frame.width/2
         self.takeButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
-        self.reloadButton.layer.cornerRadius = reloadButton.frame.width/2
-        self.reloadButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -449,15 +446,6 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         }
     }
     
-    // Reload the data from backend
-    @IBAction func reload(sender: AnyObject) {
-        //Clear the screen first
-        restaurantView.discardViews()
-        self.manager.getRestRecom()
-        self.loadIndicator.startAnimation()
-        lockButtons(true)
-    }
-    
     func setTrial(){
         if let path = NSBundle.mainBundle().pathForResource("trialRestaurant", ofType: "json") {
             do {
@@ -493,12 +481,10 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
             dislikeButton.enabled = false
             likeButton.enabled = false
             takeButton.enabled = false
-            reloadButton.enabled = false
         }else {
             dislikeButton.enabled = true
             likeButton.enabled = true
             takeButton.enabled = true
-            reloadButton.enabled = true
         }
     }
 

@@ -23,20 +23,8 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="Zhx-Ab-Gsp">
                                 <rect key="frame" x="46" y="503" width="228" height="57"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iZ8-oD-x4U" customClass="MainButton" customModule="FoodDiviner" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="10.5" width="46.5" height="46.5"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="iZ8-oD-x4U" secondAttribute="height" multiplier="1:1" id="ik4-Rs-OY6"/>
-                                        </constraints>
-                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" image="Reload"/>
-                                        <connections>
-                                            <action selector="reload:" destination="BYZ-38-t0r" eventType="touchUpInside" id="O6I-bx-Bi9"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mTP-U5-0fb" customClass="MainButton" customModule="FoodDiviner" customModuleProvider="target">
-                                        <rect key="frame" x="54" y="0.0" width="57" height="57"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="57" height="57"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="mTP-U5-0fb" secondAttribute="height" multiplier="1:1" id="353-UY-zIH"/>
@@ -47,20 +35,8 @@
                                             <action selector="dislike:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nwZ-7V-gUG"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKJ-Hw-evS" customClass="MainButton" customModule="FoodDiviner" customModuleProvider="target">
-                                        <rect key="frame" x="118" y="0.0" width="57" height="57"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="IKJ-Hw-evS" secondAttribute="height" multiplier="1:1" id="wdb-GT-Mw3"/>
-                                        </constraints>
-                                        <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
-                                        <state key="normal" image="Collect"/>
-                                        <connections>
-                                            <action selector="like:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jaR-5Z-yfT"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qz-ND-KZz" customClass="MainButton" customModule="FoodDiviner" customModuleProvider="target">
-                                        <rect key="frame" x="182.5" y="11.5" width="45.5" height="45.5"/>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qz-ND-KZz" customClass="MainButton" customModule="FoodDiviner" customModuleProvider="target">
+                                        <rect key="frame" x="91" y="11" width="46" height="46"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="9qz-ND-KZz" secondAttribute="height" multiplier="1:1" id="neH-Z9-kem"/>
@@ -71,9 +47,20 @@
                                             <action selector="take:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PhW-T6-Ikq"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKJ-Hw-evS" customClass="MainButton" customModule="FoodDiviner" customModuleProvider="target">
+                                        <rect key="frame" x="171" y="0.0" width="57" height="57"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="IKJ-Hw-evS" secondAttribute="height" multiplier="1:1" id="wdb-GT-Mw3"/>
+                                        </constraints>
+                                        <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                        <state key="normal" image="Collect"/>
+                                        <connections>
+                                            <action selector="like:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jaR-5Z-yfT"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="iZ8-oD-x4U" firstAttribute="height" secondItem="Zhx-Ab-Gsp" secondAttribute="height" multiplier="0.8" id="JhD-BT-Cd2"/>
                                     <constraint firstItem="9qz-ND-KZz" firstAttribute="height" secondItem="Zhx-Ab-Gsp" secondAttribute="height" multiplier="0.8" id="oI5-JR-g17"/>
                                 </constraints>
                             </stackView>
@@ -90,7 +77,6 @@
                     <connections>
                         <outlet property="dislikeButton" destination="mTP-U5-0fb" id="5I7-Ut-kUn"/>
                         <outlet property="likeButton" destination="IKJ-Hw-evS" id="m2U-Tb-5v1"/>
-                        <outlet property="reloadButton" destination="iZ8-oD-x4U" id="WeK-En-L2h"/>
                         <outlet property="takeButton" destination="9qz-ND-KZz" id="nkg-Xo-MJ0"/>
                     </connections>
                 </viewController>
@@ -782,7 +768,6 @@
         <image name="Location" width="32" height="32"/>
         <image name="Order" width="32" height="32"/>
         <image name="Phone" width="32" height="32"/>
-        <image name="Reload" width="75" height="75"/>
         <image name="Scenario" width="32" height="32"/>
         <image name="Take" width="75" height="75"/>
         <image name="Time" width="32" height="32"/>
