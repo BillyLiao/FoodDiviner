@@ -331,6 +331,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         }
         let cancelAction = UIAlertAction(title: "根本神棍", style: .Cancel) { (result) in
             self.loadIndicator.stopAnimation()
+            self.lockButtons(false)
         }
         alertController.addAction(okAction)
         alertController.addAction(cancelAction)
@@ -360,6 +361,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
             let cancelAction = UIAlertAction.init(title: "取消", style: .Cancel, handler: { (action) in
                 self.loadIndicator.stopAnimation()
                 self.stateNow = .beforeTrial
+                self.lockButtons(false)
             })
             let tryAgainAction = UIAlertAction.init(title: "再試一次", style: .Default, handler: { (action) in
                 self.manager.signUp(self.user.valueForKey("user_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("name") as! String, gender: self.user.valueForKey("gender") as! String)

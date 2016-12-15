@@ -44,7 +44,7 @@ class APIManager: NSObject {
         if advance == true {
             params = NSDictionary(dictionary: ["advance": advance, "prefer_prices": preferPrices!, "weather": weather!, "transport": transport!, "lat": lat!, "lng": lng!])
         }else {
-            params = nil
+            params = NSDictionary(dictionary: ["advance" : advance])
         }
         print("Get restaurants recommendation params: \(params)")
         manager.POST(url, parameters: params, success: { (task, responseObject) in
