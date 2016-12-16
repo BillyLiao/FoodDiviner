@@ -49,7 +49,6 @@ class BeenTableViewCell: UITableViewCell {
     }
     
     private func setRating(rate: Float){
-        starView = HCSStarRatingView(frame: starView.frame)
         starView.enabled = false
         starView.tintColor = UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0)
         starView.maximumValue = 5

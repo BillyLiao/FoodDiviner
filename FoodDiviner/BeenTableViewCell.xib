@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -30,12 +31,6 @@
                             </mask>
                         </variation>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1S-eq-EBQ">
-                        <rect key="frame" x="94" y="5" width="218" height="24"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="日期:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="33a-JK-sxG">
                         <rect key="frame" x="94" y="54" width="39" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -55,10 +50,11 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DTK-IP-901" customClass="HCSStarRatingView">
-                        <rect key="frame" x="175" y="29" width="137" height="21"/>
+                        <rect key="frame" x="175" y="31" width="130" height="17"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="70" id="Zbx-uc-5cZ"/>
+                            <constraint firstAttribute="width" constant="130" id="v3q-vU-xWb"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -66,10 +62,17 @@
                             </mask>
                         </variation>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1S-eq-EBQ">
+                        <rect key="frame" x="94" y="5" width="218" height="24"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="n1S-eq-EBQ" firstAttribute="leading" secondItem="mef-1Y-nAc" secondAttribute="trailing" constant="16" id="56W-7e-Bs2"/>
                     <constraint firstItem="8en-QB-4M0" firstAttribute="top" secondItem="n1S-eq-EBQ" secondAttribute="bottom" constant="4" id="9hg-Lu-uxP"/>
+                    <constraint firstItem="DTK-IP-901" firstAttribute="height" secondItem="8en-QB-4M0" secondAttribute="height" multiplier="0.8" id="FCQ-Ev-gh5"/>
                     <constraint firstItem="8en-QB-4M0" firstAttribute="top" secondItem="n1S-eq-EBQ" secondAttribute="bottom" id="KDZ-YU-Cg7"/>
                     <constraint firstAttribute="bottomMargin" secondItem="mef-1Y-nAc" secondAttribute="bottom" constant="-3.5" id="NJ1-LC-Lql"/>
                     <constraint firstItem="DTK-IP-901" firstAttribute="leading" secondItem="8en-QB-4M0" secondAttribute="trailing" constant="8" id="OcL-Is-dkl"/>
@@ -80,6 +83,7 @@
                     <constraint firstItem="33a-JK-sxG" firstAttribute="leading" secondItem="n1S-eq-EBQ" secondAttribute="leading" id="bni-Ba-cMD"/>
                     <constraint firstItem="mef-1Y-nAc" firstAttribute="leading" secondItem="n1S-eq-EBQ" secondAttribute="leading" id="i6P-e1-if1"/>
                     <constraint firstItem="33a-JK-sxG" firstAttribute="top" secondItem="8en-QB-4M0" secondAttribute="bottom" constant="4" id="iKa-Es-p1S"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="33a-JK-sxG" secondAttribute="bottom" constant="-3.5" id="j2U-Qi-l0I"/>
                     <constraint firstAttribute="trailingMargin" secondItem="n1S-eq-EBQ" secondAttribute="trailing" id="nad-MY-uXb"/>
                     <constraint firstItem="DTK-IP-901" firstAttribute="top" secondItem="8en-QB-4M0" secondAttribute="top" id="oJP-OV-DQT"/>
                     <constraint firstItem="EsA-Fu-Yi8" firstAttribute="centerY" secondItem="33a-JK-sxG" secondAttribute="centerY" id="rNk-OR-NaB"/>
@@ -91,6 +95,8 @@
                     <mask key="constraints">
                         <exclude reference="i6P-e1-if1"/>
                         <exclude reference="9hg-Lu-uxP"/>
+                        <exclude reference="WUZ-vc-le7"/>
+                        <exclude reference="oJP-OV-DQT"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

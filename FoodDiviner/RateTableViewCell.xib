@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -47,15 +48,21 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eTd-E6-7S9" customClass="HCSStarRatingView">
-                        <rect key="frame" x="141" y="29" width="171" height="24"/>
+                        <rect key="frame" x="141" y="31.5" width="130" height="19"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="130" id="y0T-nX-8jy"/>
+                        </constraints>
                     </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="eTd-E6-7S9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="133" id="1SU-MT-fCj"/>
                     <constraint firstItem="vyP-DZ-kRp" firstAttribute="height" secondItem="pna-h0-Vvx" secondAttribute="height" id="2xX-oT-fer"/>
                     <constraint firstAttribute="bottomMargin" secondItem="khU-jZ-3qJ" secondAttribute="bottom" constant="-3.5" id="5HK-St-aK0"/>
+                    <constraint firstItem="TBV-qz-Kcs" firstAttribute="top" secondItem="pna-h0-Vvx" secondAttribute="bottom" constant="1" id="5bL-Qe-RM4"/>
                     <constraint firstItem="eTd-E6-7S9" firstAttribute="top" secondItem="pna-h0-Vvx" secondAttribute="top" id="7fF-ue-KFi"/>
+                    <constraint firstItem="eTd-E6-7S9" firstAttribute="height" secondItem="pna-h0-Vvx" secondAttribute="height" multiplier="0.8" id="CUA-s4-zdM"/>
+                    <constraint firstItem="eTd-E6-7S9" firstAttribute="centerY" secondItem="pna-h0-Vvx" secondAttribute="centerY" id="EUu-ZI-NFA"/>
                     <constraint firstItem="eTd-E6-7S9" firstAttribute="leading" secondItem="pna-h0-Vvx" secondAttribute="trailing" constant="8" id="FLd-h8-biX"/>
                     <constraint firstItem="vyP-DZ-kRp" firstAttribute="top" secondItem="khU-jZ-3qJ" secondAttribute="top" id="Hvk-GU-WwH"/>
                     <constraint firstItem="Pij-uN-BUy" firstAttribute="leading" secondItem="TBV-qz-Kcs" secondAttribute="trailing" constant="8" symbolic="YES" id="QV4-IG-dYt"/>
@@ -76,6 +83,9 @@
                     <mask key="constraints">
                         <exclude reference="SnV-99-zSo"/>
                         <exclude reference="swO-dd-bIY"/>
+                        <exclude reference="7fF-ue-KFi"/>
+                        <exclude reference="fLL-mZ-uFP"/>
+                        <exclude reference="wiS-Qn-OtZ"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

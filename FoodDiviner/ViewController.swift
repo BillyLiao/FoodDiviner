@@ -535,35 +535,4 @@ extension UIImage {
     }
 }
 
-extension UIImageView {
-    public convenience init(state: String){
-        self.init(frame: CGRectMake(0, 0, 250, 0))
-        
-        self.alpha = 0
-        self.contentMode = .ScaleAspectFill
-        
-        switch  state {
-        case "like":
-            self.image = UIImage(named: "likeSticker")?.imageRotatedByDegrees(-20, flip: false)
-        case "nope":
-            self.image = UIImage(named: "nopeSticker")?.imageRotatedByDegrees(20, flip: false)
-        case "take":
-            self.image = UIImage(named: "takeSticker")?.imageRotatedByDegrees(-20, flip: false)
-        default:
-            break
-        }
-    }
-    
-    public func startAppearing(completion: () -> Void) {
-        UIView.animateWithDuration(0.1, animations: {
-            self.alpha = 1
-        }) { (success) in
-            completion()
-            self.appearingDidEnd()
-        }
-    }
-    
-    private func appearingDidEnd() {
-        self.removeFromSuperview()
-    }
-}
+
