@@ -326,12 +326,8 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         let okAction = UIAlertAction(title: "再算一次", style: .Default) { (result) in
             self.manager.getRestRecom()
         }
-        let cancelAction = UIAlertAction(title: "根本神棍", style: .Cancel) { (result) in
-            self.loadIndicator.stopAnimation()
-            self.lockButtons(false)
-        }
+
         alertController.addAction(okAction)
-        alertController.addAction(cancelAction)
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     

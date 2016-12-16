@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var pageView: TETinderPageView?
+    let user = NSUserDefaults()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
@@ -25,10 +26,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Configure Firebase App
         FIRApp.configure()
         
+        if user.boolForKey("hasRunBefore") == false {
+            // Since NSUserDefaults will be cleaned after App uninstallation, we take advantage of that to detect if user install the App before.
+            
+            // Clear Firebase keychain on device, in case user used the App before
+            do {
+                try FIRAuth.auth()?.signOut()
+            }catch {
+                
+            }
+        
+            user.setBool(true, forKey: "hasRunBefore")
+            user.synchronize()
+        }
+        
         // If we have the access token, then skip the login view(set root view to ViewController)
+        
         FIRAuth.auth()?.addAuthStateDidChangeListener({ (auth, user) in
             if user != nil {
-                print("Log in with uid:", user!.uid)
                 self.setupPageView()
                 self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
                 self.window?.rootViewController = self.pageView
@@ -48,7 +63,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func setupUser(){
         let trialHelper = TrialHelper()
-        let user = NSUserDefaults()
         user.setObject(false, forKey: trialHelper.likeDidTappedBefore)
         user.setObject(false, forKey: trialHelper.takeDidTappedBefore)
         user.setObject(false, forKey: trialHelper.nopeDidTappedBefore)
