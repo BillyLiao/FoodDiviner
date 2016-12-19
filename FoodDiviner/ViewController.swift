@@ -41,10 +41,10 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
             switch stateNow! as state{
             case .beforeTrial:
                 print("Before trial")
+                loadIndicator.stopAnimating()
                 setTrial()
             case .afterTrial:
                 print("After trial")
-                loadIndicator.startAnimating()
                 lockButtons(true)
                 manager.getRestRecom()
             }
@@ -62,12 +62,9 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-
-        if user.valueForKey("user_key") == nil {
-            stateNow = state.beforeTrial
-        }else {
-            stateNow = state.afterTrial
-        }
+        
+        loadIndicator.startAnimating()
+        manager.isUserSignedUpBefore(user.valueForKey("user_id") as! String)
     }
     
     override func viewDidLayoutSubviews() {
@@ -287,6 +284,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                     self.manager.getRestRecom()
                 }else {
                     //TOFIX: name & gender is fake!
+                    self.loadIndicator.startAnimating()
                     if self.user.valueForKey("name") == nil && self.user.valueForKey("gender") == nil {
                         //Log in via email/password -> means no gender/name...
                         self.user.setObject(self.user.valueForKey("email"), forKey: "name")
@@ -359,10 +357,18 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
             let tryAgainAction = UIAlertAction.init(title: "再試一次", style: .Default, handler: { (action) in
                 self.manager.signUp(self.user.valueForKey("user_id") as! String, user_trial: self.user_trial, name: self.user.valueForKey("name") as! String, gender: self.user.valueForKey("gender") as! String)
             })
-            
             alertController.addAction(tryAgainAction)
             alertController.addAction(cancelAction)
             self.presentViewController(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    func userSignedUpBefore(user_key: NSNumber?, success: Bool) {
+        if success == true {
+            user.setObject(user_key, forKey: "user_key")
+            manager.getRestRecom()
+        }else{
+            manager.isUserSignedUpBefore(user.valueForKey("user_id") as! String)
         }
     }
     

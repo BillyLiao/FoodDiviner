@@ -13,6 +13,7 @@ protocol WebServiceDelegate: class {
     func userRecomGetRequestDidFinished(r: [NSDictionary]?) -> Void
     func requestFailed(e: NSError?) -> Void
     func userDidSignUp(user_key: NSNumber?, success: Bool) -> Void
+    func userSignedUpBefore(user_key: NSNumber?, success: Bool) -> Void
 }
 class APIManager: NSObject {
     
@@ -68,6 +69,17 @@ class APIManager: NSObject {
                 print("POST user choice succeed.")
             }) { (task, err) in
                 print("POST user choice failed: \(err.localizedDescription)")
+        }
+    }
+    
+    func isUserSignedUpBefore(user_id: String){
+        let url = "\(baseURL)/test"
+        let params = NSDictionary(dictionary: ["user_key" : user_id])
+        manager.POST(url, parameters: params, success: { (task, resObject) in
+                self.delegate?.userSignedUpBefore(resObject!["user_id"] as? NSNumber, success: true)
+            }) { (task, err) in
+                print("\(err.localizedDescription)")
+                self.delegate?.userSignedUpBefore(nil, success: false)
         }
     }
     

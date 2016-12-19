@@ -35,13 +35,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }catch {
                 
             }
-        
+            
             user.setBool(true, forKey: "hasRunBefore")
             user.synchronize()
         }
         
         // If we have the access token, then skip the login view(set root view to ViewController)
-        
         FIRAuth.auth()?.addAuthStateDidChangeListener({ (auth, user) in
             if user != nil {
                 self.setupPageView()
@@ -95,7 +94,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // center icon
         pageView!.centerButtonSpecifics.color = UIColor(red: 255.0/255.0, green: 106.0/255.0, blue: 79.0/255.0, alpha: 1.0)
         pageView!.centerButtonSpecifics.size = CGSize(width: 40.0, height: 40.0)
-        
         pageView!.selectedIndex = 1
     }
     
