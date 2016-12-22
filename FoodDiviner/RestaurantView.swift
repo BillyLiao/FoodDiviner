@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ZLSwipeableViewSwift
 import HCSStarRatingView
 import SDWebImage
 

@@ -63,8 +63,16 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         super.viewDidLoad()
         setup()
         
-        loadIndicator.startAnimating()
-        manager.isUserSignedUpBefore(user.valueForKey("user_id") as! String)
+        loadIndicator.startAnimating()  
+        self.lockButtons(true)
+        
+        if user.valueForKey("user_key") == nil {
+            if user.valueForKey("user_id") != nil {
+                manager.isUserSignedUpBefore(user.valueForKey("user_id") as! String)
+            }
+        }else {
+            self.stateNow = .afterTrial
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -278,13 +286,11 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
             // Request new data when last restaurants did swipe.
             let restaurantView = view as! RestaurantView
             if restaurantView.restaurant.restaurant_id == self.restaurants?.last?.restaurant_id{
+                self.loadIndicator.startAnimation()
                 if self.stateNow! as state == .afterTrial {
-                    self.loadIndicator.startAnimation()
-                    self.lockButtons(true)
                     self.manager.getRestRecom()
                 }else {
                     //TOFIX: name & gender is fake!
-                    self.loadIndicator.startAnimating()
                     if self.user.valueForKey("name") == nil && self.user.valueForKey("gender") == nil {
                         //Log in via email/password -> means no gender/name...
                         self.user.setObject(self.user.valueForKey("email"), forKey: "name")
@@ -295,6 +301,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                     }
                     self.stateNow = state.afterTrial
                 }
+                self.lockButtons(true)
             }
         }
     }
@@ -366,9 +373,9 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
     func userSignedUpBefore(user_key: NSNumber?, success: Bool) {
         if success == true {
             user.setObject(user_key, forKey: "user_key")
-            manager.getRestRecom()
+            stateNow = .afterTrial
         }else{
-            manager.isUserSignedUpBefore(user.valueForKey("user_id") as! String)
+            stateNow = .beforeTrial
         }
     }
     

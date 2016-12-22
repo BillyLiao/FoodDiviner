@@ -8,6 +8,7 @@
 
 import Foundation
 import AFNetworking
+import SwiftyJSON
 
 protocol WebServiceDelegate: class {
     func userRecomGetRequestDidFinished(r: [NSDictionary]?) -> Void
@@ -15,6 +16,7 @@ protocol WebServiceDelegate: class {
     func userDidSignUp(user_key: NSNumber?, success: Bool) -> Void
     func userSignedUpBefore(user_key: NSNumber?, success: Bool) -> Void
 }
+
 class APIManager: NSObject {
     
     weak var delegate: WebServiceDelegate?
@@ -34,19 +36,19 @@ class APIManager: NSObject {
         }
         let url = "\(baseURL)/users/\(self.user.valueForKey("user_key") as! NSNumber)/recommendation"
         let params: NSDictionary?
-        
-        let advance = self.user.valueForKey("advance") as! Bool
+
         let preferPrices = self.user.valueForKey("preferPrices") as? [Int]
         let weather = self.user.valueForKey("weather") as? String
         let transport = self.user.valueForKey("transport") as? String
         let lat = self.user.valueForKey("lat") as? Double
         let lng = self.user.valueForKey("lng") as? Double
         
-        if advance == true {
-            params = NSDictionary(dictionary: ["advance": advance, "prefer_prices": preferPrices!, "weather": weather!, "transport": transport!, "lat": lat!, "lng": lng!])
+        if self.user.boolForKey("advance") == true  {
+            params = NSDictionary(dictionary: ["advance": true, "prefer_prices": preferPrices!, "weather": weather!, "transport": transport!, "lat": lat!, "lng": lng!])
         }else {
-            params = NSDictionary(dictionary: ["advance" : advance])
+            params = NSDictionary(dictionary: ["advance" : false])
         }
+        
         print("Get restaurants recommendation params: \(params)")
         manager.POST(url, parameters: params, success: { (task, responseObject) in
             guard let data = responseObject else {
@@ -74,12 +76,16 @@ class APIManager: NSObject {
     
     func isUserSignedUpBefore(user_id: String){
         let url = "\(baseURL)/test"
-        let params = NSDictionary(dictionary: ["user_key" : user_id])
+        let params = NSDictionary(object: user_id, forKey: "user_key")
+        print(params)
         manager.POST(url, parameters: params, success: { (task, resObject) in
                 self.delegate?.userSignedUpBefore(resObject!["user_id"] as? NSNumber, success: true)
+                print("Check signed up before succeed.")
             }) { (task, err) in
-                print("\(err.localizedDescription)")
-                self.delegate?.userSignedUpBefore(nil, success: false)
+                print("Check signed up before failed: \(err.localizedDescription)")
+                if err.localizedDescription == "Request failed: not found (404)"{
+                    self.delegate?.userSignedUpBefore(nil, success: false)
+                }
         }
     }
     

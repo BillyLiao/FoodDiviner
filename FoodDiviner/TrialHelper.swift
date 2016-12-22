@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import UIKit
 import ZLSwipeableViewSwift
+import UIKit
 
 class TrialHelper {
     

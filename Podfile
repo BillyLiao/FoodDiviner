@@ -5,7 +5,6 @@ use_frameworks!
 
 target 'FoodDiviner' do
     pod 'TETinderPageView'
-    pod 'Alamofire', '~> 3.4'
     pod 'AFNetworking', '~> 3.0'
     pod 'SwiftyJSON', '2.4.0'
     pod 'HCSStarRatingView', '~> 1.4.5'

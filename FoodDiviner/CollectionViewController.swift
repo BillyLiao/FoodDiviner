@@ -134,7 +134,6 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
     }
     
     override func viewDidLayoutSubviews() {
-
     }
     
     override func viewDidAppear(animated: Bool) {

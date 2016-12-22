@@ -253,8 +253,7 @@ class DetailRestaurantViewController: UIViewController {
         
     }
     
-    /*  There are three ways to enter detailRestaurantViewController: FromMain, FromCollectTableView, 
-     FromBeenTableView. Since we want the buttons are slightly different from each other, we create different functions: isFromMain, isFromLike, isFromBeen to add different button set among 3 situations.
+    /*  There are three ways to enter detailRestaurantViewController: FromMain, FromCollectTableView, FromBeenTableView. Since we want the buttons are slightly different from each other, we create different functions: isFromMain, isFromLike, isFromBeen to add different button set among 3 situations.
      */
     func isFromMain() {
         dislikeBtn = MainButton(frame: CGRectMake(0, 0, 55, 55))

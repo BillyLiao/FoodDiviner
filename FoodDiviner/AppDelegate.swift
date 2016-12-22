@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var pageView: TETinderPageView?
     let user = NSUserDefaults()
+    var firUser: FIRUser!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
@@ -35,18 +36,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }catch {
                 
             }
-            
             user.setBool(true, forKey: "hasRunBefore")
             user.synchronize()
         }
         
+        
         // If we have the access token, then skip the login view(set root view to ViewController)
         FIRAuth.auth()?.addAuthStateDidChangeListener({ (auth, user) in
-            if user != nil {
-                self.setupPageView()
-                self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-                self.window?.rootViewController = self.pageView
-                self.window?.makeKeyAndVisible()
+            if let user = user{
+                if self.firUser != user{
+                    print("Log in with uid:", user.uid)
+                    self.user.setObject(user.uid, forKey: "user_id")
+                    self.firUser = user
+                    self.setupPageView()
+                    self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+                    self.window?.rootViewController = self.pageView
+                    self.window?.makeKeyAndVisible()
+                }
             }else{
                 self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
                 self.window?.rootViewController = LoginViewController()

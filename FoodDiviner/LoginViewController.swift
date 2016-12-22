@@ -23,6 +23,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
     let manager = AFHTTPSessionManager()
     let user = NSUserDefaults.standardUserDefaults()
     let authIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    var firUser: FIRUser!
     
     var emailTextField: TextField!
     var passwordTextField: TextField!
@@ -114,15 +115,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
     }
     
     override func viewDidAppear(animated: Bool) {
-        FIRAuth.auth()?.addAuthStateDidChangeListener({ (auth, user) in
-            if user != nil {
-                print("Log in with uid:", user!.uid)
-                self.user.setObject(user!.uid, forKey: "user_id")
-                self.user.setValue(false, forKey: "advance")
-                print(self.user.valueForKey("advance"))
-                self.showPageView()
-            }
-        })
+
     }
 
     func logInDidTouch() {

@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Alamofire.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>DeviceKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -82,12 +77,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>07AA9FFCDED8608A17CE14BAC420E758</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>07E89C169C2E51A51CFC4315923F37D9</key>
+		<key>0765784115DEC2AC011C435B3B5B4D16</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -107,17 +97,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>87574E1B0EA0B2E6365B6B42B60FB21E</key>
+		<key>6826A89562682E97BAFB73DD055C90D7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9028852A5E1248873A01946DEEC1EC5D</key>
+		<key>93D47F03139219A214D6531EF253D3DA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -127,12 +112,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B74671AC4AD442223B677430EE6BBBF5</key>
+		<key>A829581B6C99E9E662A3638B92EA909E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B954C65FBC50B4E0A967246BF19C382F</key>
+		<key>B74671AC4AD442223B677430EE6BBBF5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -142,7 +127,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C14FF393BE5415FF77FDAF95206FADFC</key>
+		<key>C9209B2782E39ADC75442B81C0F6784D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -152,7 +137,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EE578CE3BF0E5405081DB252FA76EEB6</key>
+		<key>E62183FD31AFA399C61D3C19AF10F804</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EB57F04C8C987DEB3045C8127C7AE9BF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
