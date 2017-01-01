@@ -194,11 +194,11 @@ class CollectionViewController: UIViewController, UIScrollViewDelegate, UITableV
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView{
         case CollectTV!:
-            return collectRestaurants!.count
+            return (collectRestaurants?.count)!
         case JudgeTV!:
-            return judgeRestaurants!.count
+            return (judgeRestaurants?.count)!
         case BeenTV!:
-            return beenRestaurants!.count
+            return (beenRestaurants?.count)!
         default:
             break
         }

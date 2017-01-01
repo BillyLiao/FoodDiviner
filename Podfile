@@ -16,6 +16,15 @@ target 'FoodDiviner' do
     pod 'Firebase/Core'
     pod 'Firebase/Database'
     pod 'Firebase/Auth'
+    
+    # Always add this to podfile if you want to use old version of Swift.
+    post_install do |installer|
+        installer.pods_project.targets.each do |target|
+            target.build_configurations.each do |config|
+                config.build_settings['SWIFT_VERSION'] = '2.3'
+            end
+        end
+    end
 end
 
 target 'FoodDivinerTests' do

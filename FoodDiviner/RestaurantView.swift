@@ -56,14 +56,14 @@ class RestaurantView: UIView {
         self.restaurant = restaurant
         self.nameLabel.text = restaurant.name
         self.infoLabel.text = restaurant.cuisine
-        if let image_id = restaurant.image_id {
-            self.imageView.sd_setImageWithURL(NSURL(string:"http://api-server.jqemsuerdm.ap-northeast-1.elasticbeanstalk.com/images/\(image_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"), completed: { (image, error, cacheType, url) in
-                restaurant.photo = UIImageJPEGRepresentation(image, 0.6)
-            })
-        }else if restaurant.photo != nil {
+        if let image = restaurant.photo {
             self.imageView.image = UIImage(data: restaurant.photo!)
         }else {
-            self.imageView.image = UIImage(named: "imagePlaceHolder")
+            self.imageView.sd_setImageWithURL(NSURL(string:"http://api-server.jqemsuerdm.ap-northeast-1.elasticbeanstalk.com/images/\(restaurant.restaurant_id)"), placeholderImage: UIImage(named:"imagePlaceHolder"), completed: { (image, error, cacheType, url) in
+                if error == nil {
+                    restaurant.photo = UIImageJPEGRepresentation(image, 0.6)
+                }
+            })
         }
     }
 

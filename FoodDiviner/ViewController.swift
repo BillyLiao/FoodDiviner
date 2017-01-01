@@ -520,10 +520,10 @@ extension UIImage {
         let bitmap = UIGraphicsGetCurrentContext()
         
         // Move the origin to the middle of the image so we will rotate and scale around the center
-        CGContextTranslateCTM(bitmap, rotatedSize.width/2, rotatedSize.height/2)
+        CGContextTranslateCTM(bitmap!, rotatedSize.width/2, rotatedSize.height/2)
         
         // Rotate the image context
-        CGContextRotateCTM(bitmap, degreesToRadians(degrees))
+        CGContextRotateCTM(bitmap!, degreesToRadians(degrees))
         
         // Now, draw the rotated/scaled image into the context
         var yFlip: CGFloat
@@ -534,13 +534,13 @@ extension UIImage {
             yFlip = CGFloat(1.0)
         }
         
-        CGContextScaleCTM(bitmap, yFlip, -1.0)
-        CGContextDrawImage(bitmap, CGRectMake(-size.width / 2, -size.height / 2, size.width, size.height), CGImage)
+        CGContextScaleCTM(bitmap!, yFlip, -1.0)
+        CGContextDrawImage(bitmap!, CGRectMake(-size.width / 2, -size.height / 2, size.width, size.height), CGImage!)
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return newImage
+        return newImage!
     }
 }
 

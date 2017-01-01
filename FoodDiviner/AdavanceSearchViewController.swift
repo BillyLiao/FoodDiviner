@@ -41,6 +41,7 @@ class AdavanceSearchViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("AdavanceSearchController initilized.")
         initAdvanceView()
         trialHelper = TrialHelper(viewController: self)
     }
@@ -51,6 +52,8 @@ class AdavanceSearchViewController: UIViewController{
     }
     
     func loadUserSettings(){
+        printCurrentSettings()
+        
         if let weather = user.valueForKey("weather") {
             switch weather as! String{
             case "sunny":
@@ -250,7 +253,8 @@ class AdavanceSearchViewController: UIViewController{
     
     func saveFormResult() {
         preferPrices = [Int](count:5, repeatedValue: 0)
-            
+        printCurrentSettings()
+        
         // perferPrices
         if btn0.selected == true {
             preferPrices![0] = 1
@@ -273,6 +277,8 @@ class AdavanceSearchViewController: UIViewController{
             weather = "sunny"
         }else if btnRainy.selected == true {
             weather = "rainy"
+        }else {
+            weather = nil
         }
         
         // transport
@@ -286,14 +292,20 @@ class AdavanceSearchViewController: UIViewController{
             transport = "scooter"
         }else if btnUbike.selected == true {
             transport = "ubike"
+        }else {
+            transport = nil
         }
         
         user.setObject(weather, forKey: "weather")
         user.setObject(preferPrices, forKey: "preferPrices")
         user.setObject(transport, forKey: "transport")
         
+        printCurrentSettings()
+
         if anyBtnSelected() == true {
-            user.setValue(true, forKey: "advance")
+            user.setBool(true, forKey: "advance")
+        }else {
+            user.setBool(false, forKey: "advance")
         }
     }
     
@@ -303,18 +315,22 @@ class AdavanceSearchViewController: UIViewController{
         btn200.selected = false
         btn300.selected = false
         btn500.selected = false
+        
         btnRainy.selected = false
         btnSunny.selected = false
+        
         btnWalk.selected = false
         btnMRT.selected = false
         btnBus.selected = false
         btnUbike.selected = false
         btnScooter.selected = false
     
-        user.setObject(nil, forKey: "weather")
-        user.setObject(nil, forKey: "preferPrices")
-        user.setObject(nil, forKey: "transport")
-        user.setObject(false, forKey: "advance")
+        user.setValue(nil, forKey: "weather")
+        user.setValue(nil, forKey: "preferPrices")
+        user.setValue(nil, forKey: "transport")
+        user.setBool(false, forKey: "advance")
+        
+        printCurrentSettings()
     }
     
     func anyBtnSelected() -> Bool {
@@ -322,6 +338,14 @@ class AdavanceSearchViewController: UIViewController{
             return true
         }
         return false
+    }
+    
+    func printCurrentSettings() {
+        print(user.valueForKey("weather"))
+        print(user.valueForKey("preferPrices"))
+        print(user.valueForKey("transport"))
+        print(user.boolForKey("advance"))
+        print("-----------------------------")
     }
     
     /*
