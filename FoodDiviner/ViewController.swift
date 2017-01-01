@@ -148,107 +148,106 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
             let view = cardView as! RestaurantView
             let restaurant = view.restaurant
             
-            self.trialHelper.cardViewDidSwiped(inDirection: inDirection, completionBlock: { (action) in
-                if action == true {
-                    switch self.stateNow! as state{
-                    case .afterTrial:
-                        switch inDirection {
-                        case Direction.Right:
-                            self.manager.postUserChoice(restaurant.restaurant_id, decision: "accept", run: self.run)
-                            
-                            if RealmHelper.isRestaurantExist(restaurant) {
-                                print("Right, update restaurant")
-                                RealmHelper.addRestaurantCollectionTime(restaurant)
-                            }else {
-                                print("Right, add restaurant")
-                                restaurant.status = 1
-                                restaurant.collectTime = 1
-                                RealmHelper.addRestaurant(restaurant)
+            if self.trialHelper.ifSwipedNeedTrial(inDirection: inDirection) == false {
+                self.trialHelper.cardViewDidSwiped(inDirection: inDirection, completionBlock: { (action) in
+                    if action == true {
+                        switch self.stateNow! as state{
+                        case .afterTrial:
+                            switch inDirection {
+                            case Direction.Right:
+                                self.manager.postUserChoice(restaurant.restaurant_id, decision: "accept", run: self.run)
+                                if RealmHelper.isRestaurantExist(restaurant) {
+                                    print("Right, update restaurant")
+                                    RealmHelper.addRestaurantCollectionTime(restaurant)
+                                }else {
+                                    print("Right, add restaurant")
+                                    restaurant.status = 1
+                                    restaurant.collectTime = 1
+                                    RealmHelper.addRestaurant(restaurant)
+                                }
+                            case Direction.Left:
+                                self.manager.postUserChoice(restaurant.restaurant_id, decision: "decline", run: self.run)
+                                
+                            case Direction.Up:
+                                self.manager.postUserChoice(restaurant.restaurant_id, decision: "accept", run: self.run)
+                                
+                                if RealmHelper.isRestaurantExist(restaurant) {
+                                    print("Up, update restaurant")
+                                    RealmHelper.updateRestaurant(restaurant, status: 2)
+                                    RealmHelper.addRestaurantBeenTime(restaurant)
+                                }else{
+                                    print("Up, add restaurant")
+                                    restaurant.status = 2
+                                    restaurant.beenTime = 1
+                                    RealmHelper.addRestaurant(restaurant)
+                                }
+                            default:
+                                break
                             }
-                        case Direction.Left:
-                            self.manager.postUserChoice(restaurant.restaurant_id, decision: "decline", run: self.run)
                             
-                        case Direction.Up:
-                            self.manager.postUserChoice(restaurant.restaurant_id, decision: "accept", run: self.run)
-                            
-                            if RealmHelper.isRestaurantExist(restaurant) {
-                                print("Up, update restaurant")
-                                RealmHelper.updateRestaurant(restaurant, status: 2)
-                                RealmHelper.addRestaurantBeenTime(restaurant)
-                            }else{
-                                print("Up, add restaurant")
-                                restaurant.status = 2
-                                restaurant.beenTime = 1
-                                RealmHelper.addRestaurant(restaurant)
+                        case .beforeTrial:
+                            switch inDirection {
+                            case Direction.Right:
+                                self.user_trial.setObject(true, forKey: "\(restaurant.restaurant_id)")
+                            case Direction.Left:
+                                self.user_trial.setObject(false, forKey: "\(restaurant.restaurant_id)")
+                            case Direction.Up:
+                                self.user_trial.setObject(true, forKey: "\(restaurant.restaurant_id)")
+                            default:
+                                break
                             }
-                        default:
-                            break
                         }
-                        
-                    case .beforeTrial:
-                        switch inDirection {
-                        case Direction.Right:
-                            self.user_trial.setObject(true, forKey: "\(restaurant.restaurant_id)")
-                        case Direction.Left:
-                            self.user_trial.setObject(false, forKey: "\(restaurant.restaurant_id)")
-                        case Direction.Up:
-                            self.user_trial.setObject(true, forKey: "\(restaurant.restaurant_id)")
-                        default:
-                            break
-                        }
+                    } else {
+                        self.restaurantView.rewind()
                     }
-                } else {
-                    self.restaurantView.rewind()
-                }
-                return
-            })
-
-            switch inDirection {
-            case Direction.Left:
-                if self.stateNow == .beforeTrial {
-                    self.user_trial.setObject(true, forKey: "\(restaurant.restaurant_id)")
                     return
+                })
+            }else {
+                switch inDirection {
+                case Direction.Left:
+                    if self.stateNow == .beforeTrial {
+                        self.user_trial.setObject(true, forKey: "\(restaurant.restaurant_id)")
+                        return
+                    }
+                    self.manager.postUserChoice(restaurant.restaurant_id, decision: "decline", run: self.run)
+                    
+                case Direction.Right:
+                    if self.stateNow == .beforeTrial {
+                        self.user_trial.setObject(false, forKey: "\(restaurant.restaurant_id)")
+                        return
+                    }
+                    self.manager.postUserChoice(restaurant.restaurant_id, decision: "accept", run: self.run)
+                    if RealmHelper.isRestaurantExist(restaurant) {
+                        print("Right, update restaurant")
+                        RealmHelper.addRestaurantCollectionTime(restaurant)
+                    }else {
+                        print("Right, add restaurant")
+                        restaurant.status = 1
+                        restaurant.collectTime = 1
+                        RealmHelper.addRestaurant(restaurant)
+                    }
+                    
+                case Direction.Up:
+                    if self.stateNow == .beforeTrial {
+                        self.user_trial.setObject(true, forKey: "\(restaurant.restaurant_id)")
+                        return
+                    }
+                    self.manager.postUserChoice(restaurant.restaurant_id, decision: "accept", run: self.run)
+                    if RealmHelper.isRestaurantExist(restaurant) {
+                        print("Up, update restaurant")
+                        RealmHelper.updateRestaurant(restaurant, status: 2)
+                        RealmHelper.addRestaurantBeenTime(restaurant)
+                    }else{
+                        print("Up, add restaurant")
+                        restaurant.status = 2
+                        restaurant.beenTime = 1
+                        RealmHelper.addRestaurant(restaurant)
+                    }
+                    
+                default:
+                    break
                 }
-                self.manager.postUserChoice(restaurant.restaurant_id, decision: "decline", run: self.run)
-                
-            case Direction.Right:
-                if self.stateNow == .beforeTrial {
-                    self.user_trial.setObject(false, forKey: "\(restaurant.restaurant_id)")
-                    return
-                }
-                self.manager.postUserChoice(restaurant.restaurant_id, decision: "accept", run: self.run)
-                if RealmHelper.isRestaurantExist(restaurant) {
-                    print("Right, update restaurant")
-                    RealmHelper.addRestaurantCollectionTime(restaurant)
-                }else {
-                    print("Right, add restaurant")
-                    restaurant.status = 1
-                    restaurant.collectTime = 1
-                    RealmHelper.addRestaurant(restaurant)
-                }
-                
-            case Direction.Up:
-                if self.stateNow == .beforeTrial {
-                    self.user_trial.setObject(true, forKey: "\(restaurant.restaurant_id)")
-                    return
-                }
-                self.manager.postUserChoice(restaurant.restaurant_id, decision: "accept", run: self.run)
-                if RealmHelper.isRestaurantExist(restaurant) {
-                    print("Up, update restaurant")
-                    RealmHelper.updateRestaurant(restaurant, status: 2)
-                    RealmHelper.addRestaurantBeenTime(restaurant)
-                }else{
-                    print("Up, add restaurant")
-                    restaurant.status = 2
-                    restaurant.beenTime = 1
-                    RealmHelper.addRestaurant(restaurant)
-                }
-                
-            default:
-                break
             }
-            
-            
         }
         
         restaurantView.didTap = {view, atLocation in

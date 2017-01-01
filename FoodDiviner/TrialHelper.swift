@@ -103,12 +103,25 @@ class TrialHelper {
         }
     }
 
+    func ifSwipedNeedTrial(inDirection direction: Direction) -> Bool{
+        switch direction {
+        case Direction.Left:
+            return user.boolForKey(cardViewDidSwipedLeftBefore)
+        case Direction.Right:
+            return user.boolForKey(cardViewDidSwipedRightBefore)
+        case Direction.Up:
+            return user.boolForKey(cardViewDidSwipedUpBefore)
+        default:
+            break
+        }
+        return false
+    }
     
     func cardViewDidSwiped(inDirection inDirection: Direction,completionBlock: Bool -> ()) {
         switch inDirection {
         case Direction.Left:
-            if user.objectForKey(cardViewDidSwipedLeftBefore) as! Bool == false {
-                user.setObject(true, forKey: cardViewDidSwipedLeftBefore)
+            if user.boolForKey(cardViewDidSwipedLeftBefore) == false {
+                user.setBool(true, forKey: cardViewDidSwipedLeftBefore)
                 let alertViewController = UIAlertController(title: "沒興趣嗎    ？", message: "將圖片拖曳至左側代表你對這家餐廳沒有興趣。", preferredStyle: .Alert)
                 let cancelAction = UIAlertAction.init(title: "取消", style: .Cancel, handler: { (cancelAction) in
                     completionBlock(false)
@@ -123,8 +136,8 @@ class TrialHelper {
             }
             
         case Direction.Right:
-            if user.objectForKey(cardViewDidSwipedRightBefore) as! Bool == false {
-                user.setObject(true, forKey: cardViewDidSwipedRightBefore)
+            if user.boolForKey(cardViewDidSwipedRightBefore) == false {
+                user.setBool(true, forKey: cardViewDidSwipedRightBefore)
                 let alertViewController = UIAlertController(title: "讚?", message: "將圖片拖曳至右側代表你對這家餐廳按讚。", preferredStyle: .Alert)
                 let cancelAction = UIAlertAction.init(title: "取消", style: .Cancel, handler: { (cancelAction) in
                     completionBlock(false)
@@ -138,8 +151,8 @@ class TrialHelper {
                 self.viewController?.presentViewController(alertViewController, animated: true, completion: nil)
             }
         case Direction.Up:
-            if user.objectForKey(cardViewDidSwipedUpBefore) as! Bool == false {
-                user.setObject(true, forKey: cardViewDidSwipedUpBefore)
+            if user.boolForKey(cardViewDidSwipedUpBefore) == false {
+                user.setBool(true, forKey: cardViewDidSwipedUpBefore)
                 let alertViewController = UIAlertController(title: "馬上去?", message: "將圖片拖曳至上方代表你現在就要出發去吃這家餐廳。", preferredStyle: .Alert)
                 let cancelAction = UIAlertAction.init(title: "取消", style: .Cancel, handler: { (cancelAction) in
                     completionBlock(false)
@@ -158,8 +171,8 @@ class TrialHelper {
     }
     
     func didEnterAdvancedSearchViewController() {
-        if user.objectForKey(didUseAdvanceSearchBefore) as! Bool == false {            
-            user.setObject(true, forKey: didUseAdvanceSearchBefore)
+        if user.boolForKey(didUseAdvanceSearchBefore) == false {
+            user.setBool(true, forKey: didUseAdvanceSearchBefore)
             let alertViewController = UIAlertController(title: "進階搜尋", message: "幫助你更快搜尋到你的一餐^^", preferredStyle: .Alert)
             let yesAction = UIAlertAction.init(title: "確定", style: .Default, handler: nil)
             alertViewController.addAction(yesAction)
@@ -168,8 +181,8 @@ class TrialHelper {
     }
     
     func didEnterCollectTableView() {
-        if user.objectForKey(didEnterCTVBefore) as! Bool == false {
-            user.setObject(true, forKey: didEnterCTVBefore)
+        if user.boolForKey(didEnterCTVBefore) == false {
+            user.setBool(true, forKey: didEnterCTVBefore)
             let alertViewController = UIAlertController(title: "收藏區", message: "所有你點讚過的餐廳都在這裡！", preferredStyle: .Alert)
             let yesAction = UIAlertAction.init(title: "瞭解", style: .Default, handler: nil)
             alertViewController.addAction(yesAction)
@@ -178,8 +191,8 @@ class TrialHelper {
     }
     
     func didEnterRatingTableView() {
-        if user.objectForKey(didEnterRTVBefore) as! Bool == false {
-            user.setObject(true, forKey: didEnterRTVBefore)
+        if user.boolForKey(didEnterRTVBefore) == false {
+            user.setBool(true, forKey: didEnterRTVBefore)
             let alertViewController = UIAlertController(title: "尚未評分", message: "所有你去過但尚未評分的餐廳都在這裡！", preferredStyle: .Alert)
             let yesAction = UIAlertAction.init(title: "瞭解", style: .Default, handler: nil)
             alertViewController.addAction(yesAction)
@@ -188,8 +201,8 @@ class TrialHelper {
     }
     
     func didEnterBeenTableView() {
-        if user.objectForKey(didEnterBTVBefore) as! Bool == false {
-            user.setObject(true, forKey: didEnterBTVBefore)
+        if user.boolForKey(didEnterBTVBefore) == false {
+            user.setBool(true, forKey: didEnterBTVBefore)
             let alertViewController = UIAlertController(title: "評分完畢", message: "所有你評分過的餐廳都在這裡！", preferredStyle: .Alert)
             let yesAction = UIAlertAction.init(title: "瞭解", style: .Default, handler: nil)
             alertViewController.addAction(yesAction)
