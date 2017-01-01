@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodDiviner/LoginViewController.swift"
-            timestampString = "504095340.201386"
+            timestampString = "504973724.646813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "logInDidTouch()"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodDiviner/LoginViewController.swift"
-            timestampString = "504095340.201386"
+            timestampString = "504973724.646813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
             landmarkName = "signUpDidTouch()"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodDiviner/LoginViewController.swift"
-            timestampString = "504095340.201386"
+            timestampString = "504973724.646813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "203"
-            endingLineNumber = "203"
-            landmarkName = "loginButton(loginButton:didCompleteWithResult:error:)"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
+            landmarkName = "loginButton(_:didCompleteWithResult:error:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

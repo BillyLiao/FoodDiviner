@@ -35,6 +35,7 @@ class APIManager: NSObject {
             return 
         }
         let url = "\(baseURL)/users/\(self.user.valueForKey("user_key") as! NSNumber)/recommendation"
+        print(url)
         let params: NSDictionary?
 
         let preferPrices = self.user.valueForKey("preferPrices") as? [Int]

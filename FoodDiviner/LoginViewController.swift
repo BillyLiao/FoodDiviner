@@ -105,7 +105,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
         signupBtn.addTarget(self, action: #selector(self.signUpDidTouch), forControlEvents: .TouchUpInside)
         self.view.addSubview(signupBtn)
 
-        // Do any additional setup after loading the view.
+        // In order to dismiss the keyboard correctly
+        let tap = UITapGestureRecognizer(target: self, action: Selector(self.dismissKeyboard()))
+        view.addGestureRecognizer(tap)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -264,6 +266,10 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate{
             }
         })
 
+    }
+    
+    func dismissKeyboard(){
+        view.endEditing(true)
     }
 
     /*
