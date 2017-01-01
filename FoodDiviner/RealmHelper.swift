@@ -62,10 +62,13 @@ class RealmHelper {
     }
     
     static func cleanPhotosInRestaurants() {
+        let realm = try! Realm()
         let restaurants = retriveAllRestaurants()
-        for restaurant in restaurants {
-            restaurant.photo = nil
-        }
+        try! realm.write({ 
+            for restaurant in restaurants {
+                restaurant.photo = nil
+            }
+        })
     }
     
     static func addPhotosInRestaurant(restaurant: Restaurant, imageData: NSData){
