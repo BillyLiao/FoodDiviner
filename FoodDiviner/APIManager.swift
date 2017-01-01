@@ -85,6 +85,9 @@ class APIManager: NSObject {
                 print("Check signed up before failed: \(err.localizedDescription)")
                 if err.localizedDescription == "Request failed: not found (404)"{
                     self.delegate?.userSignedUpBefore(nil, success: false)
+                }else {
+                    // If internal server error 500 occurs
+                    self.delegate?.userSignedUpBefore(0, success: false)
                 }
         }
     }

@@ -197,10 +197,10 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
                             break
                         }
                     }
-                    return
                 } else {
                     self.restaurantView.rewind()
                 }
+                return
             })
 
             switch inDirection {
@@ -374,6 +374,9 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         if success == true {
             user.setObject(user_key, forKey: "user_key")
             stateNow = .afterTrial
+        }else if user_key == 0 {
+            manager.isUserSignedUpBefore(user.valueForKey("user_id") as! String)
+
         }else{
             stateNow = .beforeTrial
         }
@@ -387,7 +390,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         takeSticker.center.y = self.view.frame.height/3
         self.view.addSubview(takeSticker)
         
-        if user.objectForKey(trialHelper.takeDidTappedBefore) as! Bool == true {
+        if user.boolForKey(trialHelper.takeDidTappedBefore) == true {
             takeSticker.startAppearing({
                 self.restaurantView.swipeTopView(inDirection: .Up)
             })
@@ -412,7 +415,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         likeSticker.center.y = self.view.frame.height/3
         self.view.addSubview(likeSticker)
         
-        if user.objectForKey(trialHelper.likeDidTappedBefore) as! Bool == true {
+        if user.boolForKey(trialHelper.likeDidTappedBefore) == true {
             likeSticker.startAppearing({ 
                 self.restaurantView.swipeTopView(inDirection: .Right)
             })
@@ -437,7 +440,7 @@ class ViewController: UIViewController, WebServiceDelegate, CLLocationManagerDel
         nopeSticker.center.y = self.view.frame.height/3
         self.view.addSubview(nopeSticker)
         
-        if user.objectForKey(trialHelper.nopeDidTappedBefore) as! Bool == true {
+        if user.boolForKey(trialHelper.nopeDidTappedBefore) == true {
             nopeSticker.startAppearing({ 
                 self.restaurantView.swipeTopView(inDirection: .Left)
             })

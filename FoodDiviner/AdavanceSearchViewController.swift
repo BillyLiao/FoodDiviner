@@ -41,7 +41,6 @@ class AdavanceSearchViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("AdavanceSearchController initilized.")
         initAdvanceView()
         trialHelper = TrialHelper(viewController: self)
     }
@@ -52,7 +51,6 @@ class AdavanceSearchViewController: UIViewController{
     }
     
     func loadUserSettings(){
-        printCurrentSettings()
         
         if let weather = user.valueForKey("weather") {
             switch weather as! String{
@@ -253,7 +251,6 @@ class AdavanceSearchViewController: UIViewController{
     
     func saveFormResult() {
         preferPrices = [Int](count:5, repeatedValue: 0)
-        printCurrentSettings()
         
         // perferPrices
         if btn0.selected == true {

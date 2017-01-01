@@ -170,7 +170,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodDiviner/ViewController.swift"
-            timestampString = "504096069.841507"
+            timestampString = "504956843.114861"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "375"
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodDiviner/ViewController.swift"
-            timestampString = "504096069.841507"
+            timestampString = "504962698.761001"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "378"
-            endingLineNumber = "378"
+            startingLineNumber = "381"
+            endingLineNumber = "381"
             landmarkName = "userSignedUpBefore(user_key:success:)"
             landmarkType = "7">
          </BreakpointContent>
